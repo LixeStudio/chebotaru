@@ -1,0 +1,162 @@
+@use "../utils/variables" as *;
+
+// Base style (hidden on desktop)
+.burger {
+  width: 1.875rem;
+  height: 1.875rem;
+  position: relative;
+  cursor: pointer;
+  z-index: 100;
+
+  .header.white-theme &__line {
+    background-color: #fff;
+  }
+  .header.white-theme.sticky &__line {
+    background-color: $Default-gray-900;
+  }
+  &__line {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 0.125rem;
+    border-radius: 0.625rem;
+    transition: transform 0.5s ease;
+    background-color: $Default-gray-900;
+  }
+
+  &__line:nth-child(1) {
+    top: 0.5rem;
+  }
+  &__line:nth-child(2) {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  &__line:nth-child(3) {
+    bottom: 0.5rem;
+  }
+
+  &.active {
+    .burger__line:nth-child(1) {
+      transform: rotate(-45deg);
+      top: 50%;
+    }
+    .burger__line:nth-child(2) {
+      transform: scale(0);
+      transition: none;
+    }
+    .burger__line:nth-child(3) {
+      transform: rotate(45deg);
+      bottom: auto;
+      top: 50%;
+    }
+  }
+  &.active &__line {
+    background-color: $Default-gray-900;
+  }
+}
+
+// Burger menu content
+.burger-content {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 99;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+
+  &.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  &__inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 0 !important;
+  }
+  &__panel {
+    padding: 1.3rem 1rem 1rem 2.5rem;
+    background-color: #fff;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    position: relative;
+    z-index: 1;
+  }
+  &__languages {
+    height: 2.125rem;
+    display: flex;
+    align-items: center;
+    margin-bottom: 3.75rem;
+    gap: 0.25rem;
+    & > a {
+      height: 2.125rem;
+      padding: 0 0.5rem;
+      display: flex;
+      color: $Default-gray-900;
+      align-items: center;
+      justify-items: center;
+      transition: 0.3s ease;
+      border-radius: 0.25rem;
+      font-weight: 500;
+      line-height: 143%;
+      &.choosed {
+        background-color: $Default-yellow-300;
+      }
+      &:hover {
+        background-color: $Default-yellow-300;
+      }
+    }
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  &__link {
+    font-size: 1.5rem;
+    color: $Default-gray-900;
+    font-weight: 500;
+    line-height: 133%;
+    transition: 0.5s ease opacity;
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+}
+
+// Show only on mobile
+@media screen and (min-width: ($mobile + 7.5rem)) {
+  .burger-content {
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: calc((101% - $currentScreen) / 2); // или $currentScreen
+      height: 100%;
+      background-color: #fff;
+      z-index: 0;
+    }
+    &__inner {
+      display: flex;
+      justify-content: flex-start;
+    }
+    &__panel {
+      padding: 1.25rem 2.5rem 1.25rem 3.5rem;
+      width: 37.5rem;
+    }
+    &__languages {
+      justify-content: flex-end;
+    }
+  }
+}

@@ -1,0 +1,146 @@
+@use "../utils/variables" as *;
+@use "../components/contact-us";
+@use "../components/article-card";
+
+.hero {
+  &__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 7.1875rem;
+    padding-bottom: 4rem;
+  }
+  &__title {
+    font-size: 2.125rem;
+    font-weight: 500;
+    line-height: 117.5%;
+    text-align: center;
+    margin-bottom: 0.75rem;
+    max-width: 38rem;
+  }
+  &__text {
+    line-height: 150%;
+    text-align: center;
+    max-width: 38rem;
+  }
+  &__bg-text {
+    z-index: -1;
+    text-align: center;
+    position: absolute;
+    top: 4.7rem;
+    right: 0;
+    left: 0;
+    font-family: "TT Disruptors";
+    font-size: 15rem;
+    line-height: 93.75%;
+    color: $Default-yellow-300;
+    opacity: 0.6;
+    user-select: none;
+  }
+}
+
+.blog {
+  margin-bottom: 2rem;
+  &__filters {
+    margin-bottom: 1.25rem;
+  }
+  &__articles {
+    display: grid;
+    gap: 2.5rem;
+    justify-content: center;
+    @media screen and (min-width: $tablet) {
+      grid-template-columns: repeat(2, 1fr);
+      justify-content: center;
+
+      .articles-blog__article {
+        grid-column: span 1;
+      }
+
+      // Каждая 3-я карточка (3, 6, 9...) на всю ширину
+      .articles-blog__article:nth-child(6n + 3),
+      .articles-blog__article:nth-child(6n + 6) {
+        grid-column: span 2;
+      }
+    }
+    @media screen and (min-width: ($laptop)) {
+      grid-template-columns: repeat(6, 1fr);
+      gap: 3.5rem 2rem;
+      .articles-blog__article {
+        grid-column: span 2;
+      }
+
+      .articles-blog__article:nth-child(5n + 4),
+      .articles-blog__article:nth-child(5n + 5) {
+        grid-column: span 3;
+      }
+    }
+  }
+}
+
+.blog-filters {
+  &__content {
+    padding: 0.75rem 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem 0.75rem;
+  }
+}
+
+.contact-us {
+  &__container {
+    min-height: 65rem;
+    padding-top: 4.75rem;
+    padding-bottom: 4.75rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    @media screen and (max-width: ($mobile + 6.25rem)) {
+      padding-right: 0;
+      padding-left: 0;
+    }
+  }
+  &__bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url("../../images/contact-us__bg.webp") no-repeat center;
+    background-size: cover;
+    background-attachment: fixed;
+    z-index: 0;
+  }
+}
+
+@media screen and (min-width: $mobile) {
+  .hero {
+    &__container {
+      padding-top: 10.125rem;
+      padding-bottom: 5.25rem;
+    }
+    &__title {
+      margin-bottom: 1.25rem;
+      font-size: 3rem;
+    }
+    &__text {
+      font-size: 1.125rem;
+      line-height: 155%;
+    }
+    &__bg-text {
+      font-size: 25rem;
+    }
+  }
+  .blog {
+    margin-bottom: 4rem;
+    &__filters {
+      margin-bottom: 2.5rem;
+    }
+  }
+  .blog-filters {
+    &__content {
+      padding: 1.25rem 0;
+    }
+  }
+}

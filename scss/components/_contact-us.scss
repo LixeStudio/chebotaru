@@ -1,0 +1,87 @@
+@use "../utils/variables" as *;
+.contact-us {
+  position: relative;
+  &__wrapper {
+    z-index: 2;
+    background: #fff;
+    width: 100%;
+    padding: 3.875rem 1rem;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: -4rem;
+      right: -4rem;
+      width: 11.625rem;
+      height: 12rem;
+      background: url("../../images/contact-us__flowers.svg") no-repeat center;
+      background-size: cover;
+    }
+  }
+  &__content {
+    max-width: 31.625rem;
+  }
+  &__pretitle {
+    font-size: 1.5rem;
+    line-height: 133.333%;
+    margin-bottom: 1.25rem;
+  }
+  &__text {
+    font-size: 0.875rem;
+    line-height: 150%;
+    margin-bottom: 2rem;
+  }
+  &__form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  &__label {
+    font-size: 0.75rem;
+  }
+  &__input {
+    padding: 0.75rem 0.25rem;
+    font-size: 0.875rem;
+    line-height: 143%;
+    font-weight: 500;
+    margin-bottom: 1.25rem;
+    border-bottom: 0.0625rem solid $Default-gray-400;
+    transition: border-bottom 0.3s ease-in-out;
+    &::placeholder {
+      color: $Default-gray-500;
+    }
+    &:active,
+    &:focus {
+      border-bottom: 0.0625rem solid $Default-gray-600;
+    }
+  }
+  &__title {
+    text-align: center;
+    z-index: 3;
+  }
+  &__line {
+    font-size: 9rem;
+    line-height: 47%;
+    color: $Default-yellow-300;
+    font-family: "TT Disruptors";
+    &.second {
+      text-align: right;
+    }
+  }
+}
+@media screen and (min-width: $tablet) {
+  .contact-us {
+    &__pretitle {
+      font-size: 1.75rem;
+    }
+    &__text {
+      font-size: 1rem;
+    }
+    &__wrapper:after {
+      bottom: 0;
+      right: -2rem;
+    }
+  }
+}

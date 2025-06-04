@@ -1,0 +1,455 @@
+.contact-us {
+  position: relative;
+}
+.contact-us__wrapper {
+  z-index: 2;
+  background: #fff;
+  width: 100%;
+  padding: 3.875rem 1rem;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+.contact-us__wrapper::after {
+  content: "";
+  position: absolute;
+  bottom: -4rem;
+  right: -4rem;
+  width: 11.625rem;
+  height: 12rem;
+  background: url("../../images/contact-us__flowers.svg") no-repeat center;
+  background-size: cover;
+}
+.contact-us__content {
+  max-width: 31.625rem;
+}
+.contact-us__pretitle {
+  font-size: 1.5rem;
+  line-height: 133.333%;
+  margin-bottom: 1.25rem;
+}
+.contact-us__text {
+  font-size: 0.875rem;
+  line-height: 150%;
+  margin-bottom: 2rem;
+}
+.contact-us__form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.contact-us__label {
+  font-size: 0.75rem;
+}
+.contact-us__input {
+  padding: 0.75rem 0.25rem;
+  font-size: 0.875rem;
+  line-height: 143%;
+  font-weight: 500;
+  margin-bottom: 1.25rem;
+  border-bottom: 0.0625rem solid #9ca3af;
+  transition: border-bottom 0.3s ease-in-out;
+}
+.contact-us__input::placeholder {
+  color: #6b7280;
+}
+.contact-us__input:active, .contact-us__input:focus {
+  border-bottom: 0.0625rem solid #4b5563;
+}
+.contact-us__title {
+  text-align: center;
+  z-index: 3;
+}
+.contact-us__line {
+  font-size: 9rem;
+  line-height: 47%;
+  color: #fcd34d;
+  font-family: "TT Disruptors";
+}
+.contact-us__line.second {
+  text-align: right;
+}
+
+@media screen and (min-width: 46.5625rem) {
+  .contact-us__pretitle {
+    font-size: 1.75rem;
+  }
+  .contact-us__text {
+    font-size: 1rem;
+  }
+  .contact-us__wrapper:after {
+    bottom: 0;
+    right: -2rem;
+  }
+}
+.hero {
+  margin-bottom: 2rem;
+}
+.hero__container {
+  display: flex;
+  padding-top: 4.75rem;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2rem 0;
+}
+@media screen and (max-width: 26.9375rem) {
+  .hero__container {
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+.hero__image {
+  position: relative;
+  flex: 2 1;
+  min-width: 22.5rem;
+  max-width: 45rem;
+}
+.hero__content {
+  position: relative;
+  padding: 10% 1rem 0 1rem;
+  flex: 1 1;
+  align-self: start;
+  min-width: 19.5rem;
+}
+.hero__title {
+  position: relative;
+  font-size: 2.125rem;
+  font-weight: 500;
+  line-height: 117.6%;
+  margin-bottom: 1rem;
+}
+.hero__role {
+  font-size: 0.875rem;
+  line-height: 142%;
+}
+.hero__text {
+  line-height: 150%;
+}
+.hero__bg-text {
+  width: min-content;
+  text-align: center;
+  top: 4.7rem;
+  right: 0;
+  left: 0;
+}
+
+.reverse .hero__container {
+  flex-direction: row-reverse;
+}
+.reverse .hero__content {
+  display: flex;
+  justify-content: center;
+}
+
+@media screen and (min-width: 46.5625rem) {
+  .hero {
+    margin-bottom: 3.75rem;
+  }
+  .hero__container {
+    padding-right: 0;
+    gap: 0 2%;
+  }
+  .hero__title {
+    font-size: 3rem;
+    line-height: 108.3%;
+    margin-bottom: 5%;
+    overflow-wrap: anywhere;
+  }
+  .hero__text {
+    font-size: 1.125rem;
+    line-height: 155.55%;
+    max-width: 27.875rem;
+  }
+  .reverse .hero__container {
+    padding-left: 0;
+    padding-right: 2.5rem;
+  }
+}
+@media screen and (min-width: 68.8125rem) {
+  .hero__content {
+    padding: 14% 0 0 0;
+  }
+  .reverse .hero__container {
+    padding-right: 6.5rem;
+  }
+}
+.career-timeline {
+  margin-bottom: 3.75rem;
+}
+.career-timeline__container {
+  position: relative;
+  padding-top: 5.625rem;
+}
+.career-timeline__title {
+  text-align: center;
+  font-size: 2.125rem;
+  font-weight: 500;
+  line-height: 117.647%;
+  margin-bottom: 1.25rem;
+}
+.career-timeline__bg-text {
+  top: 0;
+  right: 0;
+  left: 0;
+  text-align: center;
+}
+.career-timeline__cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+.career-timeline__card {
+  position: relative;
+  padding: 1rem;
+  background-color: white;
+  border-radius: 0.5rem;
+  min-width: 18.5rem;
+  flex: 1 1;
+}
+.career-timeline__number {
+  bottom: -1.5rem;
+  right: -0.5rem;
+  font-size: 6.375rem;
+  line-height: 47%;
+  z-index: 2;
+  opacity: 1;
+}
+
+@media screen and (min-width: 46.5625rem) {
+  .career-timeline__cards {
+    gap: 1.5rem;
+  }
+  .career-timeline__title {
+    font-size: 3rem;
+    line-height: 108.333%;
+    margin-bottom: 2.5rem;
+  }
+  .career-timeline__number {
+    font-size: 10rem;
+    line-height: 47.5%;
+    bottom: -2.5rem;
+  }
+}
+.quote__container {
+  padding-top: 7.5rem;
+  padding-bottom: 7.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.quote__text {
+  max-width: 17.5rem;
+  text-align: center;
+}
+.quote__text p {
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 140%;
+  margin-bottom: 1rem;
+}
+.quote__wrapper {
+  position: relative;
+}
+.quote__author {
+  font-size: 0.875rem;
+  line-height: 142.857%;
+}
+.quote__arrow {
+  position: absolute;
+  width: 3.125rem;
+  height: 3.125rem;
+  top: calc(50% - 1.5625rem);
+}
+.quote__arrow.left {
+  left: -3.625rem;
+  background: url("../../images/quote__arrow--left.svg") no-repeat center;
+  background-size: cover;
+}
+.quote__arrow.right {
+  right: -3.625rem;
+  background: url("../../images/quote__arrow--right.svg") no-repeat center;
+  background-size: cover;
+}
+
+@media screen and (min-width: 26.9375rem) {
+  .quote__text p {
+    font-size: 1.5rem;
+  }
+}
+@media screen and (min-width: 46.5625rem) {
+  .quote__text {
+    max-width: 40rem;
+  }
+  .quote__text p {
+    font-size: 1.75rem;
+    line-height: 128.571%;
+    margin-bottom: 1.25rem;
+  }
+  .quote__author {
+    font-size: 1rem;
+    line-height: 150%;
+  }
+  .quote__arrow {
+    width: 4.25rem;
+    height: 4.25rem;
+  }
+  .quote__arrow.left {
+    left: -3.25rem;
+  }
+  .quote__arrow.right {
+    right: -3.25rem;
+  }
+}
+@media screen and (min-width: 68.8125rem) {
+  .quote__text {
+    max-width: 43.75rem;
+  }
+  .quote__arrow.left {
+    left: -6.25rem;
+  }
+  .quote__arrow.right {
+    right: -6.25rem;
+  }
+}
+.recognition {
+  background: white;
+}
+.recognition__container {
+  padding-top: 5.625rem;
+  padding-bottom: 3.75rem;
+}
+.recognition__top {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: start;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+.recognition__title {
+  font-size: 2.125rem;
+  font-weight: 500;
+  line-height: 117.6%;
+  flex: 1 1 min(20.8rem, 100%);
+  max-width: 100%;
+}
+.recognition__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+  gap: 0.75rem;
+}
+.recognition__item {
+  position: relative;
+  font-size: 1.125rem;
+  line-height: 155.556%;
+  padding-left: 1.25rem;
+}
+.recognition__item:before {
+  content: "";
+  position: absolute;
+  top: 0.75rem;
+  left: 0;
+  width: 0.5rem;
+  height: 0.5rem;
+  background-color: #fbbf24;
+  border-radius: 50%;
+}
+.recognition__bg-text {
+  top: 0;
+  left: 0;
+}
+
+.paintings-recognition__list {
+  display: flex;
+  overflow-y: auto;
+  gap: 1.5rem;
+}
+.paintings-recognition__item {
+  flex: 0 0 22.25rem;
+}
+.paintings-recognition__item.picture-2 {
+  flex: 1 1 auto;
+  min-width: 29.625rem;
+}
+.paintings-recognition__image {
+  margin-bottom: 0.75rem;
+  position: relative;
+  width: 100%;
+  height: 25.4375rem;
+}
+.paintings-recognition__image img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.paintings-recognition__info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.paintings-recognition__year, .paintings-recognition__size {
+  font-size: 0.875rem;
+  line-height: 142.857%;
+  color: #6b7280;
+}
+.paintings-recognition__title {
+  line-height: 150%;
+}
+
+@media screen and (min-width: 26.9375rem) {
+  .recognition__top {
+    gap: 2rem;
+  }
+  .recognition__title {
+    font-size: 3rem;
+    line-height: 108.33%;
+  }
+  .recognition__list {
+    gap: 1.25rem;
+  }
+}
+@media screen and (min-width: 46.5625rem) {
+  .recognition__top {
+    margin-bottom: 3.75rem;
+  }
+  .recognition__list {
+    min-width: 41.25rem;
+    flex: 1 1 41.25rem;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  .recognition__item {
+    min-width: 20rem;
+    max-width: 25.8rem;
+  }
+}
+.contact-us__container {
+  min-height: 65rem;
+  padding-top: 4.75rem;
+  padding-bottom: 4.75rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+}
+@media screen and (max-width: 33.1875rem) {
+  .contact-us__container {
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+.contact-us__bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("../../images/contact-us__bg.webp") no-repeat center;
+  background-size: cover;
+  background-attachment: fixed;
+  z-index: 0;
+}
+
+/*# sourceMappingURL=about-father.css.map */

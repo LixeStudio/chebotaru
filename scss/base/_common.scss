@@ -1,0 +1,203 @@
+@use "../utils/variables" as *;
+
+// fontFamlily main
+body {
+  font-family: $fFamily;
+  font-weight: 400;
+  color: $mainTextColor; // если нужен базовый цвет
+}
+
+// Wrapper
+.wrapper {
+  position: relative;
+  overflow: hidden;
+  min-height: 100%;
+  min-width: 25rem;
+}
+
+// Clases
+
+.visually-hidden {
+  position: absolute !important;
+  width: 0.0625rem;
+  height: 0.0625rem;
+  margin: -0.0625rem;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
+.opacity-0 {
+  opacity: 0;
+}
+
+// Container
+
+// Mobile (по умолчанию)
+[class*="__container"] {
+  width: 100%;
+  max-width: $currentScreen;
+  padding: 0 1rem;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+}
+
+.header__container {
+  padding: 0 1.75rem; // уникальный
+}
+// Tablet
+@media screen and (min-width: $mobile) {
+  [class*="__container"] {
+    padding: 0 2.5rem;
+  }
+}
+// Laptop/Desktop
+@media screen and (min-width: $laptop) {
+  [class*="__container"] {
+    padding: 0 6.25rem;
+  }
+  .header__container {
+    padding: 0 2.5rem; // уникальный
+  }
+}
+
+// Buttons
+
+.btn-circle {
+  position: relative;
+  display: flex;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  min-height: 2.75rem;
+  padding: 0 1.25rem;
+  color: $Default-gray-900;
+  line-height: 112.5%;
+  width: fit-content;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  border: 0.15rem solid $Default-yellow-300;
+  transition: background-color 0.3s ease-in-out;
+  &:hover {
+    background-color: $Default-yellow-300;
+  }
+}
+
+.link-to {
+  width: 1.5rem;
+  height: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &:after {
+    content: "";
+    width: 1.5rem;
+    transition: opacity 0.3s;
+    height: 1.5rem;
+    background: url("../images/icons/arrow-up-right.svg") no-repeat center;
+  }
+  &:hover:after {
+    opacity: 0.7;
+  }
+}
+
+.filter-btn {
+  position: relative;
+  min-height: 2.25rem;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  padding: 0 0.75rem 0 2.5rem;
+  line-height: 143%;
+  font-size: 0.875rem;
+  border-radius: 1.25rem;
+  transition: 0.2s background-color ease-in-out;
+  &:hover,
+  &.opened {
+    outline: 0.05rem solid $Default-gray-200;
+    background-color: $Default-gray-100;
+  }
+  &:after {
+    content: "";
+    position: absolute;
+    top: calc(50% - 0.625rem);
+    left: 0.75rem;
+    width: 1.25rem;
+    height: 1.25rem;
+    background: url("../../public/images/icons/settings.svg") no-repeat center;
+  }
+}
+
+.checkbox {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  line-height: 142.85%;
+  font-size: 0.875rem;
+  cursor: pointer;
+  position: relative;
+  width: max-content;
+
+  input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  &__custom {
+    width: 1rem;
+    height: 1rem;
+    border: 0.05rem solid $Default-gray-300;
+    border-radius: 0.25rem;
+    background: white;
+    display: inline-block;
+    position: relative;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+
+    &::after {
+      content: url("../images/icons/check-ico.svg");
+      position: absolute;
+      top: -0.05rem;
+      left: -0.05rem;
+      width: 1rem;
+      height: 1rem;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+  }
+
+  input:checked + .checkbox__custom {
+    background-color: $Default-yellow-400;
+    border-color: $Default-yellow-400;
+
+    &::after {
+      opacity: 1;
+    }
+  }
+}
+
+.separator {
+  display: block;
+  height: 0.05rem;
+  width: 100%;
+  background-color: $Default-gray-300;
+}
+
+.bg-text {
+  position: absolute;
+  z-index: -1;
+  font-family: "TT Disruptors";
+  font-size: 15rem;
+  line-height: 93.75%;
+  color: $Default-yellow-300;
+  opacity: 0.6;
+  user-select: none;
+  @media screen and (min-width: ($tablet)) {
+    font-size: 25rem;
+  }
+}

@@ -1,0 +1,91 @@
+@use "../utils/variables" as *;
+.quote {
+  &__container {
+    padding-top: 7.5rem;
+    padding-bottom: 7.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  &__text {
+    max-width: 17.5rem;
+    text-align: center;
+    p {
+      font-size: 1.25rem;
+      font-weight: 500;
+      line-height: 140%;
+      margin-bottom: 1rem;
+    }
+  }
+  &__wrapper {
+    position: relative;
+  }
+  &__author {
+    font-size: 0.875rem;
+    line-height: 142.857%;
+  }
+  &__arrow {
+    position: absolute;
+    width: 3.125rem;
+    height: 3.125rem;
+    top: calc(50% - 1.5625rem);
+    &.left {
+      left: -3.625rem;
+      background: url("../../images/quote__arrow--left.svg") no-repeat center;
+      background-size: cover;
+    }
+    &.right {
+      right: -3.625rem;
+      background: url("../../images/quote__arrow--right.svg") no-repeat center;
+      background-size: cover;
+    }
+  }
+}
+@media screen and (min-width: $mobile) {
+  .quote {
+    &__text p {
+      font-size: 1.5rem;
+    }
+  }
+}
+@media screen and (min-width: $tablet) {
+  .quote {
+    &__text {
+      max-width: 40rem;
+      p {
+        font-size: 1.75rem;
+        line-height: 128.571%;
+        margin-bottom: 1.25rem;
+      }
+    }
+    &__author {
+      font-size: 1rem;
+      line-height: 150%;
+    }
+    &__arrow {
+      width: 4.25rem;
+      height: 4.25rem;
+      &.left {
+        left: -3.25rem;
+      }
+      &.right {
+        right: -3.25rem;
+      }
+    }
+  }
+}
+@media screen and (min-width: $laptop) {
+  .quote {
+    &__text {
+      max-width: 43.75rem;
+    }
+    &__arrow {
+      &.left {
+        left: -6.25rem;
+      }
+      &.right {
+        right: -6.25rem;
+      }
+    }
+  }
+}

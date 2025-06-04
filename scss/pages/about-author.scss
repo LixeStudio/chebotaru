@@ -1,0 +1,505 @@
+@use "../utils/variables" as *;
+@use "../components/family-quote";
+@use "../components/family-hero";
+@use "../components/career-timeline";
+@use "../components/contact-us";
+
+.preview {
+  position: relative;
+  &__container {
+    position: relative;
+    padding-top: 8.375rem;
+    padding-bottom: 27.25rem;
+  }
+  &__bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background-image: url("../../images/pages/family/about-author/preview__bg.webp");
+    background-position: center bottom;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    background-color: white;
+  }
+  &__content {
+    position: relative;
+    z-index: 99;
+    max-width: 53rem;
+  }
+  &__title {
+    font-size: 3rem;
+    font-weight: 500;
+    line-height: 108.333%;
+    color: white;
+    margin-bottom: 1.5rem;
+    span {
+      display: block;
+    }
+    span.part-2 {
+      text-indent: 4rem;
+    }
+  }
+  &__author {
+    font-size: 1.25rem;
+    font-weight: 500;
+    line-height: 140%;
+    color: white;
+    margin-bottom: 0.5rem;
+  }
+  &__text {
+    color: white;
+    line-height: 150%;
+    margin-bottom: 1rem;
+  }
+  &__watch-works {
+    color: white !important;
+  }
+  &__image {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    background: url("../../images/pages/family/about-author/author-image.webp")
+      bottom no-repeat;
+    background-size: contain;
+    overflow: visible;
+  }
+  &__image-wrapper {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 32.75rem;
+    min-width: 19.75rem;
+    .shadow {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      max-height: 46.25rem;
+      border-radius: 38.75rem;
+      opacity: 0.5;
+      background: #000;
+      filter: blur(4rem);
+      z-index: -1;
+    }
+  }
+}
+.about-author {
+  &__container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+  }
+  &__text {
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: 500;
+    line-height: 140%;
+  }
+  &__images {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  &__art-element {
+    object-fit: cover;
+    height: 100%;
+    &.surfers {
+      width: 6.5rem;
+      top: 0;
+      left: 0;
+    }
+    &.boat {
+      width: 4.4375rem;
+      top: 0;
+      right: 0;
+    }
+    &.sunflower {
+      width: 4.75rem;
+      bottom: 0;
+      left: 10%;
+    }
+    &.pueblo {
+      align-self: end;
+      width: 18.125rem;
+      bottom: 0;
+      right: 0;
+      margin-right: -1rem;
+    }
+  }
+}
+.hero {
+  &__text {
+    margin-bottom: 1rem;
+  }
+  &__list {
+    margin-bottom: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  &__item {
+    position: relative;
+    padding-left: 1.25rem;
+    line-height: 150%;
+    &:before {
+      content: "";
+      position: absolute;
+      top: 0.75rem;
+      left: 0;
+      width: 0.5rem;
+      height: 0.5rem;
+      background-color: $Default-yellow-400;
+      border-radius: 50%;
+    }
+  }
+}
+
+.quote {
+  background-color: white;
+}
+.inspiration-map {
+  &__container {
+    padding-top: 3.875rem;
+  }
+  &__content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  &__title {
+    font-size: 2.125rem;
+    line-height: 117.647%;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  &__text {
+    font-size: 0.875rem;
+    line-height: 143%;
+    text-align: center;
+  }
+  &__bg-text {
+    top: 0;
+    line-height: 39.75%;
+  }
+  &__locations {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem 1rem;
+  }
+  &__location {
+    display: flex;
+    flex-direction: column;
+    min-width: 10.625rem;
+    height: 100%;
+    &:last-child:nth-child(odd) {
+      grid-column: span 2;
+    }
+  }
+}
+
+.location-inspiration-map {
+  &__image {
+    position: relative;
+    margin-bottom: 0.75rem;
+    min-height: 12.5rem;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  &__name {
+    font-size: 0.875rem;
+    line-height: 143%;
+    flex: 1 1 auto;
+  }
+}
+
+.career-timeline {
+  &__card {
+    min-width: 18rem;
+    &.custom {
+      flex-basis: 100%;
+    }
+  }
+  &__card.custom &__story {
+    margin-bottom: 1rem;
+  }
+}
+
+.contact-us {
+  &__container {
+    min-height: 65rem;
+    padding-top: 4.75rem;
+    padding-bottom: 4.75rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    @media screen and (max-width: ($mobile + 6.25rem)) {
+      padding-right: 0;
+      padding-left: 0;
+    }
+  }
+  &__bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url("../../images/contact-us__bg.webp") no-repeat center;
+    background-size: cover;
+    background-attachment: fixed;
+    z-index: 0;
+  }
+}
+
+@media screen and (min-width: $mobile) {
+  .preview {
+    &__container {
+      padding-top: 8.9375rem;
+      padding-bottom: 28.75rem;
+    }
+    &__title {
+      span.part-2 {
+        text-indent: 5.625rem;
+      }
+    }
+    &__author {
+      font-size: 1.5rem;
+      line-height: 133.333%;
+    }
+    &__text {
+      max-width: 20.0625rem;
+    }
+    &__image-wrapper {
+      padding-top: 100%;
+      width: 22.75rem;
+      .shadow {
+        border-radius: 58.75rem;
+        opacity: 0.5;
+        background: #000;
+
+        filter: blur(6.25rem);
+      }
+    }
+  }
+  .about-author {
+    &__art-element {
+      &.surfers {
+        width: 8.75rem;
+      }
+      &.boat {
+        width: 5.9375rem;
+      }
+      &.sunflower {
+        width: 6.3125rem;
+      }
+      &.pueblo {
+        width: 23.5rem;
+        margin-right: -2.5rem;
+      }
+    }
+  }
+  .location-inspiration-map {
+    &__name {
+      font-size: 1rem;
+      line-height: 150%;
+    }
+  }
+  .career-timeline {
+    &__card.custom &__story {
+      margin-bottom: 2rem;
+    }
+  }
+}
+
+@media screen and (min-width: $tablet) {
+  .preview {
+    &__container {
+      padding-top: 16.5rem;
+      padding-bottom: 13.6875rem;
+    }
+    &__title {
+      font-size: 4.375rem;
+      line-height: 100%;
+      margin-bottom: 2.5rem;
+    }
+    &__image-wrapper {
+      padding-top: 69%;
+      width: 30.75rem;
+    }
+  }
+  .about-author {
+    &__container {
+      padding-top: 10.5rem;
+      padding-bottom: 10.5rem;
+    }
+    &__text {
+      font-size: 1.5rem;
+      line-height: 133.333%;
+      max-width: 41.5rem;
+    }
+    &__art-element {
+      position: absolute;
+      height: auto;
+      &.surfers {
+        width: 15%;
+      }
+      &.boat {
+        width: 7.875rem;
+      }
+      &.sunflower {
+        width: 14%;
+      }
+      &.pueblo {
+        width: 40%;
+      }
+    }
+  }
+  .inspiration-map {
+    margin-bottom: 5rem;
+    &__container {
+      padding-top: 16.5625rem;
+      padding-bottom: 18.125rem;
+      position: relative;
+    }
+    &__content {
+      margin: 0;
+    }
+    &__title {
+      font-size: 3rem;
+      line-height: 108.333%;
+      text-align: center;
+      max-width: 28.75rem;
+    }
+    &__text {
+      font-size: 1rem;
+      line-height: 150%;
+      max-width: 28.75rem;
+    }
+    &__locations {
+      display: block;
+    }
+    &__location {
+      position: absolute;
+      display: none;
+      height: max-content;
+      min-width: auto;
+      div {
+        min-height: auto;
+      }
+      img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        object-fit: cover;
+      }
+      &.location-1 {
+        display: block;
+        top: 10%;
+        left: 5%;
+        max-width: 15.9375rem;
+        min-width: 10rem;
+        width: 18%;
+        div {
+          padding-top: 125%;
+        }
+      }
+      &.location-2 {
+        display: block;
+        top: 0;
+        left: 37%;
+        max-width: 15.375rem;
+        width: 18%;
+        min-width: 13.25rem;
+        div {
+          padding-top: 69%;
+        }
+      }
+      &.location-3 {
+        display: block;
+        top: 1%;
+        right: 6%;
+        max-width: 11.875rem;
+        min-width: 10.5rem;
+        width: 14%;
+        div {
+          padding-top: 178%;
+        }
+      }
+      &.location-4 {
+        display: block;
+        bottom: 0;
+        right: 14%;
+        max-width: 11.875rem;
+        min-width: 11.125rem;
+        width: 14%;
+        div {
+          padding-top: 129%;
+        }
+      }
+      &.location-5 {
+        display: block;
+        bottom: 0;
+        left: 8%;
+        max-width: 21.5rem;
+        min-width: 19.875rem;
+        width: 24%;
+        div {
+          padding-top: 57%;
+        }
+      }
+    }
+  }
+  .hero {
+    &__item {
+      font-size: 1.125rem;
+      line-height: 155.556%;
+    }
+  }
+  .career-timeline {
+    &__card {
+      min-width: 18rem;
+      &.custom {
+        flex-basis: 100%;
+      }
+    }
+    &__card.custom &__story {
+      max-width: 31.0625rem;
+      width: 41%;
+      margin-bottom: 0;
+    }
+    &__image {
+      max-width: 65.25rem;
+      margin-left: auto;
+      width: 87%;
+      margin-top: -7%;
+    }
+  }
+}
+@media screen and (min-width: $laptop) {
+  .about-author {
+    &__art-element.pueblo {
+      margin-right: 0;
+    }
+  }
+  .inspiration-map__location {
+    &.location-5 {
+      left: 14%;
+    }
+  }
+}

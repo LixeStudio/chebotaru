@@ -1,0 +1,123 @@
+@use "../utils/variables" as *;
+.recognition {
+  background: white;
+  &__container {
+    padding-top: 5.625rem;
+    padding-bottom: 3.75rem;
+  }
+  &__top {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: start;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+  }
+  &__title {
+    font-size: 2.125rem;
+    font-weight: 500;
+    line-height: 117.6%;
+    flex: 1 1 min(20.8rem, 100%);
+    max-width: 100%;
+  }
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+    gap: 0.75rem;
+  }
+  &__item {
+    position: relative;
+    font-size: 1.125rem;
+    line-height: 155.556%;
+    padding-left: 1.25rem;
+    &:before {
+      content: "";
+      position: absolute;
+      top: 0.75rem;
+      left: 0;
+      width: 0.5rem;
+      height: 0.5rem;
+      background-color: $Default-yellow-400;
+      border-radius: 50%;
+    }
+  }
+  &__bg-text {
+    top: 0;
+    left: 0;
+  }
+}
+
+.paintings-recognition {
+  &__list {
+    display: flex;
+    overflow-y: auto;
+    gap: 1.5rem;
+  }
+  &__item {
+    flex: 0 0 22.25rem;
+    &.picture-2 {
+      flex: 1 1 auto;
+      min-width: 29.625rem;
+    }
+  }
+  &__image {
+    margin-bottom: 0.75rem;
+    position: relative;
+    width: 100%;
+    height: 25.4375rem;
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  &__info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  &__year,
+  &__size {
+    font-size: 0.875rem;
+    line-height: 142.857%;
+    color: $Default-gray-500;
+  }
+  &__title {
+    line-height: 150%;
+  }
+}
+
+@media screen and (min-width: $mobile) {
+  .recognition {
+    &__top {
+      gap: 2rem;
+    }
+    &__title {
+      font-size: 3rem;
+      line-height: 108.33%;
+    }
+    &__list {
+      gap: 1.25rem;
+    }
+  }
+}
+@media screen and (min-width: $tablet) {
+  .recognition {
+    &__top {
+      margin-bottom: 3.75rem;
+    }
+    &__list {
+      min-width: 41.25rem;
+      flex: 1 1 41.25rem;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+    &__item {
+      min-width: 20rem;
+      max-width: 25.8rem;
+    }
+  }
+}

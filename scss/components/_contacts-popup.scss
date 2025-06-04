@@ -1,0 +1,103 @@
+@use "../utils/variables" as *;
+
+.contacts-popup {
+  display: none;
+  &__overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    overflow: hidden;
+  }
+  &__container {
+    position: relative;
+    background: white;
+    height: 100%;
+    max-height: max-content;
+    overflow-y: auto;
+    max-width: 37.5rem;
+    padding: 2.875rem 1rem 3.75rem 1rem;
+    border-radius: 0.75rem;
+  }
+  &__close {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.3s ease-in-out;
+    opacity: 0.7;
+    &:hover {
+      opacity: 1;
+    }
+  }
+  &__title {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 500;
+    line-height: 133.333%;
+    margin-bottom: 1.35rem;
+  }
+  &__subtitle {
+    text-align: center;
+    line-height: 150%;
+    margin-bottom: 2.5rem;
+  }
+  &__nav {
+    width: 100%;
+    margin-bottom: 2.5rem;
+  }
+  &__list {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  &__item {
+    flex: 1 1 33.333%;
+    min-width: fit-content;
+  }
+  &__link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 3rem;
+    padding: 0 1rem;
+    border-radius: 1.5rem;
+    background-color: $Default-gray-100;
+    transition: background-color 0.3s ease-in-out;
+    line-height: 112.5%;
+    font-weight: 500;
+    color: $Default-gray-900;
+    img {
+      width: 1.5rem;
+      height: 1.5rem;
+      display: inline-block;
+      margin-right: 0.75rem;
+    }
+    &:hover {
+      background-color: $Default-gray-200;
+    }
+  }
+  &__text {
+    text-align: center;
+    line-height: 150%;
+  }
+}
+
+@media screen and (min-width: $mobile) {
+  .contacts-popup {
+    &__container {
+      padding: 3rem 2.25rem 3.75rem 2.25rem;
+    }
+  }
+}

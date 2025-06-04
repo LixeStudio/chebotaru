@@ -1,0 +1,193 @@
+.contact-us {
+  position: relative;
+}
+.contact-us__wrapper {
+  z-index: 2;
+  background: #fff;
+  width: 100%;
+  padding: 3.875rem 1rem;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+.contact-us__wrapper::after {
+  content: "";
+  position: absolute;
+  bottom: -4rem;
+  right: -4rem;
+  width: 11.625rem;
+  height: 12rem;
+  background: url("../../images/contact-us__flowers.svg") no-repeat center;
+  background-size: cover;
+}
+.contact-us__content {
+  max-width: 31.625rem;
+}
+.contact-us__pretitle {
+  font-size: 1.5rem;
+  line-height: 133.333%;
+  margin-bottom: 1.25rem;
+}
+.contact-us__text {
+  font-size: 0.875rem;
+  line-height: 150%;
+  margin-bottom: 2rem;
+}
+.contact-us__form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.contact-us__label {
+  font-size: 0.75rem;
+}
+.contact-us__input {
+  padding: 0.75rem 0.25rem;
+  font-size: 0.875rem;
+  line-height: 143%;
+  font-weight: 500;
+  margin-bottom: 1.25rem;
+  border-bottom: 0.0625rem solid #9ca3af;
+  transition: border-bottom 0.3s ease-in-out;
+}
+.contact-us__input::placeholder {
+  color: #6b7280;
+}
+.contact-us__input:active, .contact-us__input:focus {
+  border-bottom: 0.0625rem solid #4b5563;
+}
+.contact-us__title {
+  text-align: center;
+  z-index: 3;
+}
+.contact-us__line {
+  font-size: 9rem;
+  line-height: 47%;
+  color: #fcd34d;
+  font-family: "TT Disruptors";
+}
+.contact-us__line.second {
+  text-align: right;
+}
+
+@media screen and (min-width: 46.5625rem) {
+  .contact-us__pretitle {
+    font-size: 1.75rem;
+  }
+  .contact-us__text {
+    font-size: 1rem;
+  }
+  .contact-us__wrapper:after {
+    bottom: 0;
+    right: -2rem;
+  }
+}
+.hero__container {
+  padding-top: 7.8125rem;
+  padding-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.hero__title {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+.hero__title-line {
+  font-family: "TT Disruptors";
+  font-size: 6.375rem;
+  line-height: 47%;
+}
+.hero__wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 41.5rem;
+}
+.hero__description {
+  font-size: 1.125rem;
+  line-height: 155.556%;
+}
+.hero__nav {
+  width: 100%;
+}
+.hero__separator-line {
+  width: 100%;
+  background-color: #111827;
+  opacity: 0.3;
+  height: 0.05rem;
+  margin: 1.5rem 0;
+}
+
+.links-hero {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+.links-hero__column {
+  display: flex;
+  flex-direction: column;
+}
+.links-hero__mail {
+  margin-bottom: 1.5rem;
+}
+.links-hero__title {
+  margin-bottom: 0.7rem;
+  opacity: 0.5;
+  line-height: 150%;
+}
+.links-hero__link {
+  color: #111827;
+  line-height: 150%;
+}
+.links-hero__link:not(:last-child) {
+  margin-bottom: 0.5rem;
+}
+.links-hero__link:hover {
+  text-decoration-line: underline;
+}
+
+.contact-us__container {
+  min-height: 51rem;
+  padding-top: 4.75rem;
+  padding-bottom: 4.75rem;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+@media screen and (max-width: 33.1875rem) {
+  .contact-us__container {
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+.contact-us__bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("../../images/contact-us__bg-mountains.webp") no-repeat center;
+  background-size: cover;
+  z-index: 0;
+}
+
+@media screen and (min-width: 46.5625rem) {
+  .hero__container {
+    padding-top: 9rem;
+  }
+  .hero__title {
+    margin-bottom: 1.5rem;
+  }
+  .hero__title-line {
+    font-size: 11.625rem;
+  }
+  .hero__wrapper {
+    max-width: 38.125rem;
+  }
+  .hero__separator-line {
+    margin: 2.5rem 0;
+  }
+}
+
+/*# sourceMappingURL=contact-us.css.map */
