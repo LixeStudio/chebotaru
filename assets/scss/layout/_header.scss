@@ -1,0 +1,121 @@
+@use "../base/burger";
+@use "../utils/variables" as *;
+
+.header {
+  width: 100%;
+  z-index: 3;
+  position: absolute;
+  transition: background 0.1s ease;
+  &__container {
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    align-items: center;
+    min-height: $headerHeight;
+    flex-direction: row-reverse;
+    padding: 0 1rem;
+  }
+  &__logo {
+    flex: 0 0 14.8rem;
+    height: 3.06rem;
+    transition: opacity 0.2s ease;
+  }
+  &__social {
+    display: none;
+  }
+  &.white-theme {
+    background: rgb(255, 255, 255, 0);
+  }
+  &.sticky {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #fff;
+    z-index: 999;
+  }
+}
+
+@media screen and (min-width: ($mobile + 7.5rem)) {
+  .header {
+    &__container {
+      flex-direction: row;
+      padding: 0 3.5rem;
+    }
+    &__social {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+    }
+    &__social-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.5rem;
+      height: 1.5rem;
+      cursor: pointer;
+      transition: opacity 0.3s ease;
+      &:hover {
+        opacity: 70%;
+      }
+      & > svg {
+        fill: #111827;
+      }
+      & circle {
+        stroke: #fff;
+      }
+      &.tg {
+        & svg {
+          fill: none;
+        }
+        & circle {
+          stroke: #111827;
+        }
+        & path {
+          fill: #111827;
+        }
+      }
+    }
+    &.white-theme &__social-link {
+      & > svg {
+        fill: #fff;
+      }
+      & circle {
+        stroke: #111827;
+      }
+      &.tg {
+        & svg {
+          fill: none;
+        }
+        & circle {
+          stroke: #fff;
+        }
+        & path {
+          fill: #fff;
+        }
+      }
+    }
+    &.sticky.white-theme &__social-link {
+      &:hover {
+        opacity: 70%;
+      }
+      & > svg {
+        fill: #111827;
+      }
+      & circle {
+        stroke: #fff;
+      }
+      &.tg {
+        & svg {
+          fill: none;
+        }
+        & circle {
+          stroke: #111827;
+        }
+        & path {
+          fill: #111827;
+        }
+      }
+    }
+  }
+}

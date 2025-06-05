@@ -1,0 +1,47 @@
+@use "../utils/variables" as *;
+.dropdown-filter {
+  position: relative;
+
+  &__toggle {
+    display: flex;
+    align-items: center;
+    font-size: 0.875rem;
+    line-height: 142.85%;
+    gap: 0.25rem;
+    cursor: pointer;
+  }
+
+  &__icon {
+    display: block;
+    width: 1.25rem;
+    height: 1.25rem;
+    background: url("../../images/icons/chevron-down.svg") no-repeat center /
+      contain;
+    opacity: 0.6;
+    transition: transform 0.4s;
+  }
+
+  &__dropdown {
+    position: absolute;
+    display: none;
+    top: 110%;
+    left: 0;
+    max-width: 18.75rem;
+    min-width: 8.25rem;
+    z-index: 99;
+    width: fit-content;
+    background-color: white;
+    padding: 0.75rem 1.25rem 0.75rem 0.75rem;
+    flex-direction: column;
+    border-radius: 0.5rem;
+    border: 0.05rem solid $Default-gray-100;
+    gap: 0.75rem;
+  }
+  &.opened &__icon {
+    transform: rotate(180deg);
+    opacity: 1;
+  }
+  &.opened &__dropdown {
+    display: flex;
+  }
+}

@@ -1,0 +1,15 @@
+@use "./base/fonts";
+@use "./utils/variables" as *;
+@use "./base/clear";
+@use "./base/common";
+@use "./layout/header";
+@use "./layout/footer";
+// Pages
+@use "./components/contacts-popup";
+body.has-sticky-header {
+  padding-top: $headerHeight;
+}
+
+main.main {
+  background-color: $Default-gray-50;
+}
