@@ -8,16 +8,16 @@
         >
           <span class="title-works__row row-1">
             <span class="big-yellow span-1">природа</span>
-            <span class="span-2">научила меня</span>
+            научила меня
           </span>
           <span class="title-works__row row-2">
             <span class="span-3">видеть</span>
             <span class="big-yellow span-4">цвет, детали,</span>
           </span>
           <span class="title-works__row row-3">
-            <span class="span-5">и</span>
+            и
             <span class="big-yellow span-6">красоту</span>
-            <span class="span-7">мира.</span>
+            мира.
           </span>
         </h2>
         <a href="./catalog.html" class="works__btn-toknow btn-circle">
