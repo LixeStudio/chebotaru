@@ -4,7 +4,11 @@
     <main class="main">
       <PreviewSection />
       <WorksSection />
+      <BlogSection />
+      <FamilySection />
+      <ContactUs />
     </main>
+    <Footer />
   </div>
 </template>
 
@@ -12,6 +16,10 @@
 import Header from "@/layouts/Header.vue";
 import PreviewSection from "@/components/pages/home/Preview-Section.vue";
 import WorksSection from "@/components/pages/home/Works-Section.vue";
+import BlogSection from "@/components/pages/home/Blog-Section.vue";
+import FamilySection from "@/components/pages/home/Family-Section.vue";
+import ContactUs from "@/layouts/Contact-us.vue";
+import Footer from "@/layouts/Footer.vue";
 const isWhiteTheme = useState("header-white-theme");
 isWhiteTheme.value = true;
 </script>
