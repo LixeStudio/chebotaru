@@ -4,5 +4,14 @@ export default defineNuxtConfig({
 
   devtools: { enabled: true },
   css: ['@/assets/scss/main.scss'],
-  modules: ['@nuxt/fonts', '@nuxt/image', '@nuxt/eslint']
+  modules: ['@nuxt/fonts', '@nuxt/image', '@nuxt/eslint'],
+  image: {
+    dir: 'assets',
+    screens: {
+      sm: 431,
+      md: 745,
+      lg: 1101,
+      xl: 1441
+    }
+  }
 })

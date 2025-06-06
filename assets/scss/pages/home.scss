@@ -73,18 +73,18 @@
 .title-works {
   display: block;
   margin: 0 0 2rem 0;
-        font-size: 2.5rem;
-      font-weight: 500;
-      line-height: 110%;
-      color: $Default-gray-900;
-      margin-right: 0.75rem;
+  font-size: 2.5rem;
+  font-weight: 500;
+  line-height: 110%;
+  color: $Default-gray-900;
+  margin-right: 0.75rem;
   &__row {
     display: inline;
     &.row-2 {
       margin-left: auto;
       width: fit-content;
     }
-        & span {
+    & span {
       font-size: 2.5rem;
       font-weight: 500;
       line-height: 110%;
@@ -92,11 +92,11 @@
       margin-right: 0.75rem;
     }
   }
-    & span.big-yellow {
-      color: $Default-yellow-300;
-      font-size: 4rem;
-      font-weight: 700;
-    }
+  & span.big-yellow {
+    color: $Default-yellow-300;
+    font-size: 4rem;
+    font-weight: 700;
+  }
 }
 
 .pictures-works {
@@ -121,6 +121,7 @@
   .title-works {
     &__row {
       display: block;
+      font-size: 3rem;
       & span {
         color: $Default-gray-900;
         font-size: 3rem;

@@ -20,9 +20,9 @@
             мира.
           </span>
         </h2>
-        <a href="./catalog.html" class="works__btn-toknow btn-circle">
+        <NuxtLink to="/about-author" class="works__btn-toknow btn-circle">
           Узнать больше
-        </a>
+        </NuxtLink>
       </div>
       <div class="works__pictures pictures-works gallery">
         <ul class="pictures-works__list gallery__list">
@@ -124,9 +124,9 @@
           </li>
         </ul>
       </div>
-      <a href="./catalog.html" class="works__btn-view-all btn-circle">
+      <NuxtLink to="/catalog" class="works__btn-view-all btn-circle">
         Смотреть все работы
-      </a>
+      </NuxtLink>
     </div>
   </section>
 </template>

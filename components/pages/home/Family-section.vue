@@ -13,9 +13,9 @@
         <li class="family__member member-family">
           <article class="member-family__card">
             <div class="member-family__image">
-              <img
-                src="./public/images/pages/home/family/mom.jpg"
-                alt="mother"
+              <NuxtImg
+                src="/images/pages/home/family/mom.jpg"
+                alt="Тамара Чеботару — мать Андрея"
                 width="392"
                 height="490"
               />
@@ -23,7 +23,11 @@
             <h3 class="member-family__name">Тамара Чеботару</h3>
             <div class="member-family__bottom">
               <p class="member-family__role">Мать Андрея</p>
-              <a href="#" class="member-family__linkto link-to"></a>
+              <a
+                href="#"
+                class="member-family__linkto link-to"
+                aria-label="Подробнее о Тамаре Чеботару"
+              ></a>
             </div>
           </article>
         </li>

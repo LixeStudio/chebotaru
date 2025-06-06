@@ -4,7 +4,9 @@
       <div class="blog__content">
         <p class="blog__bg-text">Blog</p>
         <h2 class="blog__title">О творчестве, выставках и вдохновении</h2>
-        <a href="#" class="blog__link btn-circle"> Читать все статьи </a>
+        <NuxtLink to="/blog" class="blog__link btn-circle">
+          Читать все статьи
+        </NuxtLink>
       </div>
       <div class="blog__articles articles-blog">
         <article class="articles-blog__article article-card">
