@@ -35,9 +35,27 @@
               role="navigation"
               :aria-label="t('header.burger.content.languagesAriaLabel')"
             >
-              <button @click="switchLanguage('uk')" lang="uk">УКР</button>
-              <button @click="switchLanguage('ru')" lang="ru">РУС</button>
-              <button @click="switchLanguage('en')" lang="en">ENG</button>
+              <button
+                :class="{ choosed: locale === 'uk' }"
+                @click="switchLanguage('uk')"
+                lang="uk"
+              >
+                УКР
+              </button>
+              <button
+                :class="{ choosed: locale === 'ru' }"
+                @click="switchLanguage('ru')"
+                lang="ru"
+              >
+                РУС
+              </button>
+              <button
+                :class="{ choosed: locale === 'en' }"
+                @click="switchLanguage('en')"
+                lang="en"
+              >
+                ENG
+              </button>
             </div>
             <ul class="burger-content__list">
               <li class="burger-conent__li">
@@ -89,7 +107,7 @@
       <div class="header__social">
         <a
           class="header__social-link tg"
-          href="#"
+          href="https://t.me/andriichebotaru"
           :aria-label="t('header.social.telegramAriaLabel')"
           target="_blank"
           rel="noopener noreferrer"
@@ -109,7 +127,7 @@
         </a>
         <a
           class="header__social-link"
-          href="#"
+          href="https://wa.me/380679884402"
           :aria-label="t('header.social.whatsappAriaLabel')"
           target="_blank"
           rel="noopener noreferrer"
@@ -128,7 +146,7 @@
         </a>
         <a
           class="header__social-link"
-          href="#"
+          href="https://www.instagram.com/chebotaru.a?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
           :aria-label="t('header.social.instagramAriaLabel')"
           target="_blank"
           rel="noopener noreferrer"

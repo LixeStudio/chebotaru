@@ -26,5 +26,32 @@
             "whatsappAriaLabel": "Відкрити  Whatsapp",
             "instagramAriaLabel": "Відкрити  Instagram"
         }
+    },
+    "footer": {
+        "links": {
+            "contacts": {
+                "mail": "Ел. пошта",
+                "phone": "Телефон"
+            },
+            "aboutAuthor": {
+                "title": "Андрій Чеботару",
+                "catalog": "Каталог",
+                "aboutArtist": "Про художника",
+                "blog": "Блог",
+                "contacts": "Контакти"
+            },
+            "family": {
+                "title": "Сім'я",
+                "mother": "Тамара Чеботару",
+                "brother": "Олексій Чеботару",
+                "father": "Микола Чеботару"
+            },
+            "social": {
+                "title": "Соц. мережі"
+            }
+        },
+        "bottom": {
+            "confidential-police": "Політика конфіденційності"
+        }
     }
 }

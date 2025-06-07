@@ -26,5 +26,32 @@
             "whatsappAriaLabel": "Open Whatsapp",
             "instagramAriaLabel": "Open Instagram"
         }
+    },
+    "footer": {
+        "links": {
+            "contacts": {
+                "mail": "Email",
+                "phone": "Phone"
+            },
+            "aboutAuthor": {
+                "title": "Andrei Chebotaru",
+                "catalog": "Catalog",
+                "aboutArtist": "About Artist",
+                "blog": "Blog",
+                "contacts": "Contacts"
+            },
+            "family": {
+                "title": "Family",
+                "mother": "Tamara Chebotaru",
+                "brother": "Olexei  Chebotaru",
+                "father": "Nicolae  Chebotaru"
+            },
+            "social": {
+                "title": "Social Networks"
+            }
+        },
+        "bottom": {
+            "confidential-police": "Privacy Policy"
+        }
     }
 }
