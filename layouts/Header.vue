@@ -8,7 +8,13 @@
         class="burger"
         :class="{ active: isOpened }"
         :aria-expanded="isOpened.toString()"
-        :aria-label="isOpened ? 'Закрыть меню' : 'Открыть меню'"
+        :aria-label="
+          t(
+            isOpened
+              ? 'header.burger.btnAriaLabel.opened'
+              : 'header.burger.btnAriaLabel.closed'
+          )
+        "
         @click="toggleMenu"
       >
         <span class="burger__line"></span>
@@ -19,7 +25,7 @@
       <nav
         class="burger-content"
         :class="{ active: isOpened }"
-        aria-label="Мобильное меню"
+        :aria-label="t('header.burger.content.navAriaLabel')"
         :aria-hidden="(!isOpened).toString()"
       >
         <div class="burger-content__inner header__container">
@@ -27,35 +33,37 @@
             <div
               class="burger-content__languages"
               role="navigation"
-              aria-label="Выбор языка"
+              :aria-label="t('header.burger.content.languagesAriaLabel')"
             >
-              <a href="/uk" hreflang="ua" lang="ua">УКР</a>
-              <a href="/ru" hreflang="ru" lang="ru">РУС</a>
-              <a href="/en" hreflang="en" lang="en">ENG</a>
+              <button @click="switchLanguage('uk')" lang="uk">УКР</button>
+              <button @click="switchLanguage('ru')" lang="ru">РУС</button>
+              <button @click="switchLanguage('en')" lang="en">ENG</button>
             </div>
             <ul class="burger-content__list">
               <li class="burger-conent__li">
-                <NuxtLink class="burger-content__link" to="/">Главная</NuxtLink>
+                <NuxtLink class="burger-content__link" to="/">{{
+                  t("header.burger.content.links.home")
+                }}</NuxtLink>
               </li>
               <li class="burger-conent__li">
-                <NuxtLink class="burger-content__link" to="/cataloge"
-                  >Каталог</NuxtLink
-                >
+                <NuxtLink class="burger-content__link" to="/catalog">{{
+                  t("header.burger.content.links.catalog")
+                }}</NuxtLink>
               </li>
               <li class="burger-conent__li">
-                <NuxtLink class="burger-content__link" to="/about-author"
-                  >О художнике</NuxtLink
-                >
+                <NuxtLink class="burger-content__link" to="/about-author">{{
+                  t("header.burger.content.links.aboutAuthor")
+                }}</NuxtLink>
               </li>
               <li class="burger-conent__li">
-                <NuxtLink class="burger-content__link" to="/blog"
-                  >Блог</NuxtLink
-                >
+                <NuxtLink class="burger-content__link" to="/blog">{{
+                  t("header.burger.content.links.blog")
+                }}</NuxtLink>
               </li>
               <li class="burger-conent__li">
-                <NuxtLink class="burger-content__link" to="/contact-us"
-                  >Контакты</NuxtLink
-                >
+                <NuxtLink class="burger-content__link" to="/contact-us">{{
+                  t("header.burger.content.links.contactUs")
+                }}</NuxtLink>
               </li>
             </ul>
           </div>
@@ -66,11 +74,11 @@
         to="/"
         class="header__logo"
         :class="{ 'opacity-0': isHome && !isLogoVisible }"
-        aria-label="На главную"
+        :aria-label="t('header.logo.linkAriaLabel')"
       >
         <img
           src="/assets/images/logo.svg"
-          alt="Логотип Andrii Chebotaru — сайт художника"
+          :alt="t('header.logo.imgAlt')"
           width="237"
           height="49"
           loading="lazy"
@@ -82,7 +90,7 @@
         <a
           class="header__social-link tg"
           href="#"
-          aria-label="Открыть Telegram"
+          :aria-label="t('header.social.telegramAriaLabel')"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -102,7 +110,7 @@
         <a
           class="header__social-link"
           href="#"
-          aria-label="Открыть Whatsapp"
+          :aria-label="t('header.social.whatsappAriaLabel')"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -121,7 +129,7 @@
         <a
           class="header__social-link"
           href="#"
-          aria-label="Открыть Instagram"
+          :aria-label="t('header.social.instagramAriaLabel')"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -145,17 +153,41 @@
 <script setup>
 import { useStickyHeader } from "@/composables/useStickyHeader";
 import { useHeaderLogoVisibility } from "@/composables/useHeaderLogoVisibility";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
+
+const { t, locale, setLocale } = useI18n();
 const route = useRoute();
+const router = useRouter();
 const isWhiteTheme = useState("header-white-theme", () => false);
 const headerRef = ref(null);
 const { isSticky } = useStickyHeader(headerRef);
-const isOpened = ref(false);
+const isOpened = useState("burger-opened", () => false);
 const toggleMenu = () => {
   isOpened.value = !isOpened.value;
 };
-const isHome = computed(() => route.path === "/" || route.path === "/home");
+const isHome = computed(
+  () => route.name?.toString().startsWith("index") || route.path === "/"
+);
+
 const { isLogoVisible } = useHeaderLogoVisibility();
+
+const switchLanguage = async (lang) => {
+  if (locale.value === lang) return;
+
+  const pathWithoutLocale = route.fullPath.replace(/^\/(ru|uk|en)/, "") || "/";
+  await setLocale(lang);
+
+  const isDefault = lang === "ru";
+  const newPath = isDefault
+    ? pathWithoutLocale
+    : `/${lang}${pathWithoutLocale}`;
+
+  router.replace({
+    path: newPath,
+    query: route.query,
+    hash: route.hash,
+  });
+};
 </script>
 
 <style lang="scss" scoped>

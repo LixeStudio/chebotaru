@@ -1,0 +1,30 @@
+{
+    "header": {
+        "burger": {
+            "btnAriaLabel": {
+                "opened": "Close menu",
+                "closed": "Open menu"
+            },
+            "content": {
+                "navAriaLabel": "Mobile menu",
+                "languagesAriaLabel": "Language selection",
+                "links": {
+                    "home": "Home",
+                    "catalog": "Catalog",
+                    "aboutAuthor": "About artist",
+                    "blog": "Blog",
+                    "contactUs": "Contacts"
+                }
+            }
+        },
+        "logo": {
+            "linkAriaLabel": "Back to home page",
+            "imgAlt": "Andrii Chebotaru logo - artist website"
+        },
+        "social": {
+            "telegramAriaLabel": "Open Telegram",
+            "whatsappAriaLabel": "Open Whatsapp",
+            "instagramAriaLabel": "Open Instagram"
+        }
+    }
+}

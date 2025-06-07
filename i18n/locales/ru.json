@@ -1,0 +1,30 @@
+{
+    "header": {
+        "burger": {
+            "btnAriaLabel": {
+                "opened": "Закрыть меню",
+                "closed": "Открыть меню"
+            },
+            "content": {
+                "navAriaLabel": "Мобильное меню",
+                "languagesAriaLabel": "Выбор языка",
+                "links": {
+                    "home": "Главная",
+                    "catalog": "Каталог",
+                    "aboutAuthor": "О художнике",
+                    "blog": "Блог",
+                    "contactUs": "Контакты"
+                }
+            }
+        },
+        "logo": {
+            "linkAriaLabel": "На главную",
+            "imgAlt": "Логотип Andrii Chebotaru — сайт художника"
+        },
+        "social": {
+            "telegramAriaLabel": "Открыть Telegram",
+            "whatsappAriaLabel": "Открыть Whatsapp",
+            "instagramAriaLabel": "Открыть Instagram"
+        }
+    }
+}

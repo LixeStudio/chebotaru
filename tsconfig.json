@@ -1,4 +1,6 @@
 {
-  // https://nuxt.com/docs/guide/concepts/typescript
+  "compilerOptions": {
+    "types": ["@types/node", "./types/i18n.d.ts"]
+  },
   "extends": "./.nuxt/tsconfig.json"
 }
