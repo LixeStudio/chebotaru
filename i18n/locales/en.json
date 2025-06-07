@@ -53,5 +53,46 @@
         "bottom": {
             "confidential-police": "Privacy Policy"
         }
+    },
+    "contactUs": {
+        "title": {
+            "part1": "Stay close ",
+            "part2": "to my art"
+        },
+        "pretitle": "Subscribe to be the first to know about new artwork and events.",
+        "text": "If you are interested in my artwork or have questions, email me!",
+        "btnSubscribe": "Subscribe",
+        "form": {
+            "inputPlaceholder": "Where do I send my inspiration?"
+        }
+    },
+    "pages": {
+        "home": {
+            "familySection": {
+                "title": "Artist Family",
+                "quote": "«Painting is part of our family. My parents and brother are also artists, and each of us expresses art in our own way.»",
+                "bgText": "Family",
+                "members": {
+                    "mother": {
+                        "imgAlt": "Tamara Chebotaru is Andrei's mother",
+                        "name": "Tamara Chebotaru",
+                        "role": "Andrei's mother",
+                        "linkAriaLabel": "Read more about Tamara Chebotaru"
+                    },
+                    "father": {
+                        "imgAlt": "Nicolae Chebotaru is Andrei's father",
+                        "name": "Nicolae Chebotaru",
+                        "role": "Andrei's father",
+                        "linkAriaLabel": "Read more about Nicolae Chebotaru"
+                    },
+                    "oleksiiAndWife": {
+                        "imgAlt": "Olexei Chebotaru - Andrei's brother, with his wife Alla Kislyakova",
+                        "name": "Olexei Chebotaru and Alla Kislyakova",
+                        "role": "Andrei's brother and his spouse",
+                        "linkAriaLabel": "Read more about Olexei Chebotaru and Alla Kislyakova"
+                    }
+                }
+            }
+        }
     }
 }

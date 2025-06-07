@@ -169,7 +169,6 @@
 </template>
 
 <script setup>
-import { useStickyHeader } from "@/composables/useStickyHeader";
 import { useHeaderLogoVisibility } from "@/composables/useHeaderLogoVisibility";
 import { useRoute, useRouter } from "vue-router";
 
@@ -177,8 +176,7 @@ const { t, locale, setLocale } = useI18n();
 const route = useRoute();
 const router = useRouter();
 const isWhiteTheme = useState("header-white-theme", () => false);
-const headerRef = ref(null);
-const { isSticky } = useStickyHeader(headerRef);
+const isSticky = useState("header-is-sticky");
 const isOpened = useState("burger-opened", () => false);
 const toggleMenu = () => {
   isOpened.value = !isOpened.value;

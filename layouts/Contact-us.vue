@@ -1,31 +1,40 @@
 <template>
   <section class="contact-us">
     <div class="contact-us__container">
-      <div class="contact-us__bg"></div>
+      <div class="contact-us__bg" aria-hidden="true"></div>
 
       <h2 class="contact-us__title">
-        <span class="contact-us__line">Stay close </span>
-        <span class="contact-us__line second">to my art</span>
+        <span class="contact-us__line">{{ t("contactUs.title.part1") }} </span>
+        <span class="contact-us__line second">{{
+          t("contactUs.title.part2")
+        }}</span>
       </h2>
       <div class="contact-us__wrapper">
         <div class="contact-us__content">
           <h3 class="contact-us__pretitle">
-            Подпишитесь, чтобы первыми узнавать о новых работах и событиях.
+            {{ t("contactUs.pretitle") }}
           </h3>
           <p class="contact-us__text">
-            Если вас заинтересовали мои работы или у вас есть вопросы,
-            напишите мне!
+            {{ t("contactUs.text") }}
           </p>
-          <form action="#" method="post" class="contact-us__form">
+          <form
+            class="contact-us__form"
+            novalidate
+            @submit.prevent="handleSubmit"
+          >
             <label for="email" class="contact-us__label">Email </label>
             <input
-              type="email"
               id="email"
+              v-model="email"
+              type="email"
               class="contact-us__input"
-              placeholder="Куда слать вдохновение?"
+              :placeholder="t('contactUs.form.inputPlaceholder')"
+              autocomplete="email"
+              required
+              aria-label="Email address"
             />
             <button href="#" class="contact-us__subscribe btn-circle">
-              Подписаться
+              {{ t("contactUs.btnSubscribe") }}
             </button>
           </form>
         </div>
@@ -33,3 +42,19 @@
     </div>
   </section>
 </template>
+
+<script setup>
+const { t } = useI18n();
+
+const email = useState("contact-email", () => "");
+
+const handleSubmit = () => {
+  if (!email.value.trim()) {
+    console.warn("Email is empty");
+    return;
+  }
+
+  console.log("Submitted email:", email.value);
+  email.value = "";
+};
+</script>
