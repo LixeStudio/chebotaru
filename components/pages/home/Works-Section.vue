@@ -34,102 +34,7 @@
       </div>
       <div class="works__pictures pictures-works gallery">
         <ul class="pictures-works__list gallery__list">
-          <li class="pictures-works__item gallery__item">
-            <a href="" class="pictures-works__picture gallery__picture">
-              <div class="pictures-works__img gallery__img">
-                <img
-                  src="./public/images/pages/home/picture_1.jpg"
-                  alt="picture"
-                  width="400"
-                  height="400"
-                />
-              </div>
-              <h3 class="pictures-works__name gallery__name">
-                Вечер над заливом
-              </h3>
-              <p class="pictures-works__price gallery__price">$2,500</p>
-            </a>
-          </li>
-          <li class="pictures-works__item gallery__item">
-            <a href="" class="pictures-works__picture gallery__picture">
-              <div class="pictures-works__img gallery__img">
-                <img
-                  src="./public/images/pages/home/picture_2.jpg"
-                  alt="picture"
-                  width="400"
-                  height="400"
-                />
-              </div>
-              <h3 class="pictures-works__name gallery__name">
-                Вечер над заливом
-              </h3>
-              <p class="pictures-works__price gallery__price">$2,500</p>
-            </a>
-          </li>
-          <li class="pictures-works__item gallery__item">
-            <a href="" class="pictures-works__picture gallery__picture">
-              <div class="pictures-works__img gallery__img">
-                <img
-                  src="./public/images/pages/home/picture_1.jpg"
-                  alt="picture"
-                  width="400"
-                  height="400"
-                />
-              </div>
-              <h3 class="pictures-works__name gallery__name">
-                Вечер над заливом
-              </h3>
-              <p class="pictures-works__price gallery__price">$2,500</p>
-            </a>
-          </li>
-          <li class="pictures-works__item gallery__item">
-            <a href="" class="pictures-works__picture gallery__picture">
-              <div class="pictures-works__img gallery__img">
-                <img
-                  src="./public/images/pages/home/picture_2.jpg"
-                  alt="picture"
-                  width="400"
-                  height="400"
-                />
-              </div>
-              <h3 class="pictures-works__name gallery__name">
-                Вечер над заливом
-              </h3>
-              <p class="pictures-works__price gallery__price">$2,500</p>
-            </a>
-          </li>
-          <li class="pictures-works__item gallery__item">
-            <a href="" class="pictures-works__picture gallery__picture">
-              <div class="pictures-works__img gallery__img">
-                <img
-                  src="./public/images/pages/home/picture_1.jpg"
-                  alt="picture"
-                  width="400"
-                  height="400"
-                />
-              </div>
-              <h3 class="pictures-works__name gallery__name">
-                Вечер над заливом
-              </h3>
-              <p class="pictures-works__price gallery__price">$2,500</p>
-            </a>
-          </li>
-          <li class="pictures-works__item gallery__item">
-            <a href="" class="pictures-works__picture gallery__picture">
-              <div class="pictures-works__img gallery__img">
-                <img
-                  src="./public/images/pages/home/picture_2.jpg"
-                  alt="picture"
-                  width="400"
-                  height="400"
-                />
-              </div>
-              <h3 class="pictures-works__name gallery__name">
-                Вечер над заливом
-              </h3>
-              <p class="pictures-works__price gallery__price">$2,500</p>
-            </a>
-          </li>
+          <GalleryItem v-for="a in 6" :key="a" />
         </ul>
       </div>
       <NuxtLink to="/catalog" class="works__btn-view-all btn-circle">
@@ -140,5 +45,6 @@
 </template>
 
 <script setup>
+import GalleryItem from "@/components/GalleryItem.vue";
 const { t } = useI18n();
 </script>
