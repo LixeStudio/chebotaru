@@ -1,7 +1,7 @@
 import { defineNuxtConfig } from 'nuxt/config'
 export default defineNuxtConfig({
   compatibilityDate: '2025-05-15',
-
+  ssr: true,
   devtools: { enabled: true },
   css: ['@/assets/scss/main.scss'],
   modules: ['@nuxt/fonts', '@nuxt/image', '@nuxt/eslint', '@nuxtjs/i18n'],
