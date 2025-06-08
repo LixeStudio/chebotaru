@@ -2,10 +2,12 @@
   <section class="blog">
     <div class="blog__container">
       <div class="blog__content">
-        <p class="blog__bg-text">Blog</p>
-        <h2 class="blog__title">О творчестве, выставках и вдохновении</h2>
+        <p class="blog__bg-text">
+          {{ t("pages.home.blogSection.blogBgText") }}
+        </p>
+        <h2 class="blog__title">{{ t("pages.home.blogSection.blogTitle") }}</h2>
         <NuxtLink to="/blog" class="blog__link btn-circle">
-          Читать все статьи
+          {{ t("pages.home.blogSection.blogLink") }}
         </NuxtLink>
       </div>
       <div class="blog__articles articles-blog">
@@ -72,3 +74,7 @@
     </div>
   </section>
 </template>
+
+<script setup>
+const { t } = useI18n();
+</script>

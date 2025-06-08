@@ -68,6 +68,35 @@
     },
     "pages": {
         "home": {
+            "previewSection": {
+                "titleSpan": "Andrei Chebotaru",
+                "titleImgAlt": "Andrei Cebotaru - Artist Website"
+            },
+            "worksSection": {
+                "title": {
+                    "titleAriaLabel": "Nature has taught me to see color, detail, and the beauty of the world.",
+                    "row1": {
+                        "yellowSpan": "Nature",
+                        "textPart1": "taught me "
+                    },
+                    "row2": {
+                        "yellowSpan": "color, details,",
+                        "textPart1": "to see"
+                    },
+                    "row3": {
+                        "yellowSpan": "beauty",
+                        "textPart1": "and",
+                        "textPart2": "world."
+                    }
+                },
+                "btnToKnow": "Learn more",
+                "btnViewAll": "View All Works"
+            },
+            "blogSection": {
+                "blogBgText": "Blog",
+                "blogTitle": "About Creativity, Exhibitions and Inspiration",
+                "blogLink": "Read All Articles"
+            },
             "familySection": {
                 "title": "Artist Family",
                 "quote": "«Painting is part of our family. My parents and brother are also artists, and each of us expresses art in our own way.»",

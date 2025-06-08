@@ -21,8 +21,7 @@
     background-size: cover;
     background-repeat: no-repeat;
 
-    // fallback на случай, если картинка не загрузится
-    background-color: #000; // или любой другой
+    background-color: #000;
     @media screen and (min-width: $tablet) {
       background-image: url("../../images/pages/home/preview__bg.jpg");
     }
@@ -114,7 +113,7 @@
     }
     &__btn-toknow {
       position: absolute;
-      left: 32rem;
+      left: 35rem;
       bottom: 0;
     }
   }
@@ -170,6 +169,7 @@
     font-weight: 500;
     line-height: 110%;
     margin-bottom: 2.75rem;
+    white-space: break-spaces;
   }
   &__link {
     z-index: 2;
