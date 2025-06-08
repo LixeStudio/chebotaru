@@ -32,7 +32,7 @@
                 {{ t("pages.home.familySection.members.mother.role") }}
               </p>
               <NuxtLink
-                to="/about-mother"
+                :to="localePath('/about-mother')"
                 class="member-family__linkto link-to"
                 :aria-label="
                   t('pages.home.familySection.members.mother.linkAriaLabel')
@@ -60,7 +60,7 @@
                 {{ t("pages.home.familySection.members.father.role") }}
               </p>
               <NuxtLink
-                to="/about-father"
+                :to="localePath('/about-father')"
                 class="member-family__linkto link-to"
                 :aria-label="
                   t('pages.home.familySection.members.father.linkAriaLabel')
@@ -90,7 +90,7 @@
                 {{ t("pages.home.familySection.members.oleksiiAndWife.role") }}
               </p>
               <NuxtLink
-                to="/about-oleksii-and-wife"
+                :to="localePath('/about-oleksii-and-wife')"
                 :aria-label="
                   t(
                     'pages.home.familySection.members.oleksiiAndWife.linkAriaLabel'
@@ -107,5 +107,6 @@
 </template>
 
 <script setup>
+const localePath = useLocalePath();
 const { t } = useI18n();
 </script>

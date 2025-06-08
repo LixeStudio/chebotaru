@@ -122,6 +122,36 @@
                     }
                 }
             }
+        },
+        "aboutMother": {
+            "recognitionSection": {
+                "title": "Creativity and Recognition",
+                "BgText": "Works",
+                "listOfItems": {
+                    "item1": "The author of a vivid and recognizable artistic style based on expressive color solutions and textural technique.",
+                    "item2": "Her still lifes have become true pictorial revelations, capable of touching not only the eye, but also the soul.",
+                    "item3": "Participant of many city, regional, all-Ukrainian and international art exhibitions.",
+                    "item4": "Works are kept in private collections and galleries in Ukraine, France, the Netherlands, Greece, Hungary and other countries."
+                },
+                "paintings": {
+                    "picture1": {
+                        "imgAlt": "Painting 'In Our Polygarden', 2023, 70×80cm",
+                        "title": "In Our Polygarden"
+                    },
+                    "picture2": {
+                        "imgAlt": "Picture 'Peonies', 2012, 70×80cm",
+                        "title": "Peonies"
+                    },
+                    "picture3": {
+                        "imgAlt": "Picture 'Peonies', 2023, 70×80cm",
+                        "title": "Peonies"
+                    }
+                }
+            },
+            "quoteSection": {
+                "text": "Color is my poetry. I don't just paint an object, I look for its mood, voice, breath of light.",
+                "author": "- Tamara Chebotaru"
+            }
         }
     }
 }
