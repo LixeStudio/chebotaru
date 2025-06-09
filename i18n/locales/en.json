@@ -126,7 +126,7 @@
         "aboutMother": {
             "heroSection": {
                 "heroTitle": "Tamara Chebotaru",
-                "heroRole": "Andrei Chebotaru's mother —",
+                "heroRole": "Andrei Chebotaru's mother",
                 "heroText": "Ukrainian artist, master of still life painting, who devoted her life to art and raising a creative family. Her paintings are permeated with color and light, and her pedagogical activity - a sincere love for young talents.",
                 "bgText": "Mother",
                 "heroImg": {
@@ -171,6 +171,58 @@
             "quoteSection": {
                 "text": "Color is my poetry. I don't just paint an object, I look for its mood, voice, breath of light.",
                 "author": "- Tamara Chebotaru"
+            }
+        },
+        "aboutFather": {
+            "heroSection": {
+                "heroTitle": "Nicolae Chebotaru",
+                "heroRole": "Andrei Chebotaru's father",
+                "heroText": "Soviet and Ukrainian painter, father of Andrei Chebotaru. A painter with a pronounced impressionist handwriting, he left a noticeable trace in the fine arts of Crimea and Ukraine. His path in art is decades of teaching, creative pursuits and participation in numerous exhibitions, as well as a profound influence on the formation of his son's artistic vision.",
+                "bgText": "Father",
+                "heroImg": {
+                    "imgAlt": "Nicolae Chebotaru is the father of Ukrainian artist Andrei Chebotaru"
+                }
+            },
+            "careerTimelineSection": {
+                "title": "Education and Career",
+                "BgText": "path",
+                "stories": {
+                    "story1": "Born December 26, 1948 in the village of Glubokoye, Odessa region.",
+                    "story2": "In 1972 he entered the Republican Art School named after I.E. Repin in Chisinau.",
+                    "story3": "Graduated from the school in 1976.",
+                    "story4": "From 1976 to 1979 - teacher at a children's art school in Moldavia.",
+                    "story5": "Since 1979 - artist in art and production workshops in Sevastopol.",
+                    "story6": "Since 1982 - member of the Union of Artists of Ukraine."
+                }
+            },
+            "recognitionSection": {
+                "title": "Creativity and Recognition",
+                "BgText": "Works",
+                "listOfItems": {
+                    "item1": "Participant of all-union, republican and city art exhibitions.",
+                    "item2": "His paintings are distinguished by the play of light and shadow, a lively palette and deep emotionality.",
+                    "item3": "The artist's style is close to impressionism: he subtly conveyed the atmosphere, light and mood of the landscape.",
+                    "item4": "The works are in private collections and galleries in Ukraine and abroad.",
+                    "item5": "Today continues his creative activity in Kiev."
+                },
+                "paintings": {
+                    "picture1": {
+                        "imgAlt": "Painting 'I Love the Charm of Eyes', 2021, 50×70cm",
+                        "title": "I Love the Eye Charm"
+                    },
+                    "picture2": {
+                        "imgAlt": "Painting 'Summer', 1993, 50×60cm",
+                        "title": "Summer"
+                    },
+                    "picture3": {
+                        "imgAlt": "Picture 'Lilacs in Contrail', 2018, 50×70cm",
+                        "title": "Lilacs in Contrail"
+                    }
+                }
+            },
+            "quoteSection": {
+                "text": "Painting is a way to stop the moment and absorb the light. Everything else is detail.",
+                "author": "— Nicolae Chebotaru"
             }
         }
     }

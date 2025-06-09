@@ -59,7 +59,7 @@
             </div>
             <ul class="burger-content__list">
               <li class="burger-conent__li">
-                <NuxtLink class="burger-content__link" to="/">{{
+                <NuxtLink class="burger-content__link" :to="localePath('/')">{{
                   t("header.burger.content.links.home")
                 }}</NuxtLink>
               </li>
@@ -171,7 +171,7 @@
 <script setup>
 import { useHeaderLogoVisibility } from "@/composables/useHeaderLogoVisibility";
 import { useRoute, useRouter } from "vue-router";
-
+const localePath = useLocalePath();
 const { t, locale, setLocale } = useI18n();
 const route = useRoute();
 const router = useRouter();
