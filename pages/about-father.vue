@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="about-father-page">
     <Header />
     <main class="main">
       <HeroSection />

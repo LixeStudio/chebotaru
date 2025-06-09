@@ -224,6 +224,55 @@
                 "text": "Painting is a way to stop the moment and absorb the light. Everything else is detail.",
                 "author": "— Nicolae Chebotaru"
             }
+        },
+        "aboutArtist": {
+            "previewSection": {
+                "hiddenTitle": "Andrei Chebotaru - Ukrainian impressionist painter",
+                "title": {
+                    "part1": "«Art -",
+                    "part2": "this is the moment,",
+                    "part3": "captured in color.»"
+                },
+                "previewAuthor": "Andrei Chebotaru",
+                "previewText": "Ukrainian impressionist painter who creates lively and emotional paintings.",
+                "previewLink": "View Works"
+            },
+            "aboutAuthorSection": {
+                "images": {
+                    "imgAlt1": "Surfers - decorative element",
+                    "imgAlt2": "Boat drawing - decorative element",
+                    "imgAlt3": "Sunflower - decorative element",
+                    "imgAlt4": "Stylized landscape of a village - decorative element"
+                },
+                "text": "Andrei Chebotaru is an outstanding Ukrainian artist, a master of impressionistic landscape and still life. His works are distinguished by bold compositions, richness of color palette and bright emotional sound. He skillfully combines traditional techniques with individual vision, creating a pictorial symphony of poetry and the joy of being."
+            },
+            "heroReverseSection": {
+                "title": "Education and Style Formation",
+                "text": "His style palette includes the influence of Impressionism, a personal sense of color, and a desire to convey the mood of the moment. His painting combines an academic foundation with expressive color presentation as well as bold compositional decisions.",
+                "items": {
+                    "item1": "1995-2002 - training in a family art studio.",
+                    "item2": "2002-2006 - Crimean Art School named after N. S. Samokish. N.S. Samokish (mentor - Grigoriev V.I.)",
+                    "item3": "2007-2013 - National Academy of Fine Arts and Architecture (NAOMA), Faculty of Painting (supervisors: Zabashta V.I., Melnichuk I.Yu.)"
+                },
+                "bgText": "Style",
+                "heroImgAlt": "Abstract painting with bright strokes - an example of Andrei Cebotaru's artistic style"
+            },
+            "quoteSection": {
+                "text": "Traveling is like immersing myself in a land of dreams and desires. The beautiful scenery and magical atmosphere give energy and inspiration for creativity.",
+                "author": ""
+            },
+            "careerTimelineSection": {
+                "title": "Awards and Recognition",
+                "BgText": "Awards",
+                "stories": {
+                    "story1": "2011 - accepted into the National Union of Artists of Ukraine",
+                    "story2": "2012 - award ”Golden Palette”",
+                    "story3": "2016 - invitation with a personal project to the Council of Europe, Strasbourg (France)",
+                    "story4": "Many commendations and diplomas for participation in exhibitions and plein airs",
+                    "story5": "Works of the artist decorate private collections all over the world, as well as state institutions of Ukraine - for example, one of the paintings can be seen in the office of the President of Ukraine.",
+                    "storyImgAlt": "Andrei Cebotaru receives awards and recognition for his contribution to art"
+                }
+            }
         }
     }
 }

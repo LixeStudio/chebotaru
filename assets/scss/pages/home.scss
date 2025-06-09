@@ -2,344 +2,347 @@
 @use "../components/article-card";
 @use "../components/contact-us";
 @use "../components/gallery";
-.preview {
-  position: relative;
-  min-height: 37.5rem;
-  height: 100vh;
-  max-height: 75rem;
-  &__bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
 
-    width: 100%;
-    height: 100%;
-
-    background-image: url("../../images/pages/home/preview__bg-tablet.jpg");
-    background-position: center bottom;
-    background-size: cover;
-    background-repeat: no-repeat;
-
-    background-color: #000;
-    @media screen and (min-width: $tablet) {
-      background-image: url("../../images/pages/home/preview__bg.jpg");
-    }
-  }
-  &__container {
-    z-index: 2;
+.home-page {
+  .preview {
     position: relative;
-  }
-  &__title {
-    display: flex;
-    width: 100%;
-    align-items: center;
-    justify-content: center;
-    padding-top: 4.375rem;
-    & img {
-      object-fit: cover;
-      width: 100%;
-      height: 100%;
-      min-height: 4.8125rem;
-      max-width: 60.5625rem;
-      display: block;
-    }
-    @media screen and (min-width: $laptop) {
-      padding-top: 1.5rem;
-    }
-  }
-}
-
-.works {
-  &__container {
-    padding-top: 2.5rem;
-    padding-bottom: 2.5rem;
-  }
-  &__top {
-    position: relative;
-    margin: 0 auto;
-    margin-bottom: 5rem;
-    max-width: 52rem;
-  }
-  &__btn-toknow {
-    margin: 0 auto;
-  }
-  &__btn-view-all {
-    margin: 0 auto;
-  }
-}
-
-.title-works {
-  display: block;
-  margin: 0 0 2rem 0;
-  font-size: 2.5rem;
-  font-weight: 500;
-  line-height: 110%;
-  color: $Default-gray-900;
-  margin-right: 0.75rem;
-  &__row {
-    display: inline;
-    &.row-2 {
-      margin-left: auto;
-      width: fit-content;
-    }
-    & span {
-      font-size: 2.5rem;
-      font-weight: 500;
-      line-height: 110%;
-      color: $Default-gray-900;
-      margin-right: 0.75rem;
-    }
-  }
-  & span.big-yellow {
-    color: $Default-yellow-300;
-    font-size: 4rem;
-    font-weight: 700;
-  }
-}
-
-.pictures-works {
-  margin-bottom: 1.5rem;
-}
-
-@media screen and (min-width: ($tablet + 5rem)) {
-  .works {
-    &__container {
-      padding-top: 5rem;
-      padding-bottom: 5rem;
-    }
-    &__title {
-      margin-bottom: 0;
-    }
-    &__btn-toknow {
-      position: absolute;
-      left: 35rem;
-      bottom: 0;
-    }
-  }
-  .title-works {
-    &__row {
-      display: block;
-      font-size: 3rem;
-      & span {
-        color: $Default-gray-900;
-        font-size: 3rem;
-        margin-bottom: 0;
-      }
-      & span.big-yellow {
-        color: $Default-yellow-300;
-        font-size: 5rem;
-      }
-    }
-  }
-  .pictures-works {
-    margin-bottom: 2.5rem;
-  }
-}
-
-.blog {
-  margin-bottom: 5rem;
-  &__container {
-    display: flex;
-    position: relative;
-    gap: 2.5rem 1.25rem;
-    padding-top: 4.1875rem;
-    flex-wrap: wrap;
-  }
-  &__content {
-    flex: 1 0 25rem;
-  }
-  &__bg-text {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
-    color: $Default-yellow-300;
-    font-size: 15rem;
-    line-height: 75%;
-    font-family: "TT Disruptors";
-    user-select: none;
-    font-weight: 400;
-    opacity: 0.6;
-  }
-  &__title {
-    position: relative;
-    z-index: 2;
-    font-size: 2.125rem;
-    font-weight: 500;
-    line-height: 110%;
-    margin-bottom: 2.75rem;
-    white-space: break-spaces;
-  }
-  &__link {
-    z-index: 2;
-  }
-  &__articles {
-    display: flex;
-    position: relative;
-    justify-content: center;
-    z-index: 2;
-    gap: 2rem;
-    flex: 10 1 min-content;
-    flex-wrap: wrap;
-  }
-}
-
-@media screen and (min-width: ($tablet - 9.375rem)) {
-  .blog {
-    &__container {
-      padding-top: 8.25rem;
-    }
-    &__title {
-      font-size: 3rem;
-    }
-    &__bg-text {
-      font-size: 25rem;
-    }
-  }
-}
-
-// Family
-
-.family {
-  margin-bottom: 5rem;
-  &__top {
-    display: flex;
-    position: relative;
-    align-items: center;
-    min-height: 14.375rem;
-  }
-  &__quote {
-    position: relative;
-    z-index: 2;
-    font-size: 1.25rem;
-    text-indent: 6rem;
-    max-width: 36.1875rem;
-    line-height: 140%;
-    font-weight: 500;
-  }
-  &__bg-text {
-    position: absolute;
-    top: 0;
-    right: 0;
-    z-index: 1;
-    color: $Default-yellow-300;
-    font-size: 13rem;
-    line-height: 75%;
-    font-family: "TT Disruptors";
-    user-select: none;
-    font-weight: 400;
-    opacity: 0.6;
-  }
-  &__members {
-    display: flex;
-    gap: 2rem;
-    overflow-x: auto;
-    padding-bottom: 1rem;
-  }
-}
-
-.member-family {
-  flex: 1 1 auto;
-  min-width: 19.75rem;
-  max-width: 24.5rem;
-  width: 100%;
-  &__card {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
-  }
-  &__image {
-    position: relative;
-    width: 100%;
-    padding-top: 125%;
-    margin-bottom: 0.75rem;
-    img {
+    min-height: 37.5rem;
+    height: 100vh;
+    max-height: 75rem;
+    &__bg {
       position: absolute;
       top: 0;
       left: 0;
-      object-fit: cover;
+      z-index: 1;
+
+      width: 100%;
+      height: 100%;
+
+      background-image: url("../../images/pages/home/preview__bg-tablet.jpg");
+      background-position: center bottom;
+      background-size: cover;
+      background-repeat: no-repeat;
+
+      background-color: #000;
+      @media screen and (min-width: $tablet) {
+        background-image: url("../../images/pages/home/preview__bg.jpg");
+      }
+    }
+    &__container {
+      z-index: 2;
+      position: relative;
+    }
+    &__title {
+      display: flex;
+      width: 100%;
+      align-items: center;
+      justify-content: center;
+      padding-top: 4.375rem;
+      & img {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+        min-height: 4.8125rem;
+        max-width: 60.5625rem;
+        display: block;
+      }
+      @media screen and (min-width: $laptop) {
+        padding-top: 1.5rem;
+      }
+    }
+  }
+
+  .works {
+    &__container {
+      padding-top: 2.5rem;
+      padding-bottom: 2.5rem;
+    }
+    &__top {
+      position: relative;
+      margin: 0 auto;
+      margin-bottom: 5rem;
+      max-width: 52rem;
+    }
+    &__btn-toknow {
+      margin: 0 auto;
+    }
+    &__btn-view-all {
+      margin: 0 auto;
+    }
+  }
+
+  .title-works {
+    display: block;
+    margin: 0 0 2rem 0;
+    font-size: 2.5rem;
+    font-weight: 500;
+    line-height: 110%;
+    color: $Default-gray-900;
+    margin-right: 0.75rem;
+    &__row {
+      display: inline;
+      &.row-2 {
+        margin-left: auto;
+        width: fit-content;
+      }
+      & span {
+        font-size: 2.5rem;
+        font-weight: 500;
+        line-height: 110%;
+        color: $Default-gray-900;
+        margin-right: 0.75rem;
+      }
+    }
+    & span.big-yellow {
+      color: $Default-yellow-300;
+      font-size: 4rem;
+      font-weight: 700;
+    }
+  }
+
+  .pictures-works {
+    margin-bottom: 1.5rem;
+  }
+
+  @media screen and (min-width: ($tablet + 5rem)) {
+    .works {
+      &__container {
+        padding-top: 5rem;
+        padding-bottom: 5rem;
+      }
+      &__title {
+        margin-bottom: 0;
+      }
+      &__btn-toknow {
+        position: absolute;
+        left: 35rem;
+        bottom: 0;
+      }
+    }
+    .title-works {
+      &__row {
+        display: block;
+        font-size: 3rem;
+        & span {
+          color: $Default-gray-900;
+          font-size: 3rem;
+          margin-bottom: 0;
+        }
+        & span.big-yellow {
+          color: $Default-yellow-300;
+          font-size: 5rem;
+        }
+      }
+    }
+    .pictures-works {
+      margin-bottom: 2.5rem;
+    }
+  }
+
+  .blog {
+    margin-bottom: 5rem;
+    &__container {
+      display: flex;
+      position: relative;
+      gap: 2.5rem 1.25rem;
+      padding-top: 4.1875rem;
+      flex-wrap: wrap;
+    }
+    &__content {
+      flex: 1 0 25rem;
+    }
+    &__bg-text {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      color: $Default-yellow-300;
+      font-size: 15rem;
+      line-height: 75%;
+      font-family: "TT Disruptors";
+      user-select: none;
+      font-weight: 400;
+      opacity: 0.6;
+    }
+    &__title {
+      position: relative;
+      z-index: 2;
+      font-size: 2.125rem;
+      font-weight: 500;
+      line-height: 110%;
+      margin-bottom: 2.75rem;
+      white-space: break-spaces;
+    }
+    &__link {
+      z-index: 2;
+    }
+    &__articles {
+      display: flex;
+      position: relative;
+      justify-content: center;
+      z-index: 2;
+      gap: 2rem;
+      flex: 10 1 min-content;
+      flex-wrap: wrap;
+    }
+  }
+
+  @media screen and (min-width: ($tablet - 9.375rem)) {
+    .blog {
+      &__container {
+        padding-top: 8.25rem;
+      }
+      &__title {
+        font-size: 3rem;
+      }
+      &__bg-text {
+        font-size: 25rem;
+      }
+    }
+  }
+
+  // Family
+
+  .family {
+    margin-bottom: 5rem;
+    &__top {
+      display: flex;
+      position: relative;
+      align-items: center;
+      min-height: 14.375rem;
+    }
+    &__quote {
+      position: relative;
+      z-index: 2;
+      font-size: 1.25rem;
+      text-indent: 6rem;
+      max-width: 36.1875rem;
+      line-height: 140%;
+      font-weight: 500;
+    }
+    &__bg-text {
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 1;
+      color: $Default-yellow-300;
+      font-size: 13rem;
+      line-height: 75%;
+      font-family: "TT Disruptors";
+      user-select: none;
+      font-weight: 400;
+      opacity: 0.6;
+    }
+    &__members {
+      display: flex;
+      gap: 2rem;
+      overflow-x: auto;
+      padding-bottom: 1rem;
+    }
+  }
+
+  .member-family {
+    flex: 1 1 auto;
+    min-width: 19.75rem;
+    max-width: 24.5rem;
+    width: 100%;
+    &__card {
+      display: flex;
+      flex-direction: column;
       width: 100%;
       height: 100%;
     }
+    &__image {
+      position: relative;
+      width: 100%;
+      padding-top: 125%;
+      margin-bottom: 0.75rem;
+      img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+      }
+    }
+    &__name {
+      font-size: 1.25rem;
+      font-weight: 500;
+      line-height: 140%;
+      margin-bottom: 0.25rem;
+      flex: 1 1 auto;
+    }
+    &__bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    &__role {
+      color: $Default-gray-600;
+      font-size: 0.875rem;
+      line-height: 143%;
+    }
   }
-  &__name {
-    font-size: 1.25rem;
-    font-weight: 500;
-    line-height: 140%;
-    margin-bottom: 0.25rem;
-    flex: 1 1 auto;
-  }
-  &__bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  &__role {
-    color: $Default-gray-600;
-    font-size: 0.875rem;
-    line-height: 143%;
-  }
-}
 
-.contact-us {
-  position: relative;
-  &__container {
-    min-height: 65rem;
-    padding-top: 4.75rem;
-    padding-bottom: 4.75rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: end;
-    @media screen and (max-width: ($mobile + 6.25rem)) {
-      padding-right: 0;
-      padding-left: 0;
+  .contact-us {
+    position: relative;
+    &__container {
+      min-height: 65rem;
+      padding-top: 4.75rem;
+      padding-bottom: 4.75rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: end;
+      @media screen and (max-width: ($mobile + 6.25rem)) {
+        padding-right: 0;
+        padding-left: 0;
+      }
+    }
+    &__bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url("../../images/contact-us__bg.webp") no-repeat center;
+      background-size: cover;
+      background-attachment: fixed;
+      z-index: 0;
     }
   }
-  &__bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url("../../images/contact-us__bg.webp") no-repeat center;
-    background-size: cover;
-    background-attachment: fixed;
-    z-index: 0;
-  }
-}
 
-@media screen and (min-width: $mobile) {
-  .family {
-    &__quote {
-      font-size: 1.5rem;
+  @media screen and (min-width: $mobile) {
+    .family {
+      &__quote {
+        font-size: 1.5rem;
+      }
+      &__bg-text {
+        font-size: 15rem;
+      }
     }
-    &__bg-text {
-      font-size: 15rem;
-    }
-  }
-  .contact-us {
-    &__container {
-      min-height: 75rem;
-    }
-    &__line {
-      font-size: 11.625rem;
-    }
-  }
-}
-@media screen and (min-width: $tablet) {
-  .blog {
-    &__articles {
-      flex-wrap: nowrap;
+    .contact-us {
+      &__container {
+        min-height: 75rem;
+      }
+      &__line {
+        font-size: 11.625rem;
+      }
     }
   }
-  .family__bg-text {
-    font-size: 20rem;
-  }
-  .contact-us {
-    &__container {
-      min-height: 80rem;
+  @media screen and (min-width: $tablet) {
+    .blog {
+      &__articles {
+        flex-wrap: nowrap;
+      }
+    }
+    .family__bg-text {
+      font-size: 20rem;
+    }
+    .contact-us {
+      &__container {
+        min-height: 80rem;
+      }
     }
   }
 }

@@ -64,14 +64,18 @@
                 }}</NuxtLink>
               </li>
               <li class="burger-conent__li">
-                <NuxtLink class="burger-content__link" to="/catalog">{{
-                  t("header.burger.content.links.catalog")
-                }}</NuxtLink>
+                <NuxtLink
+                  class="burger-content__link"
+                  :to="localePath('/catalog')"
+                  >{{ t("header.burger.content.links.catalog") }}</NuxtLink
+                >
               </li>
               <li class="burger-conent__li">
-                <NuxtLink class="burger-content__link" to="/about-author">{{
-                  t("header.burger.content.links.aboutAuthor")
-                }}</NuxtLink>
+                <NuxtLink
+                  class="burger-content__link"
+                  :to="localePath('/about-artist')"
+                  >{{ t("header.burger.content.links.aboutAuthor") }}</NuxtLink
+                >
               </li>
               <li class="burger-conent__li">
                 <NuxtLink class="burger-content__link" to="/blog">{{

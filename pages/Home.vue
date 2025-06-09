@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="home-page">
     <Header />
     <main class="main">
       <PreviewSection />

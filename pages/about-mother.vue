@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="about-mother-page">
     <Header />
     <main class="main">
       <HeroSection />
