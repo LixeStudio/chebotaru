@@ -124,6 +124,26 @@
             }
         },
         "aboutMother": {
+            "heroSection": {
+                "heroTitle": "Tamara Chebotaru",
+                "heroRole": "Andrei Chebotaru's mother —",
+                "heroText": "Ukrainian artist, master of still life painting, who devoted her life to art and raising a creative family. Her paintings are permeated with color and light, and her pedagogical activity - a sincere love for young talents.",
+                "bgText": "Mother",
+                "heroImg": {
+                    "imgAlt": "Tamara Chebotaru is the mother of Ukrainian artist Andrei Chebotaru"
+                }
+            },
+            "careerTimelineSection": {
+                "title": "Education and Career",
+                "BgText": "Path",
+                "stories": {
+                    "story1": "Born May 7, 1954 in the village of Glubokoye, Odessa region.",
+                    "story2": "Graduated from the Faculty of Art and Graphic Arts of Odessa Pedagogical Institute. She studied under Prof. V. A. Gegomyan - a student of Martiros Saryan.",
+                    "story3": "In 1977 she began her professional activity in Sevastopol.",
+                    "story4": "Worked as a teacher in the art studio and artist-decorator in the cultural complex “Korabel”.",
+                    "story5": "Wife of the famous Crimean artist Nikolai Chebotaru."
+                }
+            },
             "recognitionSection": {
                 "title": "Creativity and Recognition",
                 "BgText": "Works",
