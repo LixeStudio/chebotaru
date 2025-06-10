@@ -354,6 +354,45 @@
                         "imgAlt": "Behind the scenes, 2023, 95×70cm. Written by Oleksii Chebotaru"
                     }
                 }
+            },
+            "heroBrothersWifeSection": {
+                "title": "Alla Kislyakova",
+                "role": "Spouse of Oleksii (Andrei Chebotaru's brother)",
+                "text": "Professional artist-painter, member of the Union of Artists of Ukraine. Her works cover such styles as Impressionism and Expressionism. Alla actively participates in exhibitions and art symposiums, and also conducts teaching activities in Ukraine and abroad.",
+                "bgText": "Wife",
+                "imgAlt": "Artist Alla Kislyakova, wife of Andrei Chebotaru's brother Oleksiy."
+            },
+            "infoCardsBrothersWifeSection": {
+                "card1": {
+                    "text": "Odessa Art School, Faculty of Design"
+                },
+                "card2": {
+                    "text": "Works in the genres of botanical graphics, illustration, decorative panel"
+                },
+                "card3": {
+                    "text": "Participant in collaborative exhibitions and art residencies"
+                },
+                "card4": {
+                    "text": "Conducts master classes and training courses on author's techniques"
+                }
+            },
+            "galleryBrothersWifeSection": {
+                "title": "Gallery of Alla Kislyakova's work",
+                "bgText": "Works",
+                "paintings": {
+                    "picture1": {
+                        "title": "Enchanted Forest",
+                        "imgAlt": "Alla Kislyakova's painting “Enchanted Forest”, 2020, 100×100 cm"
+                    },
+                    "picture2": {
+                        "title": "Luxury Flowers",
+                        "imgAlt": "Luxury Flowers” painting by Alla Kislyakova, 2020, 70×80 cm"
+                    },
+                    "picture3": {
+                        "title": "Feelings",
+                        "imgAlt": "Painting “Feelings” by Alla Kislyakova, 2020, 100×100 cm"
+                    }
+                }
             }
         }
     }
