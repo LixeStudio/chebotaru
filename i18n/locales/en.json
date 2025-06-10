@@ -307,6 +307,54 @@
                     "storyImgAlt": "Andrei Cebotaru receives awards and recognition for his contribution to art"
                 }
             }
+        },
+        "aboutOleksiiAndWife": {
+            "previewSection": {
+                "title": "Oleksii Chebotaru and Alla Kislyakova",
+                "imgAlt": "Oleksii Chebotaru and Alla Kislyakova joint photo."
+            },
+            "heroBrotherSection": {
+                "title": "Oleksii Chebotaru",
+                "role": "Andrei Chebotaru's Brother",
+                "text": "Ukrainian impressionist painter, a bright representative of the Crimean school of painting. His works are distinguished by lyricism, harmony of colors and light musicality. He actively participates in international exhibitions and auctions, and also teaches art in different countries.",
+                "bgText": "Brother",
+                "imgAlt": "Oleksii Chebotaru is the brother of Andrei Chebotaru, a Ukrainian impressionist painter."
+            },
+            "infoCardsSection": {
+                "card1": {
+                    "title": "Education and Career",
+                    "text1": "Graduated from the National Academy of Fine Arts and Architecture (Kiev) and Crimean Art College.",
+                    "text2": "Painting teacher with experience in Ukraine, China and Montenegro."
+                },
+                "card2": {
+                    "title": "Exhibitions and Achievements",
+                    "text1": "More than 40 solo exhibitions, participation in international art symposiums and plein airs.",
+                    "text2": "Works are in private collections in the USA, Germany, France, Great Britain and other countries."
+                },
+                "card3": {
+                    "title": "Style and Creativity",
+                    "text1": "Works in the genre of impressionism: landscape, still life, portrait, genre painting.",
+                    "text2": "Likes to work on Christian paintings and landscapes on plein air."
+                }
+            },
+            "galleryBrotherSection": {
+                "title": "Gallery of works by Oleksii Chebotaru",
+                "bgText": "Works",
+                "paintings": {
+                    "picture1": {
+                        "title": "Irises",
+                        "imgAlt": "Picture “Irises”, 2014, 120×80cm. Author - Oleksii Chebotaru"
+                    },
+                    "picture2": {
+                        "title": "Yachts in the Bay of Kotor",
+                        "imgAlt": "Yachts in the Bay of Kotor, 2012, 70×100cm. Author - Oleksii Chebotaru"
+                    },
+                    "picture3": {
+                        "title": "Behind the Scenes",
+                        "imgAlt": "Behind the scenes, 2023, 95×70cm. Written by Oleksii Chebotaru"
+                    }
+                }
+            }
         }
     }
 }

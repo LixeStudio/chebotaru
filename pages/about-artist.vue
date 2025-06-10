@@ -29,6 +29,8 @@ import HeroSection from "@/components/pages/aboutArtist/Hero-section.vue";
 const { t } = useI18n();
 const isWhiteTheme = useState("header-white-theme");
 isWhiteTheme.value = true;
+console.log(isWhiteTheme.value);
+
 const quoteText = t("pages.aboutArtist.quoteSection.text");
 const quoteAuthor = t("pages.aboutArtist.quoteSection.author");
 </script>

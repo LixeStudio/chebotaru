@@ -95,7 +95,7 @@
       <NuxtLink
         to="/"
         class="header__logo"
-        :class="{ 'opacity-0': isHome && !isLogoVisible }"
+        :class="{ 'opacity-0': isLogoHidden && !isLogoVisible }"
         :aria-label="t('header.logo.linkAriaLabel')"
       >
         <img
@@ -185,8 +185,11 @@ const isOpened = useState("burger-opened", () => false);
 const toggleMenu = () => {
   isOpened.value = !isOpened.value;
 };
-const isHome = computed(
-  () => route.name?.toString().startsWith("index") || route.path === "/"
+const isLogoHidden = computed(
+  () =>
+    route.name?.toString().startsWith("index") ||
+    route.path === "/" ||
+    route.name?.toString().startsWith("about-artist")
 );
 
 const { isLogoVisible } = useHeaderLogoVisibility();
