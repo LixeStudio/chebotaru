@@ -246,6 +246,40 @@
                 },
                 "text": "Andrei Chebotaru is an outstanding Ukrainian artist, a master of impressionistic landscape and still life. His works are distinguished by bold compositions, richness of color palette and bright emotional sound. He skillfully combines traditional techniques with individual vision, creating a pictorial symphony of poetry and the joy of being."
             },
+            "heroSection": {
+                "title": "Path in Art",
+                "text": "Andrei Chebotaru was born in 1984 in Sevastopol in an artistic family. His creative path began in early childhood - he grew up among brushes, canvases and sketchbooks. His artist parents, Nikolai and Tamara Chebotaru, became his first mentors.",
+                "text2": "Already at a young age Andriy began to learn the basics of composition, color and light, and in 2011, while still a student, became a member of the National Union of Artists of Ukraine.",
+                "bgText": "Path",
+                "imgAlt": "Artist Andrei Chebotaru at work on plein air in the mountains"
+            },
+            "inspirationMapSection": {
+                "title": "Geography of Inspiration",
+                "text": "Traveling is an important part of an artist's life. He believes that every landscape, every city, every accent of light can be the starting point for a new work.",
+                "bgText": "Inspiration",
+                "locations": {
+                    "location1": {
+                        "name": "Montenegro. Bay of Kotor",
+                        "imgAlt": "Montenegro landscape that inspired the artist"
+                    },
+                    "location2": {
+                        "name": "France. Bay of Biscay",
+                        "imgAlt": "French Bay of Biscay in picture"
+                    },
+                    "location3": {
+                        "name": "Croatia. Dubrovnik",
+                        "imgAlt": "Temple from Croatia"
+                    },
+                    "location4": {
+                        "name": "Turkey. Marmaris",
+                        "imgAlt": "Turkish landscape on canvas"
+                    },
+                    "location5": {
+                        "name": "Netherlands. Amsterdam",
+                        "imgAlt": "Amsterdam, landscape with bridge"
+                    }
+                }
+            },
             "heroReverseSection": {
                 "title": "Education and Style Formation",
                 "text": "His style palette includes the influence of Impressionism, a personal sense of color, and a desire to convey the mood of the moment. His painting combines an academic foundation with expressive color presentation as well as bold compositional decisions.",
