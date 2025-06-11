@@ -3,7 +3,7 @@
     <div class="contact-us__container">
       <div class="contact-us__bg" aria-hidden="true"></div>
 
-      <h2 class="contact-us__title">
+      <h2 v-if="showTitle" class="contact-us__title">
         <span class="contact-us__line">{{ t("contactUs.title.part1") }} </span>
         <span class="contact-us__line second">{{
           t("contactUs.title.part2")
@@ -44,6 +44,12 @@
 </template>
 
 <script setup>
+defineProps({
+  showTitle: {
+    type: Boolean,
+    default: true,
+  },
+});
 const { t } = useI18n();
 
 const email = useState("contact-email", () => "");

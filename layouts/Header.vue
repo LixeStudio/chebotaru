@@ -83,9 +83,11 @@
                 }}</NuxtLink>
               </li>
               <li class="burger-conent__li">
-                <NuxtLink class="burger-content__link" to="/contact-us">{{
-                  t("header.burger.content.links.contactUs")
-                }}</NuxtLink>
+                <NuxtLink
+                  class="burger-content__link"
+                  :to="localePath('/contacts')"
+                  >{{ t("header.burger.content.links.contactUs") }}</NuxtLink
+                >
               </li>
             </ul>
           </div>

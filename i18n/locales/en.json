@@ -394,6 +394,31 @@
                     }
                 }
             }
+        },
+        "contacts": {
+            "title": {
+                "part1": "Stay close",
+                "part2": "with my art"
+            },
+            "navAriaLabel": "Contact Information and Social Media",
+            "description": "If you would like to purchase a painting, invite to an exhibition or just have a few words, email me. I try to respond personally and as quickly as possible.",
+            "links": {
+                "mail": {
+                    "title": "Email",
+                    "ariaLabel": "Write to email"
+                },
+                "phone": {
+                    "title": "Phone",
+                    "ariaLabel": "Call the number +380679884402"
+                },
+                "social": {
+                    "title": "Social",
+                    "telegramAriaLabel": "Go to Telegram",
+                    "whatsappAriaLabel": "Open chat in WhatsApp",
+                    "instagramAriaLabel": "Go to Instagram",
+                    "youtubeAriaLabel": "Go to Youtube channel"
+                }
+            }
         }
     }
 }
