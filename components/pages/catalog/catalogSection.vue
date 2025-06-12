@@ -26,7 +26,7 @@
 import { ref } from "vue";
 import GalleryItem from "@/components/GalleryItem.vue";
 import FiltersMenu from "@/components/filtersMenu.vue";
-const props = defineProps({
+defineProps({
   filters: Object,
 });
 const ifFilterMenuOpened = ref(false);

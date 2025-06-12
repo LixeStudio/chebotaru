@@ -425,6 +425,44 @@
                 "title": "Галерея робіт",
                 "text": "Досліджуйте мої роботи, натхненні природою, світлом та емоціями.",
                 "bgText": "Каталог"
+            },
+            "catalogSection": {
+                "filterBtn": "Фільтри",
+                "filters": {
+                    "availability": {
+                        "available": "В наявності",
+                        "sold": "Продано"
+                    },
+                    "pictureOrientation": {
+                        "vertical": "Вертикальні",
+                        "horizontal": "Горизонтальні",
+                        "square": "Квадратні"
+                    },
+                    "dropdowns": {
+                        "price": {
+                            "title": "Ціна",
+                            "values": {
+                                "less300": "до $300"
+                            }
+                        },
+                        "pictureSize": {
+                            "title": "Розмір",
+                            "values": {
+                                "small": "Маленькі (до 30 см)",
+                                "middle": "Середні (30–70 см)",
+                                "big": "Великі (від 70 см)"
+                            }
+                        },
+                        "sortBy": {
+                            "title": "Сортувати за",
+                            "values": {
+                                "newPictures": "Спочатку нові",
+                                "cheapPictures": "Спочатку дешеві",
+                                "expensivePictures": "Спочатку дорогі"
+                            }
+                        }
+                    }
+                }
             }
         }
     }

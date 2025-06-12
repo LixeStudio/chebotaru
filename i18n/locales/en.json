@@ -425,6 +425,44 @@
                 "title": "Gallery of Works",
                 "text": "Explore my creations inspired by nature, light, and emotions.",
                 "bgText": "Каталог"
+            },
+            "catalogSection": {
+                "filterBtn": "Filters",
+                "filters": {
+                    "availability": {
+                        "available": "Available",
+                        "sold": "Sold"
+                    },
+                    "pictureOrientation": {
+                        "vertical": "Vertical",
+                        "horizontal": "Horizontal",
+                        "square": "Square"
+                    },
+                    "dropdowns": {
+                        "price": {
+                            "title": "Price",
+                            "values": {
+                                "less300": "under $300"
+                            }
+                        },
+                        "pictureSize": {
+                            "title": "Size",
+                            "values": {
+                                "small": "Small (up to 30 cm)",
+                                "middle": "Medium (30–70 cm)",
+                                "big": "Large (70+ cm)"
+                            }
+                        },
+                        "sortBy": {
+                            "title": "Sort by",
+                            "values": {
+                                "newPictures": "Newest first",
+                                "cheapPictures": "Cheapest first",
+                                "expensivePictures": "Most expensive first"
+                            }
+                        }
+                    }
+                }
             }
         }
     }

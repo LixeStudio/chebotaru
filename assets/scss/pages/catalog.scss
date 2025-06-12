@@ -75,6 +75,8 @@
   .filters-catalog {
     width: 100%;
     &__menu {
+      position: relative;
+      z-index: 2;
       display: none;
       padding: 0.75rem;
       background-color: $Default-gray-100;
@@ -116,6 +118,19 @@
       display: flex;
       flex-wrap: wrap;
       gap: 1.75rem;
+    }
+    &__dropdown-text {
+      line-height: 142.85%;
+      font-size: 0.875rem;
+      cursor: pointer;
+      position: relative;
+      width: 100%;
+      min-width: inherit;
+      word-wrap: break-word;
+      transition: opacity 0.3s ease;
+      &:hover {
+        opacity: 0.8;
+      }
     }
   }
 

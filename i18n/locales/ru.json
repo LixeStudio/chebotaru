@@ -456,13 +456,18 @@
                         "sortBy": {
                             "title": "Сортировать по",
                             "values": {
-                                "newPictures": "",
-                                "cheapPictures": "",
-                                "expensivePictures": ""
+                                "newPictures": "Сначала новые",
+                                "cheapPictures": "Сначала дешёвые",
+                                "expensivePictures": "Сначала дорогие"
                             }
                         }
                     }
                 }
+            }
+        },
+        "pictureDetails": {
+            "relatedWorks": {
+                "title": "Похожие работы"
             }
         }
     }

@@ -53,149 +53,168 @@
     <span class="filters-catalog__separator separator"></span>
     <div class="filters-catalog__bottom">
       <div class="filters-catalog__bottom-column">
-        <div class="dropdown-filter">
-          <button
-            class="dropdown-filter__toggle"
-            aria-haspopup="true"
-            aria-expanded="false"
-            aria-controls="filter-price-list"
-          >
-            Цена
-            <span class="dropdown-filter__icon"></span>
-          </button>
-
-          <div class="dropdown-filter__dropdown" id="filter-price-list" hidden>
-            <label for="11" class="dropdown-filter__option checkbox">
-              <input
-                type="checkbox"
-                class="dropdown-filter__checkbox"
-                id="11"
-              />
-              <span class="checkbox__custom"></span>
-
-              до $500
-            </label>
-            <label for="12" class="dropdown-filter__option checkbox">
-              <input
-                type="checkbox"
-                class="dropdown-filter__checkbox"
-                id="12"
-              />
-              <span class="checkbox__custom"></span>
-
-              $300–700
-            </label>
-            <label for="13" class="dropdown-filter__option checkbox">
-              <input
-                type="checkbox"
-                class="dropdown-filter__checkbox"
-                id="13"
-              />
-              <span class="checkbox__custom"></span>
-
-              $700+
-            </label>
-          </div>
-        </div>
-        <div class="dropdown-filter">
-          <button
-            class="dropdown-filter__toggle"
-            aria-haspopup="true"
-            aria-expanded="false"
-            aria-controls="filter-price-list"
-          >
-            Размер
-            <span class="dropdown-filter__icon"></span>
-          </button>
-
-          <div class="dropdown-filter__dropdown" id="filter-price-list" hidden>
-            <label for="14" class="dropdown-filter__option checkbox">
-              <input
-                type="checkbox"
-                class="dropdown-filter__checkbox"
-                id="14"
-              />
-              <span class="checkbox__custom"></span>
-
-              Маленькие (до 30 см)
-            </label>
-            <label for="15" class="dropdown-filter__option checkbox">
-              <input
-                type="checkbox"
-                class="dropdown-filter__checkbox"
-                id="15"
-              />
-              <span class="checkbox__custom"></span>
-
-              Средние (30–70 см)
-            </label>
-            <label for="16" class="dropdown-filter__option checkbox">
-              <input
-                type="checkbox"
-                class="dropdown-filter__checkbox"
-                id="16"
-              />
-              <span class="checkbox__custom"></span>
-
-              Большие (от 70 см)
-            </label>
-          </div>
-        </div>
+        <filterDropdown
+          :drop-downtitle="
+            t('pages.catalog.catalogSection.filters.dropdowns.price.title')
+          "
+          :dropdown-id="'price'"
+          :is-opened="isPriceDropdownOpened"
+          @toggle="toggleDropdown('priceDropdown')"
+        >
+          <inputCheckbox
+            id="priceLess300"
+            v-model="filters.price"
+            :label-text="
+              t(
+                'pages.catalog.catalogSection.filters.dropdowns.price.values.less300'
+              )
+            "
+            value="less-300"
+          />
+          <inputCheckbox
+            id="price300-700"
+            v-model="filters.price"
+            label-text="$300-700"
+            value="300-700"
+          />
+          <inputCheckbox
+            id="priceMore700"
+            v-model="filters.price"
+            label-text="$700+"
+            value="more-700"
+          />
+        </filterDropdown>
+        <filterDropdown
+          :drop-downtitle="
+            t(
+              'pages.catalog.catalogSection.filters.dropdowns.pictureSize.title'
+            )
+          "
+          :dropdown-id="'pictureSize'"
+          :is-opened="isPictureSizeDropdownOpened"
+          @toggle="toggleDropdown('pictureSize')"
+        >
+          <inputCheckbox
+            id="smallPictures"
+            v-model="filters.pictureSize"
+            :label-text="
+              t(
+                'pages.catalog.catalogSection.filters.dropdowns.pictureSize.values.small'
+              )
+            "
+            value="small"
+          />
+          <inputCheckbox
+            id="middlePictures"
+            v-model="filters.pictureSize"
+            :label-text="
+              t(
+                'pages.catalog.catalogSection.filters.dropdowns.pictureSize.values.middle'
+              )
+            "
+            value="middle"
+          />
+          <inputCheckbox
+            id="bigPictures"
+            v-model="filters.pictureSize"
+            :label-text="
+              t(
+                'pages.catalog.catalogSection.filters.dropdowns.pictureSize.values.big'
+              )
+            "
+            value="big"
+          />
+        </filterDropdown>
       </div>
       <div class="filters-catalog__bottom-column">
-        <div class="dropdown-filter">
-          <button
-            class="dropdown-filter__toggle"
-            aria-haspopup="true"
-            aria-expanded="false"
-            aria-controls="filter-price-list"
+        <filterDropdown
+          :drop-downtitle="
+            t('pages.catalog.catalogSection.filters.dropdowns.sortBy.title')
+          "
+          class="position-right"
+          :dropdown-id="'sortBy'"
+          :is-opened="isSortByDropdownOpened"
+          @toggle="toggleDropdown('sortByDropdown')"
+        >
+          <p
+            class="filters-catalog__dropdown-text"
+            @click="selectSortBy('newPictures')"
           >
-            Сортировать по
-            <span class="dropdown-filter__icon"></span>
-          </button>
-
-          <div class="dropdown-filter__dropdown" id="filter-price-list" hidden>
-            <label for="17" class="dropdown-filter__option checkbox">
-              <input
-                type="checkbox"
-                class="dropdown-filter__checkbox"
-                id="17"
-              />
-              <span class="checkbox__custom"></span>
-
-              Сначала новые
-            </label>
-            <label for="18" class="dropdown-filter__option checkbox">
-              <input
-                type="checkbox"
-                class="dropdown-filter__checkbox"
-                id="18"
-              />
-              <span class="checkbox__custom"></span>
-
-              Сначала дешёвые
-            </label>
-            <label for="19" class="dropdown-filter__option checkbox">
-              <input
-                type="checkbox"
-                class="dropdown-filter__checkbox"
-                id="19"
-              />
-              <span class="checkbox__custom"></span>
-
-              Сначала дорогие
-            </label>
-          </div>
-        </div>
+            {{
+              t(
+                "pages.catalog.catalogSection.filters.dropdowns.sortBy.values.newPictures"
+              )
+            }}
+          </p>
+          <p
+            class="filters-catalog__dropdown-text"
+            @click="selectSortBy('cheapPictures')"
+          >
+            {{
+              t(
+                "pages.catalog.catalogSection.filters.dropdowns.sortBy.values.cheapPictures"
+              )
+            }}
+          </p>
+          <p
+            class="filters-catalog__dropdown-text"
+            @click="selectSortBy('expensivePictures')"
+          >
+            {{
+              t(
+                "pages.catalog.catalogSection.filters.dropdowns.sortBy.values.expensivePictures"
+              )
+            }}
+          </p>
+        </filterDropdown>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
+import filterDropdown from "@/components/filterDropdown.vue";
 import inputCheckbox from "@/components/inputCheckbox.vue";
 const { t } = useI18n();
 const props = defineProps({
-  filters: Object,
+  filters: {
+    type: Object,
+    required: true,
+  },
 });
+
+const closeAllDropdowns = (exceptType) => {
+  if (isPriceDropdownOpened.value && exceptType !== "priceDropdown") {
+    isPriceDropdownOpened.value = false;
+  } else if (
+    isPictureSizeDropdownOpened.value &&
+    exceptType !== "pictureSize"
+  ) {
+    isPictureSizeDropdownOpened.value = false;
+  } else if (isSortByDropdownOpened.value && exceptType !== "sortByDropdown") {
+    isSortByDropdownOpened.value = false;
+  }
+};
+
+const toggleDropdown = (type) => {
+  closeAllDropdowns(type);
+  if (type === "priceDropdown") {
+    isPriceDropdownOpened.value = !isPriceDropdownOpened.value;
+  }
+  if (type === "pictureSize") {
+    isPictureSizeDropdownOpened.value = !isPictureSizeDropdownOpened.value;
+  }
+  if (type === "sortByDropdown") {
+    isSortByDropdownOpened.value = !isSortByDropdownOpened.value;
+  }
+};
+
+const isPriceDropdownOpened = ref(false);
+const isPictureSizeDropdownOpened = ref(false);
+const isSortByDropdownOpened = ref(false);
+
+const selectSortBy = (sortBy) => {
+  closeAllDropdowns();
+  props.filters.sortBy = sortBy;
+};
 </script>
