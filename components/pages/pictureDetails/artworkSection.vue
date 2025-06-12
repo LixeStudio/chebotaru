@@ -2,8 +2,8 @@
   <article class="artwork">
     <div class="artwork__container">
       <figure class="artwork__image">
-        <img
-          src="./public/images/pages/home/picture_1.jpg"
+        <NuxtImg
+          src="/images/pages/home/picture_1.jpg"
           alt="Картина Безграничная свобода художника XYZ"
           width="854"
           height="621"
@@ -32,11 +32,36 @@
         </dl>
         <div class="artwork__body-bottom">
           <p class="artwork__price">$1,780</p>
-          <button class="artwork__btn btn-circle">Купить</button>
+          <button class="artwork__btn btn-circle" @click="emit('togglePopup')">
+            {{ t("pages.pictureDetails.artworkSection.buyBtn") }}
+          </button>
         </div>
       </section>
     </div>
   </article>
 </template>
 
-<script setup></script>
+<script setup>
+const emit = defineEmits(["togglePopup"]);
+defineProps({
+  picture: {
+    type: Object,
+    required: true,
+  },
+});
+
+const { t } = useI18n();
+
+const year = t("pages.pictureDetails.artworkSection.details.year");
+const size = t("pages.pictureDetails.artworkSection.details.size");
+const material = t("pages.pictureDetails.artworkSection.details.material");
+const style = t("pages.pictureDetails.artworkSection.details.style");
+
+const translationsObject = {
+  year,
+  size,
+  material,
+  style,
+};
+console.log(translationsObject);
+</script>

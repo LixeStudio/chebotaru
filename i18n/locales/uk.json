@@ -66,6 +66,26 @@
             "inputPlaceholder": "Куди слати натхнення?"
         }
     },
+    "popup": {
+        "btnCloseAriaLabel": "Закрити вікно",
+        "title": "Радий, що вас зацікавила ця робота!",
+        "subtitle": "Щоб обговорити покупку або поставити запитання — просто напишіть мені зручним способом:",
+        "links": {
+            "telegram": {
+                "text": "Написати в Telegram",
+                "imgAlt": "Написати в Telegram"
+            },
+            "whatsapp": {
+                "text": "Написати в WhatsApp",
+                "imgAlt": "Написати в WhatsApp"
+            },
+            "email": {
+                "text": "Написати на email",
+                "imgAlt": "Надіслати листа на email"
+            }
+        },
+        "text": "Я відповідаю особисто та завжди відкритий до діалогу"
+    },
     "pages": {
         "home": {
             "previewSection": {
@@ -463,6 +483,20 @@
                         }
                     }
                 }
+            }
+        },
+        "pictureDetails": {
+            "artworkSection": {
+                "buyBtn": "Купити",
+                "details": {
+                    "year": "Рік",
+                    "size": "Розмір",
+                    "material": "Матеріали",
+                    "style": "Стиль"
+                }
+            },
+            "relatedWorks": {
+                "title": "Схожі роботи"
             }
         }
     }

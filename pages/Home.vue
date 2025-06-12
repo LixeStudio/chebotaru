@@ -14,7 +14,7 @@
 
 <script setup>
 import Header from "@/layouts/Header.vue";
-import PreviewSection from "@/components/pages/home/Preview-section.vue";
+import PreviewSection from "@/components/pages/home/Preview-Section.vue";
 import WorksSection from "@/components/pages/home/Works-Section.vue";
 import BlogSection from "@/components/pages/home/Blog-section.vue";
 import FamilySection from "@/components/pages/home/Family-section.vue";

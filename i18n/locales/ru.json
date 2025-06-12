@@ -66,6 +66,26 @@
             "inputPlaceholder": "Куда слать вдохновение?"
         }
     },
+    "popup": {
+        "btnCloseAriaLabel": "Закрыть окно",
+        "title": "Рад, что вас зацепила эта работа!",
+        "subtitle": "Чтобы обсудить покупку или задать вопрос — просто напишите мне удобным способом:",
+        "links": {
+            "telegram": {
+                "text": "Написать в Telegram",
+                "imgAlt": "Написать в Telegram"
+            },
+            "whatsapp": {
+                "text": "Написать в WhatsApp",
+                "imgAlt": "Написать в WhatsApp"
+            },
+            "email": {
+                "text": "Написать на email",
+                "imgAlt": "Отправить письмо на email"
+            }
+        },
+        "text": "Я отвечаю лично и всегда открыт к диалог"
+    },
     "pages": {
         "home": {
             "previewSection": {
@@ -466,6 +486,15 @@
             }
         },
         "pictureDetails": {
+            "artworkSection": {
+                "buyBtn": "Купить",
+                "details": {
+                    "year": "Год",
+                    "size": "Размер",
+                    "material": "Материалы",
+                    "style": "Стиль"
+                }
+            },
             "relatedWorks": {
                 "title": "Похожие работы"
             }

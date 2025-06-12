@@ -66,6 +66,26 @@
             "inputPlaceholder": "Where do I send my inspiration?"
         }
     },
+    "popup": {
+        "btnCloseAriaLabel": "Close popup",
+        "title": "Glad this piece caught your eye!",
+        "subtitle": "To discuss the purchase or ask a question — just message me in any way you prefer:",
+        "links": {
+            "telegram": {
+                "text": "Message on Telegram",
+                "imgAlt": "Message on Telegram"
+            },
+            "whatsapp": {
+                "text": "Message on WhatsApp",
+                "imgAlt": "Message on WhatsApp"
+            },
+            "email": {
+                "text": "Send an email",
+                "imgAlt": "Send an email"
+            }
+        },
+        "text": "I reply personally and am always open to a conversation"
+    },
     "pages": {
         "home": {
             "previewSection": {
@@ -463,6 +483,20 @@
                         }
                     }
                 }
+            }
+        },
+        "pictureDetails": {
+            "artworkSection": {
+                "buyBtn": "Buy",
+                "details": {
+                    "year": "Year",
+                    "size": "Size",
+                    "material": "Materials",
+                    "style": "Style"
+                }
+            },
+            "relatedWorks": {
+                "title": "Related works"
             }
         }
     }

@@ -1,7 +1,6 @@
 @use "../utils/variables" as *;
 
 .contacts-popup {
-  display: none;
   &__overlay {
     position: fixed;
     top: 0;

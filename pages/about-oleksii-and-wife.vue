@@ -18,7 +18,7 @@
 <script setup>
 import Header from "@/layouts/Header.vue";
 import PreviewSection from "@/components/pages/aboutOleksiiAndWife/previewSection.vue";
-import HeroBrotherSection from "~/components/pages/aboutOleksiiAndWife/heroBrotherSection.vue";
+import HeroBrotherSection from "@/components/pages/aboutOleksiiAndWife/HeroBrotherSection.vue";
 import InfoCardsSection from "@/components/pages/aboutOleksiiAndWife/infoCardsSection.vue";
 import GalleryBrotherSection from "@/components/pages/aboutOleksiiAndWife/galleryBrotherSection.vue";
 import HeroBrothersWifeSection from "@/components/pages/aboutOleksiiAndWife/heroBrothersWifeSection.vue";
