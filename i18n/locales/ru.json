@@ -419,6 +419,51 @@
                     "youtubeAriaLabel": "Перейти на Youtube-канал"
                 }
             }
+        },
+        "catalog": {
+            "heroSection": {
+                "title": "Галерея работ",
+                "text": "Исследуйте мои работы, вдохновленные природой, светом и эмоциями.",
+                "bgText": "Каталог"
+            },
+            "catalogSection": {
+                "filterBtn": "Фильтры",
+                "filters": {
+                    "availability": {
+                        "available": "В наличии",
+                        "sold": "Продано"
+                    },
+                    "pictureOrientation": {
+                        "vertical": "Вертикальные",
+                        "horizontal": "Горизонтальные",
+                        "square": "Квадратные"
+                    },
+                    "dropdowns": {
+                        "price": {
+                            "title": "Цена",
+                            "values": {
+                                "less300": "до $300"
+                            }
+                        },
+                        "pictureSize": {
+                            "title": "Размер",
+                            "values": {
+                                "small": "Маленькие (до 30 см)",
+                                "middle": "Средние (30–70 см)",
+                                "big": "Большие (от 70 см)"
+                            }
+                        },
+                        "sortBy": {
+                            "title": "Сортировать по",
+                            "values": {
+                                "newPictures": "",
+                                "cheapPictures": "",
+                                "expensivePictures": ""
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

@@ -419,6 +419,13 @@
                     "youtubeAriaLabel": "Go to Youtube channel"
                 }
             }
+        },
+        "catalog": {
+            "heroSection": {
+                "title": "Gallery of Works",
+                "text": "Explore my creations inspired by nature, light, and emotions.",
+                "bgText": "Каталог"
+            }
         }
     }
 }

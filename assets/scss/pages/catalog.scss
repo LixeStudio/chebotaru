@@ -3,162 +3,163 @@
 @use "../components/dropdown-filter";
 @use "../components/gallery";
 
-.hero {
-  &__container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 7.1875rem;
-    padding-bottom: 3.125rem;
-  }
-  &__title {
-    font-size: 2.125rem;
-    font-weight: 500;
-    line-height: 117.5%;
-    text-align: center;
-    margin-bottom: 0.75rem;
-  }
-  &__text {
-    line-height: 150%;
-    text-align: center;
-    max-width: 22.5rem;
-  }
-  &__bg-text {
-    z-index: -1;
-    text-align: center;
-    position: absolute;
-    top: 4.7rem;
-    right: 0;
-    left: 0;
-    font-family: "TT Disruptors";
-    font-size: 15rem;
-    line-height: 93.75%;
-    color: $Default-yellow-300;
-    opacity: 0.6;
-    user-select: none;
-  }
-}
-
-.contact-us {
-  &__container {
-    min-height: 65rem;
-    padding-top: 4.75rem;
-    padding-bottom: 4.75rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: end;
-    @media screen and (max-width: ($mobile + 6.25rem)) {
-      padding-right: 0;
-      padding-left: 0;
-    }
-  }
-  &__bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url("../../images/contact-us__bg.webp") no-repeat center;
-    background-size: cover;
-    background-attachment: fixed;
-    z-index: 0;
-  }
-}
-.catalog {
-  &__filters {
-    margin-bottom: 2rem;
-  }
-  &__pictures {
-    margin-bottom: 2rem;
-  }
-}
-.filters-catalog {
-  width: 100%;
-  &__menu {
-    display: none;
-    padding: 0.75rem;
-    background-color: $Default-gray-100;
-    border: 0.05rem solid $Default-gray-200;
-    border-radius: 0.5rem;
-    &.opened {
-      display: block;
-    }
-  }
-  &__top {
-    display: flex;
-    align-items: start;
-    justify-content: space-between;
-    gap: 0.75rem;
-    flex-wrap: wrap;
-  }
-  &__top-column {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    gap: 1.5rem;
-    flex: 1 1 auto;
-  }
-  &__separator {
-    margin: 1rem 0;
-  }
-  &__filter-btn {
-    margin-left: auto;
-    margin-bottom: 0.25rem;
-  }
-  &__bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-  }
-  &__bottom-column {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.75rem;
-  }
-}
-
-@media screen and (min-width: $mobile) {
+.catalog-page {
   .hero {
     &__container {
-      padding-top: 10.125rem;
-      padding-bottom: 5.375rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 7.1875rem;
+      padding-bottom: 3.125rem;
     }
     &__title {
-      margin-bottom: 1.25rem;
-      font-size: 3rem;
+      font-size: 2.125rem;
+      font-weight: 500;
+      line-height: 117.5%;
+      text-align: center;
+      margin-bottom: 0.75rem;
     }
     &__text {
-      font-size: 1.125rem;
-      line-height: 155%;
+      line-height: 150%;
+      text-align: center;
+      max-width: 22.5rem;
     }
     &__bg-text {
-      font-size: 25rem;
+      z-index: 0;
+      text-align: center;
+      top: 4.7rem;
+      right: 0;
+      left: 0;
+      width: 100%;
+
+      font-size: 15rem;
+      line-height: 93.75%;
+
+      user-select: none;
+    }
+  }
+
+  .contact-us {
+    &__container {
+      min-height: 65rem;
+      padding-top: 4.75rem;
+      padding-bottom: 4.75rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: end;
+      @media screen and (max-width: ($mobile + 6.25rem)) {
+        padding-right: 0;
+        padding-left: 0;
+      }
+    }
+    &__bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url("../../images/contact-us__bg.webp") no-repeat center;
+      background-size: cover;
+      background-attachment: fixed;
+      z-index: 0;
     }
   }
   .catalog {
     &__filters {
-      margin-bottom: 3.75rem;
+      margin-bottom: 2rem;
     }
     &__pictures {
-      margin-bottom: 3.75rem;
+      margin-bottom: 2rem;
     }
   }
   .filters-catalog {
+    width: 100%;
     &__menu {
-      display: block;
-      padding: 0;
-      background-color: transparent;
-      border: none;
+      display: none;
+      padding: 0.75rem;
+      background-color: $Default-gray-100;
+      border: 0.05rem solid $Default-gray-200;
+      border-radius: 0.5rem;
+      &.opened {
+        display: block;
+      }
+    }
+    &__top {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 0.75rem;
+      flex-wrap: wrap;
     }
     &__top-column {
-      flex-direction: row;
-      flex: 0 1 auto;
-      gap: 0.75rem 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: column;
+      gap: 1.5rem;
+      flex: 1 1 auto;
+    }
+    &__separator {
+      margin: 1rem 0;
     }
     &__filter-btn {
-      display: none;
+      margin-left: auto;
+      margin-bottom: 0.25rem;
+    }
+    &__bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    &__bottom-column {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.75rem;
+    }
+  }
+
+  @media screen and (min-width: $mobile) {
+    .hero {
+      &__container {
+        padding-top: 10.125rem;
+        padding-bottom: 5.375rem;
+      }
+      &__title {
+        margin-bottom: 1.25rem;
+        font-size: 3rem;
+      }
+      &__text {
+        font-size: 1.125rem;
+        line-height: 155%;
+      }
+      &__bg-text {
+        font-size: 25rem;
+      }
+    }
+    .catalog {
+      &__filters {
+        margin-bottom: 3.75rem;
+      }
+      &__pictures {
+        margin-bottom: 3.75rem;
+      }
+    }
+    .filters-catalog {
+      &__menu {
+        display: block;
+        padding: 0;
+        background-color: transparent;
+        border: none;
+      }
+      &__top-column {
+        flex-direction: row;
+        flex: 0 1 auto;
+        gap: 0.75rem 1.5rem;
+      }
+      &__filter-btn {
+        display: none;
+      }
     }
   }
 }

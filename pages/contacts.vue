@@ -20,5 +20,5 @@ isWhiteTheme.value = false;
 </script>
 
 <style lang="scss">
-@use "@/assets/scss/pages/contact-us.scss";
+@use "@/assets/scss/pages/contacts.scss";
 </style>
