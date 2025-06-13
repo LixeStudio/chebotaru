@@ -1,36 +1,42 @@
-import { onMounted, onBeforeUnmount, watch, type Ref } from 'vue'
+import { onMounted, onBeforeUnmount, watch, type Ref } from 'vue';
 
 export function useBodyScrollLock(shouldLock: Ref<boolean> | boolean) {
+
     const lockScroll = () => {
-        document.body.classList.add('scroll-locked')
-    }
+        const scrollbarWidth = getScrollbarWidth();
+        document.body.style.paddingRight = `${scrollbarWidth}px`;
+        document.body.classList.add('scroll-locked');
+
+    };
 
     const unlockScroll = () => {
-        document.body.classList.remove('scroll-locked')
-    }
+        document.body.style.paddingRight = '';
+        document.body.classList.remove('scroll-locked');
 
-    let stopWatcher: (() => void) | null = null
+    };
+
+    const getScrollbarWidth = () => {
+        return window.innerWidth - document.documentElement.clientWidth;
+    };
 
     onMounted(() => {
-        if (typeof shouldLock === 'boolean') {
-            if (shouldLock) lockScroll()
-        } else {
-            // начальное состояние
-            if (shouldLock.value) lockScroll()
 
-            // слежение за изменениями
-            stopWatcher = watch(shouldLock, (newVal) => {
+
+        const lock = typeof shouldLock === 'boolean' ? shouldLock : shouldLock.value;
+        if (lock) lockScroll();
+
+        if (typeof shouldLock !== 'boolean') {
+            watch(shouldLock, (newVal) => {
                 if (newVal) {
                     lockScroll()
                 } else {
                     unlockScroll()
                 }
-            })
+            });
         }
-    })
+    });
 
     onBeforeUnmount(() => {
-        unlockScroll()
-        if (stopWatcher) stopWatcher()
-    })
+        unlockScroll();
+    });
 }

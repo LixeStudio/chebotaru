@@ -178,7 +178,6 @@
 <script setup>
 import { useHeaderLogoVisibility } from "@/composables/useHeaderLogoVisibility";
 import { useRoute, useRouter } from "vue-router";
-import { useBodyScrollLock } from "@/composables/useBodyScrollLock";
 const localePath = useLocalePath();
 const { t, locale, setLocale } = useI18n();
 const route = useRoute();
@@ -186,7 +185,6 @@ const router = useRouter();
 const isWhiteTheme = useState("header-white-theme", () => false);
 const isSticky = useState("header-is-sticky");
 const isOpened = useState("burger-opened", () => false);
-useBodyScrollLock(isOpened);
 const toggleMenu = () => {
   isOpened.value = !isOpened.value;
 };

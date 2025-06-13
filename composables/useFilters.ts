@@ -1,65 +1,66 @@
+import { useRoute, useRouter } from 'vue-router'
+import { ref, watch } from 'vue'
+import type { LocationQuery } from 'vue-router'
+type FilterValue = string | string[]
 
-import { useRoute, useRouter } from 'vue-router';
-import { ref, watch } from 'vue';
+export function useFilters<T extends Record<string, FilterValue>>(initialFilters: T) {
+    const route = useRoute()
+    const router = useRouter()
 
-export function useFilters() {
-    const route = useRoute();
-    const router = useRouter();
+    const filters = ref<T>(structuredClone(initialFilters)) // безопасная инициализация
 
-    interface Filters {
-        price: string[];
-        pictureSize: string[];
-        sortBy: string;
-        pictureOrientation: string[];
-        availability: string[];
+    const parseQueryToFilters = (query: LocationQuery): T => {
+        const parsedFilters = {} as T
+
+        for (const key in initialFilters) {
+            const defaultValue = initialFilters[key]
+            const queryValue = query[key]
+
+            if (Array.isArray(defaultValue)) {
+                parsedFilters[key] = (queryValue?.toString().split(',') || []) as T[typeof key]
+            } else {
+                parsedFilters[key] = (queryValue?.toString() || '') as T[typeof key]
+            }
+        }
+
+        return parsedFilters
     }
-    const filters = ref<Filters>({
-        price: [],
-        pictureSize: [],
-        sortBy: "",
-        pictureOrientation: [],
-        availability: [],
-    });
 
-    // Инициализация фильтров из query при загрузке страницы и изменении URL
+    const stringifyFiltersToQuery = (currentFilters: T): Record<string, string | undefined> => {
+        const query: Record<string, string | undefined> = {}
+
+        for (const key in currentFilters) {
+            const value = currentFilters[key]
+            if (Array.isArray(value)) {
+                query[key] = value.length ? value.join(',') : undefined
+            } else {
+                query[key] = value || undefined
+            }
+        }
+
+        return query
+    }
+
+    // ✅ Синхронизация query → filters
     watch(
         () => route.query,
         (query) => {
-            filters.value = {
-                price: query.price?.toString().split(',') || [],
-                pictureSize: query.pictureSize?.toString().split(',') || [],
-                sortBy: query.sortBy?.toString() || '',
-                pictureOrientation: query.pictureOrientation?.toString().split(',') || [],
-                availability: query.availability?.toString().split(',') || [],
-            };
+            filters.value = parseQueryToFilters(query)
         },
         { immediate: true }
-    );
+    )
 
-    // Синхронизация фильтров с URL при их изменении
+    // ✅ Синхронизация filters → query
     watch(
         filters,
         (newFilters) => {
-            const query = {
-                ...route.query,
-                price: newFilters.price.join(',') || undefined,
-                pictureSize: newFilters.pictureSize.join(',') || undefined,
-                sortBy: newFilters.sortBy || undefined,
-                pictureOrientation: newFilters.pictureOrientation.join(',') || undefined,
-                availability: newFilters.availability.join(',') || undefined,
-            };
-
-            Object.keys(query).forEach((key) => {
-                const typedKey = key as keyof typeof query;
-                if (!query[typedKey])
-                    // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
-                    delete query[typedKey];;
-            });
-
-            router.replace({ query });
+            const query = stringifyFiltersToQuery(newFilters)
+            router.replace({ query })
         },
         { deep: true }
-    );
+    )
 
-    return { filters };
+    return {
+        filters,
+    }
 }

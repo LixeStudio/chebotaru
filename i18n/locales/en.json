@@ -498,6 +498,21 @@
             "relatedWorks": {
                 "title": "Related works"
             }
+        },
+        "blog": {
+            "heroSection": {
+                "title": "On Art, Exhibitions, and Inspiration",
+                "text": "Welcome to my blog! Here I share new works, talk about the creative process, upcoming exhibitions, and offer thoughts on the life of an artist. Join me on my creative journey and stay up to date with all the news.",
+                "bgText": "Blog"
+            },
+            "blogSection": {
+                "filters": {
+                    "aboutPictures": "About the Artworks",
+                    "interview": "Interviews",
+                    "exhibitions": "Exhibitions",
+                    "inspiration": "Inspiration"
+                }
+            }
         }
     }
 }

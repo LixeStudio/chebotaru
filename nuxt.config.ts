@@ -24,5 +24,10 @@ export default defineNuxtConfig({
       { code: 'en', name: 'English', iso: 'en-US', file: 'en.json' }
     ],
     detectBrowserLanguage: false,
+  },
+  runtimeConfig: {
+    public: {
+      STRAPI_URL: process.env.NUXT_PUBLIC_STRAPI_URL
+    }
   }
 })
