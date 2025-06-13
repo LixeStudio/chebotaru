@@ -70,3 +70,20 @@ export async function fetchPictureBySlug(
         return null;
     }
 }
+
+export async function fetchAllPictures(locale: string): Promise<void> {
+    const config = useRuntimeConfig();
+
+    try {
+        const res = await $fetch<StrapiPictureResponse>(`${config.public.STRAPI_URL}/pictures`, {
+            params: {
+                locale,
+                populate: '*',
+            },
+        });
+
+        console.log('All pictures:', res.data);
+    } catch (e) {
+        console.error('Ошибка при получении всех картин:', e);
+    }
+}

@@ -28,7 +28,10 @@
             {{ t("pages.home.worksSection.title.row3.textPart2") }}
           </span>
         </h2>
-        <NuxtLink to="/about-author" class="works__btn-toknow btn-circle">
+        <NuxtLink
+          :to="localePath('/about-artist')"
+          class="works__btn-toknow btn-circle"
+        >
           {{ t("pages.home.worksSection.btnToKnow") }}
         </NuxtLink>
       </div>
@@ -46,5 +49,6 @@
 
 <script setup>
 import GalleryItem from "@/components/GalleryItem.vue";
+const localePath = useLocalePath();
 const { t } = useI18n();
 </script>

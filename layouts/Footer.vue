@@ -2,7 +2,7 @@
   <footer class="footer">
     <div class="footer__container">
       <NuxtLink
-        to="/"
+        :to="localePath('/')"
         class="footer__logo"
         :aria-label="t('header.logo.linkAriaLabel')"
       >
@@ -39,30 +39,38 @@
             <h3 class="links-footer__title">
               {{ t("footer.links.aboutAuthor.title") }}
             </h3>
-            <NuxtLink to="/catalog" class="links-footer__link">{{
+            <NuxtLink :to="localePath('/catalog')" class="links-footer__link">{{
               t("footer.links.aboutAuthor.catalog")
             }}</NuxtLink>
-            <NuxtLink to="/about-autho" class="links-footer__link">{{
-              t("footer.links.aboutAuthor.aboutArtist")
-            }}</NuxtLink>
+            <NuxtLink
+              :to="localePath('/about-artist')"
+              class="links-footer__link"
+              >{{ t("footer.links.aboutAuthor.aboutArtist") }}</NuxtLink
+            >
             <NuxtLink to="/blog" class="links-footer__link">{{
               t("footer.links.aboutAuthor.blog")
             }}</NuxtLink>
-            <NuxtLink to="/contacts" class="links-footer__link">{{
-              t("footer.links.aboutAuthor.contacts")
-            }}</NuxtLink>
+            <NuxtLink
+              :to="localePath('/contacts')"
+              class="links-footer__link"
+              >{{ t("footer.links.aboutAuthor.contacts") }}</NuxtLink
+            >
           </li>
           <li class="links-footer__column">
             <h3 class="links-footer__title">
               {{ t("footer.links.family.title") }}
             </h3>
-            <NuxtLink to="/about-mother" class="links-footer__link">{{
-              t("footer.links.family.mother")
-            }}</NuxtLink>
-            <NuxtLink to="/about-father" class="links-footer__link">{{
-              t("footer.links.family.father")
-            }}</NuxtLink>
-            <NuxtLink to="/" class="links-footer__link">{{
+            <NuxtLink
+              :to="localePath('/about-mother')"
+              class="links-footer__link"
+              >{{ t("footer.links.family.mother") }}</NuxtLink
+            >
+            <NuxtLink
+              :to="localePath('/about-father')"
+              class="links-footer__link"
+              >{{ t("footer.links.family.father") }}</NuxtLink
+            >
+            <NuxtLink :to="localePath('/')" class="links-footer__link">{{
               t("footer.links.family.brother")
             }}</NuxtLink>
           </li>
@@ -112,5 +120,6 @@
 </template>
 
 <script setup>
+const localePath = useLocalePath();
 const { t } = useI18n();
 </script>
