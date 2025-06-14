@@ -15,7 +15,7 @@
       </div>
       <div class="catalog__pictures pictures-catalog gallery">
         <ul class="pictures-catalog__list gallery__list">
-          <GalleryItem v-for="a in 6" :key="a" />
+          <GalleryItem v-for="pic in pictures" :key="pic.slug" :picture="pic" />
         </ul>
       </div>
     </div>
@@ -27,7 +27,14 @@ import { ref } from "vue";
 import GalleryItem from "@/components/GalleryItem.vue";
 import FiltersMenu from "@/components/filtersMenu.vue";
 defineProps({
-  filters: Object,
+  filters: {
+    type: Object,
+    required: true,
+  },
+  pictures: {
+    type: Array,
+    required: true,
+  },
 });
 const ifFilterMenuOpened = ref(false);
 

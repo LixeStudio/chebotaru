@@ -17,7 +17,7 @@ export type Picture = {
     details: {
         year: string
         size: string
-        material?: string
+        material: string
         style: string
     }
 
