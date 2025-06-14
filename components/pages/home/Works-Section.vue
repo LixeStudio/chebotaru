@@ -37,7 +37,7 @@
       </div>
       <div class="works__pictures pictures-works gallery">
         <ul class="pictures-works__list gallery__list">
-          <GalleryItem v-for="a in 6" :key="a" />
+          <!-- <GalleryItem v-for="a in 6" :key="a" /> -->
         </ul>
       </div>
       <NuxtLink to="/catalog" class="works__btn-view-all btn-circle">

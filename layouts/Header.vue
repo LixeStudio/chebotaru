@@ -1,7 +1,10 @@
 <template>
   <header
     ref="headerRef"
-    :class="['header', { sticky: isSticky, 'white-theme': isWhiteTheme }]"
+    :class="[
+      'header',
+      isClient && { sticky: isSticky, 'white-theme': isWhiteTheme },
+    ]"
   >
     <div class="header__container">
       <button
@@ -176,12 +179,18 @@
 </template>
 
 <script setup>
+import { onMounted } from "vue";
 import { useHeaderLogoVisibility } from "@/composables/useHeaderLogoVisibility";
 import { useRoute, useRouter } from "vue-router";
 const localePath = useLocalePath();
 const { t, locale, setLocale } = useI18n();
 const route = useRoute();
 const router = useRouter();
+const isClient = ref(false);
+
+onMounted(() => {
+  isClient.value = true;
+});
 const isWhiteTheme = useState("header-white-theme", () => false);
 const isSticky = useState("header-is-sticky");
 const isOpened = useState("burger-opened", () => false);

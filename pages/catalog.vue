@@ -25,9 +25,6 @@ isWhiteTheme.value = false;
 
 const locale = useI18n().locale.value;
 const pictures = await fetchAllPictures(locale);
-
-const filteredPictures = computed(() => pictures);
-
 const { filters } = useFilters({
   price: [],
   pictureSize: [],
@@ -35,6 +32,7 @@ const { filters } = useFilters({
   pictureOrientation: [],
   availability: [],
 });
+const filteredPictures = computed(() => pictures);
 </script>
 
 <style lang="scss">

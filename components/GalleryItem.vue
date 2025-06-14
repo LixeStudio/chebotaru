@@ -1,8 +1,12 @@
 <template>
   <li class="pictures-works__item gallery__item">
-    <a href="" class="pictures-works__picture gallery__picture">
+    <NuxtLink
+      :to="localePath(`/picture-details/${picture.slug}`)"
+      class="pictures-works__picture gallery__picture"
+    >
       <div class="pictures-works__img gallery__img">
         <NuxtImg
+          v-if="picture.image"
           :src="picture.image.src"
           :alt="picture.image.alt"
           width="400"
@@ -11,7 +15,7 @@
       </div>
       <h3 class="pictures-works__name gallery__name">{{ picture.title }}</h3>
       <p class="pictures-works__price gallery__price">${{ picture.price }}</p>
-    </a>
+    </NuxtLink>
   </li>
 </template>
 
@@ -23,4 +27,6 @@ const prop = defineProps({
   },
 });
 console.log(prop.picture);
+
+const localePath = useLocalePath();
 </script>

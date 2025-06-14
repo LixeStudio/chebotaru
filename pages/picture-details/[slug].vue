@@ -35,7 +35,7 @@ const togglePopup = (actionType = "open") => {
 useBodyScrollLock(isPopUpOpened);
 
 const getPicture = () => {
-  return {};
+  return { hello: 1 };
 };
 
 const picture = getPicture();

@@ -8,7 +8,7 @@
           :label-text="
             t('pages.catalog.catalogSection.filters.availability.available')
           "
-          value="availablePictures"
+          value="available"
         />
         <inputCheckbox
           id="saleStatusSold"
@@ -16,7 +16,7 @@
           :label-text="
             t('pages.catalog.catalogSection.filters.availability.sold')
           "
-          value="soldPictures"
+          value="sold"
         />
       </div>
       <div class="filters-catalog__top-column">
@@ -28,7 +28,7 @@
               'pages.catalog.catalogSection.filters.pictureOrientation.vertical'
             )
           "
-          value="verticalPictures"
+          value="vertical"
         />
         <inputCheckbox
           id="pictureOrientationHorizontal"
@@ -38,7 +38,7 @@
               'pages.catalog.catalogSection.filters.pictureOrientation.horizontal'
             )
           "
-          value="horizontalPictures"
+          value="horizontal"
         />
         <inputCheckbox
           id="pictureOrientationSquare"
@@ -46,7 +46,7 @@
           :label-text="
             t('pages.catalog.catalogSection.filters.pictureOrientation.square')
           "
-          value="squarePictures"
+          value="square"
         />
       </div>
     </div>
