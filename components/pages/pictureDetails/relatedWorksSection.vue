@@ -6,7 +6,7 @@
       </h2>
       <div class="related-works__pictures gallery">
         <ul class="related-works__list gallery__list">
-          <GalleryItem v-for="a in 3" :key="a" class="related-works__item" />
+          <!-- <GalleryItem v-for="a in 3" :key="a" class="related-works__item" /> -->
         </ul>
       </div>
     </div>

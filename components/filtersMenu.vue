@@ -122,7 +122,7 @@
                 'pages.catalog.catalogSection.filters.dropdowns.pictureSize.values.big'
               )
             "
-            value="big"
+            value="large"
           />
         </filterDropdown>
       </div>

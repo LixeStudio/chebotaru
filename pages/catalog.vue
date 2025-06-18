@@ -23,6 +23,15 @@ import { fetchAllPictures } from "@/composables/api/paintings";
 const isWhiteTheme = useState("header-white-theme");
 isWhiteTheme.value = false;
 
+const getPriceMatch = (price, filterPrices) => {
+  return filterPrices.some((pFilter) => {
+    if (pFilter === "300-700") return price >= 300 && price <= 700;
+    if (pFilter === "less-300") return price < 300;
+    if (pFilter === "more-700") return price >= 700;
+    return false;
+  });
+};
+
 const locale = useI18n().locale.value;
 const pictures = await fetchAllPictures(locale);
 const { filters } = useFilters({
@@ -32,7 +41,39 @@ const { filters } = useFilters({
   pictureOrientation: [],
   availability: [],
 });
-const filteredPictures = computed(() => pictures);
+const filteredPictures = computed(() => {
+  return pictures
+    .filter((picture) => {
+      const isAvailable = filters.value.availability.length
+        ? filters.value.availability.includes(picture.availability)
+        : true;
+
+      const isSizeMatch = filters.value.pictureSize.length
+        ? filters.value.pictureSize.includes(picture.details.size)
+        : true;
+
+      const isOrientationMatch = filters.value.pictureOrientation.length
+        ? filters.value.pictureOrientation.includes(picture.orientation)
+        : true;
+
+      const isPriceMatch = filters.value.price.length
+        ? getPriceMatch(picture.price, filters.value.price)
+        : true;
+      return isAvailable && isSizeMatch && isOrientationMatch && isPriceMatch;
+    })
+    .sort((a, b) => {
+      switch (filters.value.sortBy) {
+        case "cheapPictures":
+          return a.price - b.price;
+        case "expensivePictures":
+          return b.price - a.price;
+        case "newPictures":
+          return new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime();
+        default:
+          return 0;
+      }
+    });
+});
 </script>
 
 <style lang="scss">

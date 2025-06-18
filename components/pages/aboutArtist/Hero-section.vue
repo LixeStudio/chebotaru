@@ -32,4 +32,6 @@
 const { t } = useI18n();
 </script>
 
-<style lang="scss"></style>
+<style lang="scss" scoped>
+@use "/assets/scss/components/family-hero";
+</style>
