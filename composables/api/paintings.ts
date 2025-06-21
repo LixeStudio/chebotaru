@@ -1,5 +1,6 @@
 import qs from "qs";
 import type { Picture } from "@/types/picture";
+import { LazyPagesContactsHeroSection } from "#components";
 
 type StrapiPictureRaw = {
   id: string | number;
@@ -65,44 +66,42 @@ export async function fetchPictureBySlug(
   locale: string
 ): Promise<Picture | null> {
   const config = useRuntimeConfig();
+  const strapiUrl = config.public.STRAPI_URL;
+  const queryObj = {
+    filters: { slug: { $eq: slug } },
+    fields: [
+      "title",
+      "slug",
+      "price",
+      "orientation",
+      "availability",
+      "createdAt",
+      "publishedAt",
+    ],
+    populate: {
+      imageWithMeta: {
+        populate: "*",
+      },
+      details: true,
+    },
+    locale: locale || "uk", // Явно
+  };
+  
+  const query = qs.stringify(queryObj, {
+    encodeValuesOnly: true,
+  });
+  
 
   try {
-    const res = await $fetch<StrapiPictureResponse>(
-      `${config.public.STRAPI_URL}/pictures`,
-      {
-        params: {
-          filters: { slug: { $eq: slug } },
-          locale,
-          populate: "*",
-        },
-      }
+    const res: { data: StrapiPictureRaw[] } = await $fetch(
+      `${config.public.STRAPI_URL}/api/pictures?${query}`
     );
-
     const raw = res.data?.[0];
+    
     if (!raw) return null;
+    const mappedPicture = mapStrapiPicture(raw, strapiUrl);
 
-    return {
-      id: raw.id,
-      slug: raw.attributes.slug,
-      title: raw.attributes.title,
-      description: raw.attributes.description,
-      createdAt: raw.attributes.createdAt,
-      publishedAt: raw.attributes.publishedAt,
-      image: {
-        src: raw.attributes.image?.url ?? "",
-        alt: raw.attributes.image?.alternativeText ?? "",
-        caption: raw.attributes.image?.caption,
-      },
-      details: {
-        year: raw.attributes.year,
-        size: raw.attributes.size,
-        material: raw.attributes.material,
-        style: raw.attributes.style,
-      },
-      price: raw.attributes.price,
-      availability: raw.attributes.availability,
-      orientation: raw.attributes.orientation,
-    };
+    return mappedPicture;
   } catch (e) {
     console.error("Ошибка при запросе картины по slug:", e);
     return null;
@@ -152,7 +151,6 @@ export async function fetchAllPictures(locale: string): Promise<Picture[]> {
 
 function mapStrapiPicture(raw: StrapiPictureRaw, strapiUrl: string): Picture {
   const { id, attributes } = raw;
-
   return {
     id: id,
     slug: attributes.slug,

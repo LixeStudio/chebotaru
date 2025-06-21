@@ -23,6 +23,9 @@ import ContactUs from "@/layouts/Contact-us.vue";
 import Footer from "@/layouts/Footer.vue";
 import PopupComponent from "@/components/popupComponent.vue";
 import { useBodyScrollLock } from "@/composables/useBodyScrollLock";
+import { useRoute } from 'vue-router'
+import { fetchPictureBySlug } from "@/composables/api/paintings";
+const route = useRoute();
 const isWhiteTheme = useState("header-white-theme");
 isWhiteTheme.value = false;
 
@@ -34,11 +37,13 @@ const togglePopup = (actionType = "open") => {
 };
 useBodyScrollLock(isPopUpOpened);
 
-const getPicture = () => {
-  return { hello: 1 };
-};
 
-const picture = getPicture();
+const locale = useI18n().locale.value;
+const slug = route.params.slug
+
+const picture = await fetchPictureBySlug(slug, locale)
+console.log(picture);
+
 </script>
 
 <style lang="scss">
