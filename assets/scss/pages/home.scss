@@ -9,7 +9,7 @@
     min-height: 37.5rem;
     height: 100vh;
     max-height: 75rem;
-    &__bg {
+    &__video {
       position: absolute;
       top: 0;
       left: 0;
@@ -18,15 +18,9 @@
       width: 100%;
       height: 100%;
 
-      background-image: url("../../images/pages/home/preview__bg-tablet.jpg");
-      background-position: center bottom;
-      background-size: cover;
-      background-repeat: no-repeat;
-
+      object-fit: cover;
+      pointer-events: none;
       background-color: #000;
-      @media screen and (min-width: $tablet) {
-        background-image: url("../../images/pages/home/preview__bg.jpg");
-      }
     }
     &__container {
       z-index: 2;

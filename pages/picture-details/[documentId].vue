@@ -1,9 +1,9 @@
 <template>
-  <div class="picture-details-page">
+  <div v-if="picture" class="picture-details-page">
     <Header />
     <main class="main">
       <ArtworkSection :picture="picture" @toggle-popup="togglePopup" />
-      <RelatedWorksSection />
+      <RelatedWorksSection :related-pictures="relatedPictures" />
       <ContactUs />
     </main>
     <Footer />
@@ -23,9 +23,13 @@ import ContactUs from "@/layouts/Contact-us.vue";
 import Footer from "@/layouts/Footer.vue";
 import PopupComponent from "@/components/popupComponent.vue";
 import { useBodyScrollLock } from "@/composables/useBodyScrollLock";
-import { useRoute } from 'vue-router'
-import { fetchPictureBySlug } from "@/composables/api/paintings";
+import { useRoute, useRouter } from "vue-router";
+import {
+  fetchPictureByDocumentId,
+  fetchRelatedPictures,
+} from "@/composables/api/paintings";
 const route = useRoute();
+const router = useRouter();
 const isWhiteTheme = useState("header-white-theme");
 isWhiteTheme.value = false;
 
@@ -37,13 +41,23 @@ const togglePopup = (actionType = "open") => {
 };
 useBodyScrollLock(isPopUpOpened);
 
+const { locale } = useI18n();
+const [documentId] = route.params["documentId"].split("-");
 
-const locale = useI18n().locale.value;
-const slug = route.params.slug
+const picture = ref(null);
+const relatedPictures = ref([]);
 
-const picture = await fetchPictureBySlug(slug, locale)
-console.log(picture);
-
+onMounted(async () => {
+  const res = await fetchPictureByDocumentId(documentId, locale.value);
+  if (!res) {
+    router.replace(
+      locale.value === "ru" ? "/catalog" : `/${locale.value}/catalog`
+    );
+  } else {
+    picture.value = res;
+    relatedPictures.value = await fetchRelatedPictures(res, locale.value);
+  }
+});
 </script>
 
 <style lang="scss">

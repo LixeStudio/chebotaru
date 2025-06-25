@@ -71,6 +71,11 @@
     &__pictures {
       margin-bottom: 2rem;
     }
+    &__text-second {
+      width: 100%;
+      text-align: center;
+      font-weight: 500;
+    }
   }
   .filters-catalog {
     width: 100%;
@@ -158,6 +163,9 @@
       }
       &__pictures {
         margin-bottom: 3.75rem;
+      }
+      &__text-second {
+        font-size: 1.5rem;
       }
     }
     .filters-catalog {

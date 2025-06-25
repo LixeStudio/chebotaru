@@ -7,7 +7,7 @@ export type Picture = {
         alt: string
         caption: string
     }
-
+    documentId: string,
     title: string
     description?: string
 

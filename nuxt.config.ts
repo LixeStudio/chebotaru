@@ -29,6 +29,13 @@ export default defineNuxtConfig({
     public: {
       STRAPI_URL: process.env.NUXT_PUBLIC_STRAPI_URL
     }
+  },
+  app: {
+    head: {
+      link: [
+        { rel: 'icon', type: 'image/x-icon', href: '/Favicon.svg' },
+      ]
+    }
   }
 })
 

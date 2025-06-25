@@ -14,9 +14,19 @@
         />
       </div>
       <div class="catalog__pictures pictures-catalog gallery">
-        <ul class="pictures-catalog__list gallery__list">
-          <GalleryItem v-for="pic in pictures" :key="pic.slug" :picture="pic" />
+        <ul v-if="pictures.length" class="pictures-catalog__list gallery__list">
+          <GalleryItem
+            v-for="pic in pictures"
+            :key="pic.documentId"
+            :picture="pic"
+          />
         </ul>
+        <p v-else-if="hasAnyFilters" class="catalog__text-second">
+          {{ t("pages.catalog.catalogSection.noFilteredResults") }}
+        </p>
+        <p v-else class="catalog__text-second">
+          {{ t("pages.catalog.catalogSection.noPictures") }}
+        </p>
       </div>
     </div>
   </section>
@@ -33,6 +43,10 @@ defineProps({
   },
   pictures: {
     type: Array,
+    required: true,
+  },
+  hasAnyFilters: {
+    type: Boolean,
     required: true,
   },
 });

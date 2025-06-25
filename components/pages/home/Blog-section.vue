@@ -11,8 +11,13 @@
         </NuxtLink>
       </div>
       <div class="blog__articles articles-blog">
-        <BlogArticle />
-        <BlogArticle />
+        <template v-if="articles.length">
+          <BlogArticle
+            v-for="article in articles"
+            :key="article.documentId"
+            :article="article"
+          />
+        </template>
       </div>
     </div>
   </section>
@@ -20,5 +25,12 @@
 
 <script setup>
 import BlogArticle from "@/components/BlogArticle.vue";
+import { fetchLimitedArticles } from "@/composables/api/articles";
 const { t } = useI18n();
+const locale = useI18n().locale.value;
+const articles = ref([]);
+
+onMounted(async () => {
+  articles.value = await fetchLimitedArticles(locale, 2);
+});
 </script>

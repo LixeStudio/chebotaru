@@ -90,7 +90,8 @@
         "home": {
             "previewSection": {
                 "titleSpan": "Andrei Chebotaru",
-                "titleImgAlt": "Andrei Cebotaru - Artist Website"
+                "titleImgAlt": "Andrei Cebotaru - Artist Website",
+                "noVideoText": "Your browser does not support the video tag."
             },
             "worksSection": {
                 "title": {
@@ -482,7 +483,9 @@
                             }
                         }
                     }
-                }
+                },
+                "noFilteredResults": "No artworks found for the selected filters",
+                "noPictures": "There’s nothing here yet"
             }
         },
         "pictureDetails": {
@@ -511,7 +514,14 @@
                     "interview": "Interviews",
                     "exhibitions": "Exhibitions",
                     "inspiration": "Inspiration"
-                }
+                },
+                "noFilteredResults": "No articles found for the selected filters",
+                "noPictures": "There’s nothing here yet"
+            }
+        },
+        "article": {
+            "relatedWorks": {
+                "title": "Other Blog Articles"
             }
         }
     }

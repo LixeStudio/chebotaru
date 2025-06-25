@@ -90,7 +90,8 @@
         "home": {
             "previewSection": {
                 "titleSpan": "Андрій Чеботару",
-                "titleImgAlt": "Андрій Чеботару - сайт художника"
+                "titleImgAlt": "Андрій Чеботару - сайт художника",
+                "noVideoText": "Ваш браузер не підтримує тег відео."
             },
             "worksSection": {
                 "title": {
@@ -482,7 +483,9 @@
                             }
                         }
                     }
-                }
+                },
+                "noFilteredResults": "Картин за обраними фільтрами не знайдено",
+                "noPictures": "Поки що тут порожно"
             }
         },
         "pictureDetails": {
@@ -511,7 +514,14 @@
                     "interview": "Інтерв’ю",
                     "exhibitions": "Виставки",
                     "inspiration": "Натхнення"
-                }
+                },
+                "noFilteredResults": "Статті за обраними фільтрами не знайдено",
+                "noPictures": "Поки що тут порожно"
+            }
+        },
+        "article": {
+            "relatedWorks": {
+                "title": "Інші статті блогу"
             }
         }
     }

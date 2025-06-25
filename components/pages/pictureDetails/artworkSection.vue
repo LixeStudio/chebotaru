@@ -3,12 +3,15 @@
     <div class="artwork__container">
       <figure class="artwork__image">
         <NuxtImg
-          src="/images/pages/home/picture_1.jpg"
-          alt="Картина Безграничная свобода художника XYZ"
+          :src="picture.image.src"
+          :alt="picture.image.alt"
           width="854"
           height="621"
+          @click="openLightbox"
         />
-        <figcaption class="visually-hidden">Описание изображения</figcaption>
+        <figcaption class="visually-hidden">
+          {{ picture.image.caption }}
+        </figcaption>
       </figure>
       <section class="artwork__body">
         <h1 class="artwork__title">{{ picture.title }}</h1>
@@ -45,11 +48,22 @@
       </section>
     </div>
   </article>
+  <VueEasyLightbox
+    v-if="imageUrl"
+    :visible="visible"
+    :index="0"
+    :show-index="false"
+    :rotate-disabled="true"
+    :imgs="[imageUrl]"
+    :zoom-scale="0.3"
+    @hide="closeLightbox"
+  />
 </template>
 
 <script setup>
+import VueEasyLightbox from "vue-easy-lightbox";
 const emit = defineEmits(["togglePopup"]);
-defineProps({
+const props = defineProps({
   picture: {
     type: Object,
     required: true,
@@ -57,4 +71,17 @@ defineProps({
 });
 
 const { t } = useI18n();
+const imageUrl = computed(() => props.picture.image.src || "");
+
+const visible = ref(false);
+
+const openLightbox = () => {
+  visible.value = true;
+};
+
+const closeLightbox = () => {
+  visible.value = false;
+};
 </script>
+
+<style lang="scss"></style>

@@ -1,6 +1,8 @@
 @font-face {
   font-family: "TT Disruptors";
-  src: url("assets/fonts/tt_disruptors_regular-webfont.woff2") format("woff2"),
+  src: url("@/assets/fonts/tt_disruptors_regular-webfont.otf")
+      format("opentype"),
+    url("assets/fonts/tt_disruptors_regular-webfont.woff2") format("woff2"),
     url("assets/fonts/tt_disruptors_regular-webfont.woff") format("woff"),
     url("assets/fonts/tt_disruptors_regular-webfont.ttf") format("truetype");
   font-weight: 400;

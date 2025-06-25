@@ -3,7 +3,11 @@
     <Header />
     <main class="main">
       <HeroSection />
-      <CatalogSection :filters="filters" :pictures="filteredPictures" />
+      <CatalogSection
+        :filters="filters"
+        :pictures="filteredPictures"
+        :has-any-filters="hasAnyFilters"
+      />
       <ContactUs />
     </main>
     <Footer />
@@ -33,7 +37,12 @@ const getPriceMatch = (price, filterPrices) => {
 };
 
 const locale = useI18n().locale.value;
-const pictures = await fetchAllPictures(locale);
+const pictures = ref([]);
+
+onMounted(async () => {
+  pictures.value = await fetchAllPictures(locale);
+});
+
 const { filters } = useFilters({
   price: [],
   pictureSize: [],
@@ -41,8 +50,17 @@ const { filters } = useFilters({
   pictureOrientation: [],
   availability: [],
 });
+const hasAnyFilters = computed(() => {
+  return !!(
+    filters.value.price.length ||
+    filters.value.pictureSize.length ||
+    filters.value.pictureOrientation.length ||
+    filters.value.availability.length
+  );
+});
+// bag tyt
 const filteredPictures = computed(() => {
-  return pictures
+  return pictures.value
     .filter((picture) => {
       const isAvailable = filters.value.availability.length
         ? filters.value.availability.includes(picture.availability)
@@ -68,7 +86,10 @@ const filteredPictures = computed(() => {
         case "expensivePictures":
           return b.price - a.price;
         case "newPictures":
-          return new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime();
+          return (
+            new Date(b.publishedAt).getTime() -
+            new Date(a.publishedAt).getTime()
+          );
         default:
           return 0;
       }

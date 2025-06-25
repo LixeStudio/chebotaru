@@ -1,12 +1,12 @@
 <template>
   <li class="pictures-works__item gallery__item">
     <NuxtLink
-      :to="localePath(`/picture-details/${picture.slug}`)"
+      :to="localePath(`/picture-details/${picture.documentId}-${picture.slug}`)"
       class="pictures-works__picture gallery__picture"
     >
       <div class="pictures-works__img gallery__img">
         <NuxtImg
-          v-if="picture.image"
+          v-if="picture.image && picture.image.src"
           :src="picture.image.src"
           :alt="picture.image.alt"
           width="400"
@@ -20,13 +20,12 @@
 </template>
 
 <script setup>
-const prop = defineProps({
+defineProps({
   picture: {
     type: Object,
     required: true,
   },
 });
-console.log(prop.picture);
 
 const localePath = useLocalePath();
 </script>

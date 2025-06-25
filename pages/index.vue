@@ -1,5 +1,5 @@
 <template>
-  <Home />
+  <ClientOnly> <Home /></ClientOnly>
 </template>
 
 <script setup>

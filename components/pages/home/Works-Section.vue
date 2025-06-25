@@ -35,12 +35,19 @@
           {{ t("pages.home.worksSection.btnToKnow") }}
         </NuxtLink>
       </div>
-      <div class="works__pictures pictures-works gallery">
+      <div
+        v-if="pictures.length"
+        class="works__pictures pictures-works gallery"
+      >
         <ul class="pictures-works__list gallery__list">
-          <!-- <GalleryItem v-for="a in 6" :key="a" /> -->
+          <GalleryItem v-for="pic in pictures" :key="pic.slug" :picture="pic" />
         </ul>
       </div>
-      <NuxtLink to="/catalog" class="works__btn-view-all btn-circle">
+      <NuxtLink
+        v-if="pictures.length >= 6"
+        to="/catalog"
+        class="works__btn-view-all btn-circle"
+      >
         {{ t("pages.home.worksSection.btnViewAll") }}
       </NuxtLink>
     </div>
@@ -48,7 +55,16 @@
 </template>
 
 <script setup>
+import { ref } from "vue";
+import { fetchLimitedPictures } from "@/composables/api/paintings";
 import GalleryItem from "@/components/GalleryItem.vue";
 const localePath = useLocalePath();
 const { t } = useI18n();
+
+const locale = useI18n().locale.value;
+const pictures = ref([]);
+
+onMounted(async () => {
+  pictures.value = await fetchLimitedPictures(locale, 6);
+});
 </script>

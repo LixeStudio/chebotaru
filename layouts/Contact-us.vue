@@ -44,6 +44,8 @@
 </template>
 
 <script setup>
+import { ref } from "vue";
+import { subscribe } from "@/composables/api/subscribe";
 defineProps({
   showTitle: {
     type: Boolean,
@@ -53,14 +55,14 @@ defineProps({
 const { t } = useI18n();
 
 const email = useState("contact-email", () => "");
-
-const handleSubmit = () => {
+const success = ref(false);
+const handleSubmit = async () => {
   if (!email.value.trim()) {
     console.warn("Email is empty");
     return;
   }
 
-  console.log("Submitted email:", email.value);
+  success.value = await subscribe(email.value);
   email.value = "";
 };
 </script>

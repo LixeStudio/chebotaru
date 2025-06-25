@@ -70,9 +70,11 @@
               class="links-footer__link"
               >{{ t("footer.links.family.father") }}</NuxtLink
             >
-            <NuxtLink :to="localePath('/')" class="links-footer__link">{{
-              t("footer.links.family.brother")
-            }}</NuxtLink>
+            <NuxtLink
+              :to="localePath('/about-oleksii-and-wife')"
+              class="links-footer__link"
+              >{{ t("footer.links.family.brother") }}</NuxtLink
+            >
           </li>
           <li class="links-footer__column">
             <p class="links-footer__title">
