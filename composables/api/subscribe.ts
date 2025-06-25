@@ -1,3 +1,4 @@
+import type { FetchError } from 'ofetch';
 export async function subscribe(email: string) {
   try {
     const config = useRuntimeConfig();
@@ -7,9 +8,17 @@ export async function subscribe(email: string) {
         data: { email },
       },
     });
-    return true;
+    return { success: true };
+
   } catch (error) {
+    const err = error as FetchError;
     console.error("Ошибка подписки:", error);
-    return false;
+    const statusCode = err?.response?.status || err?.status;
+
+    if (statusCode === 400) {
+      return { success: false, type: "duplicate" };
+    }
+
+    return { success: false, type: "general" };
   }
 }

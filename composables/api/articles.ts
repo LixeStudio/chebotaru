@@ -230,7 +230,7 @@ export async function fetchLimitedArticles(locale: string, limit: number): Promi
     try {
         const res: { data: StrapiArticleRaw[] } = await $fetch(
             `${config.public.STRAPI_URL}/api/blogs?${query}`
-        ); console.log(res);
+        );
 
         const mappedData = res.data.map((raw: StrapiArticleRaw) =>
             mapStrapiArticle(raw, strapiUrl)

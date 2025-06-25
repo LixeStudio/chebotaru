@@ -72,6 +72,15 @@
       text-align: right;
     }
   }
+  &__alert {
+    color: rgb(9, 240, 9);
+    font-weight: 500;
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+    &.error {
+      color: rgb(250, 0, 33);
+    }
+  }
 }
 @media screen and (min-width: $tablet) {
   .contact-us {
@@ -87,6 +96,9 @@
     }
     &__line {
       font-size: 9rem;
+    }
+    &__alert {
+      font-size: 1rem;
     }
   }
 }

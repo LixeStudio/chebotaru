@@ -439,6 +439,11 @@
                     "instagramAriaLabel": "Перейти в Instagram",
                     "youtubeAriaLabel": "Перейти на Youtube-канал"
                 }
+            },
+            "alert": {
+                "errorMessage": "Сталася помилка. Спробуйте пізніше.",
+                "successMessage": "Дякуємо! Ви успішно підписалися.",
+                "errorEmailMessage": "Цей email вже підписаний."
             }
         },
         "catalog": {

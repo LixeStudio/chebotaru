@@ -439,6 +439,11 @@
                     "instagramAriaLabel": "Go to Instagram",
                     "youtubeAriaLabel": "Go to Youtube channel"
                 }
+            },
+            "alert": {
+                "errorMessage": "Something went wrong. Please try again later.",
+                "successMessage": "Thank you! You’ve successfully subscribed.",
+                "errorEmailMessage": "This email is already subscribed."
             }
         },
         "catalog": {

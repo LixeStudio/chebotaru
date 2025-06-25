@@ -33,6 +33,13 @@
               required
               aria-label="Email address"
             />
+            <p
+              v-if="alert"
+              class="contact-us__alert"
+              :class="{ error: alert.type === 'error' }"
+            >
+              {{ alert.message }}
+            </p>
             <button href="#" class="contact-us__subscribe btn-circle">
               {{ t("contactUs.btnSubscribe") }}
             </button>
@@ -44,7 +51,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { subscribe } from "@/composables/api/subscribe";
 defineProps({
   showTitle: {
@@ -54,8 +61,15 @@ defineProps({
 });
 const { t } = useI18n();
 
+const alertMessage = {
+  error: t("pages.contacts.alert.errorMessage"),
+  success: t("pages.contacts.alert.successMessage"),
+  errorEmail: t("pages.contacts.alert.errorEmailMessage"),
+};
+
 const email = useState("contact-email", () => "");
 const success = ref(false);
+const alert = ref(null);
 const handleSubmit = async () => {
   if (!email.value.trim()) {
     console.warn("Email is empty");
@@ -65,4 +79,25 @@ const handleSubmit = async () => {
   success.value = await subscribe(email.value);
   email.value = "";
 };
+
+watch(success, () => {
+  if (success.value.success === true)
+    alert.value = {
+      type: "success",
+      message: alertMessage.success,
+    };
+  if (success.value.success === false && success.value.type === "duplicate")
+    alert.value = {
+      type: "error",
+      message: alertMessage.errorEmail,
+    };
+  if (success.value.success === false && success.value.type === "general")
+    alert.value = {
+      type: "error",
+      message: alertMessage.error,
+    };
+  setTimeout(() => {
+    alert.value = {};
+  }, 3000);
+});
 </script>
