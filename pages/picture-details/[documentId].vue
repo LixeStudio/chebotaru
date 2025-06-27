@@ -19,8 +19,6 @@ import { ref } from "vue";
 import Header from "@/layouts/Header.vue";
 import ArtworkSection from "@/components/pages/pictureDetails/artworkSection.vue";
 import RelatedWorksSection from "@/components/pages/pictureDetails/relatedWorksSection.vue";
-import ContactUs from "@/layouts/Contact-us.vue";
-import Footer from "@/layouts/Footer.vue";
 import PopupComponent from "@/components/popupComponent.vue";
 import { useBodyScrollLock } from "@/composables/useBodyScrollLock";
 import { useRoute, useRouter } from "vue-router";
@@ -28,8 +26,17 @@ import {
   fetchPictureByDocumentId,
   fetchRelatedPictures,
 } from "@/composables/api/paintings";
-const route = useRoute();
+const ContactUs = defineAsyncComponent(() =>
+  import("@/layouts/Contact-us.vue")
+);
+const Footer = defineAsyncComponent(() => import("@/layouts/Footer.vue"));
 const router = useRouter();
+const route = useRoute();
+const { t } = useI18n();
+const config = useRuntimeConfig();
+const baseUrl = config.public.SITE_URL || "https://andriichebotaru.com";
+const currentUrl = `${baseUrl}${route.fullPath}`;
+
 const isWhiteTheme = useState("header-white-theme");
 isWhiteTheme.value = false;
 
@@ -58,8 +65,34 @@ onMounted(async () => {
     relatedPictures.value = await fetchRelatedPictures(res, locale.value);
   }
 });
-</script>
 
-<style lang="scss">
-@use "@/assets/scss/pages/picture-details.scss";
-</style>
+watch(picture, () => {
+  if (!picture.value) return;
+
+  useHead({
+    title: picture.value.title + t("seo.pictureDetails.title"),
+    meta: [
+      { name: "description", content: t("seo.pictureDetails.description") },
+      { name: "robots", content: "index, follow" },
+      { property: "og:type", content: "website" },
+      {
+        property: "og:title",
+        content: picture.value.title + t("seo.pictureDetails.title"),
+      },
+      {
+        property: "og:description",
+        content: t("seo.pictureDetails.description"),
+      },
+      { property: "og:url", content: currentUrl },
+      { property: "og:image", content: `${baseUrl}/og/default.jpg` },
+    ],
+    link: [
+      { rel: "canonical", href: currentUrl },
+      { rel: "alternate", hreflang: "uk", href: `${baseUrl}/uk` },
+      { rel: "alternate", hreflang: "ru", href: `${baseUrl}/` },
+      { rel: "alternate", hreflang: "en", href: `${baseUrl}/en` },
+    ],
+  });
+});
+</script>
+<style lang="scss"></style>

@@ -529,5 +529,47 @@
                 "title": "Other Blog Articles"
             }
         }
+    },
+    "seo": {
+        "home": {
+            "title": "Andrii Chebotaru — contemporary Ukrainian artist",
+            "description": "The official website of artist Andrii Chebotaru. Art gallery, articles, family, biography, and contact."
+        },
+        "contacts": {
+            "title": "Contact the artist — Andrii Chebotaru",
+            "description": "Contact information for reaching Andrii Chebotaru. Artwork commissions, exhibitions, collaborations."
+        },
+        "catalog": {
+            "title": "Art Gallery — Andrii Chebotaru",
+            "description": "Explore original paintings by Andrii Chebotaru. Landscapes, still lifes, seascapes, and inspiring impressionist artworks."
+        },
+        "aboutFather": {
+            "title": "Mykola Chebotaru — artist and father",
+            "description": "Soviet and Ukrainian painter Mykola Chebotaru — father of Andrii. His art, teaching, and impact on generations of artists."
+        },
+        "aboutArtist": {
+            "title": "Andrii Chebotaru — Ukrainian impressionist painter",
+            "description": "Biography of Andrii Chebotaru. Painting, inspiration, exhibitions, teaching. Art with soul."
+        },
+        "aboutOleksiiAndWife": {
+            "title": "Oleksii Chebotaru & Alla Kislyakova — family of artists",
+            "description": "The story of Andrii’s brother, Oleksii Chebotaru, and his wife Alla Kislyakova. Two artists, one inspiration."
+        },
+        "aboutMother": {
+            "title": "Tamara Chebotaru — artist and mother",
+            "description": "Still life master and educator — Tamara Chebotaru. A woman who raised a creative family of artists."
+        },
+        "article": {
+            "title": " — blog by Andrii Chebotaru",
+            "description": "Read more in the blog of Andrii Chebotaru."
+        },
+        "pictureDetails": {
+            "title": " — artwork by Andrii Chebotaru",
+            "description": "More about the artwork: technique, size, inspiration, and story behind it."
+        },
+        "blog": {
+            "title": "Thoughts and art insights — Andrii Chebotaru",
+            "description": "Personal blog of the artist. Reflections on art, exhibitions, teaching, and creative family legacy."
+        }
     }
 }

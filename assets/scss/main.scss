@@ -2,6 +2,16 @@
 @use "./utils/variables" as *;
 @use "./base/clear";
 @use "./base/common";
+@use "@/assets/scss/pages/home";
+@use "@/assets/scss/pages/catalog";
+@use "@/assets/scss/pages/about-oleksii-and-wife";
+@use "@/assets/scss/pages/about-father";
+@use "@/assets/scss/pages/about-mother";
+@use "@/assets/scss/pages/article";
+@use "@/assets/scss/pages/blog";
+@use "@/assets/scss/pages/contacts";
+@use "@/assets/scss/pages/picture-details";
+@use "@/assets/scss/pages/about-artist";
 @use "./layout/header";
 @use "./layout/footer";
 // Pages

@@ -17,16 +17,21 @@ import Header from "@/layouts/Header.vue";
 import PreviewSection from "@/components/pages/article/previewSection.vue";
 import BodySection from "@/components/pages/article/bodySection.vue";
 import relatedSection from "@/components/pages/article/relatedSection.vue";
-import ContactUs from "@/layouts/Contact-us.vue";
-import Footer from "@/layouts/Footer.vue";
 import {
   fetchArticlesByDocumentId,
   fetchRelatedArticles,
 } from "@/composables/api/articles";
 import { useRoute, useRouter } from "vue-router";
-
-const route = useRoute();
+const ContactUs = defineAsyncComponent(() =>
+  import("@/layouts/Contact-us.vue")
+);
+const Footer = defineAsyncComponent(() => import("@/layouts/Footer.vue"));
 const router = useRouter();
+const route = useRoute();
+const { t } = useI18n();
+const config = useRuntimeConfig();
+const baseUrl = config.public.SITE_URL || "https://andriichebotaru.com";
+const currentUrl = `${baseUrl}${route.fullPath}`;
 const { locale } = useI18n();
 const [documentId] = route.params["documentId"].split("-");
 
@@ -49,8 +54,34 @@ onMounted(async () => {
 const paragraphs = computed(() => {
   return previewText.value.split("\n").filter((p) => p.trim().length);
 });
-</script>
 
-<style lang="scss">
-@use "@/assets/scss/pages/article.scss";
-</style>
+watch(article, () => {
+  if (!article.value) return;
+
+  useHead({
+    title: article.value.title + t("seo.article.title"),
+    meta: [
+      { name: "description", content: t("seo.article.description") },
+      { name: "robots", content: "index, follow" },
+      { property: "og:type", content: "website" },
+      {
+        property: "og:title",
+        content: article.value.title + t("seo.article.title"),
+      },
+      {
+        property: "og:description",
+        content: t("seo.article.description"),
+      },
+      { property: "og:url", content: currentUrl },
+      { property: "og:image", content: `${baseUrl}/og/default.jpg` },
+    ],
+    link: [
+      { rel: "canonical", href: currentUrl },
+      { rel: "alternate", hreflang: "uk", href: `${baseUrl}/uk` },
+      { rel: "alternate", hreflang: "ru", href: `${baseUrl}/` },
+      { rel: "alternate", hreflang: "en", href: `${baseUrl}/en` },
+    ],
+  });
+});
+</script>
+<style lang="scss"></style>

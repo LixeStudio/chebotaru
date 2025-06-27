@@ -29,7 +29,7 @@
         class="burger-content"
         :class="{ active: isOpened }"
         :aria-label="t('header.burger.content.navAriaLabel')"
-        :aria-hidden="(!isOpened).toString()"
+        :aria-hidden="isOpened.toString()"
       >
         <div class="burger-content__inner header__container">
           <div class="burger-content__panel">
@@ -39,37 +39,44 @@
               :aria-label="t('header.burger.content.languagesAriaLabel')"
             >
               <button
+                lang="uk"
+                :tabindex="isOpened ? 0 : -1"
                 :class="{ choosed: locale === 'uk' }"
                 @click="switchLanguage('uk')"
-                lang="uk"
               >
                 УКР
               </button>
               <button
+                lang="ru"
+                :tabindex="isOpened ? 0 : -1"
                 :class="{ choosed: locale === 'ru' }"
                 @click="switchLanguage('ru')"
-                lang="ru"
               >
                 РУС
               </button>
               <button
+                lang="en"
+                :tabindex="isOpened ? 0 : -1"
                 :class="{ choosed: locale === 'en' }"
                 @click="switchLanguage('en')"
-                lang="en"
               >
                 ENG
               </button>
             </div>
             <ul class="burger-content__list">
               <li class="burger-conent__li">
-                <NuxtLink class="burger-content__link" :to="localePath('/')">{{
-                  t("header.burger.content.links.home")
-                }}</NuxtLink>
+                <NuxtLink
+                  class="burger-content__link"
+                  :to="localePath('/')"
+                  @click="toggleMenu('close')"
+                  >{{ t("header.burger.content.links.home") }}</NuxtLink
+                >
               </li>
               <li class="burger-conent__li">
                 <NuxtLink
                   class="burger-content__link"
                   :to="localePath('/catalog')"
+                  @click="toggleMenu('close')"
                   >{{ t("header.burger.content.links.catalog") }}</NuxtLink
                 >
               </li>
@@ -77,18 +84,23 @@
                 <NuxtLink
                   class="burger-content__link"
                   :to="localePath('/about-artist')"
+                  @click="toggleMenu('close')"
                   >{{ t("header.burger.content.links.aboutAuthor") }}</NuxtLink
                 >
               </li>
               <li class="burger-conent__li">
-                <NuxtLink class="burger-content__link" to="/blog">{{
-                  t("header.burger.content.links.blog")
-                }}</NuxtLink>
+                <NuxtLink
+                  class="burger-content__link"
+                  to="/blog"
+                  @click="toggleMenu('close')"
+                  >{{ t("header.burger.content.links.blog") }}</NuxtLink
+                >
               </li>
               <li class="burger-conent__li">
                 <NuxtLink
                   class="burger-content__link"
                   :to="localePath('/contacts')"
+                  @click="toggleMenu('close')"
                   >{{ t("header.burger.content.links.contactUs") }}</NuxtLink
                 >
               </li>

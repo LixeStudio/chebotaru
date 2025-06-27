@@ -8,8 +8,14 @@
 </template>
 
 <script setup>
+const i18nHead = useLocaleHead();
 useHead({
+  htmlAttrs: {
+    lang: i18nHead.value.htmlAttrs?.lang,
+    ...(i18nHead.value.htmlAttrs?.dir && { dir: i18nHead.value.htmlAttrs.dir }),
+  },
   link: [
+    ...(i18nHead.value.link || []),
     { rel: "preconnect", href: "https://fonts.googleapis.com" },
     { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: "" },
     {
