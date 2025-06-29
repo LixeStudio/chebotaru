@@ -21,7 +21,7 @@
       playsinline
       class="preview__video"
     >
-      <source src="assets/videos/preview-video.mp4" type="video/mp4" />
+      <source src="/videos/preview-video.mp4" type="video/mp4" />
       {{ t("pages.home.previewSection.noVideoText") }}
     </video>
   </section>

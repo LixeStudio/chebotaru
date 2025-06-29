@@ -37,6 +37,7 @@
                 <p class="member-family__role">
                   {{ t("pages.home.familySection.members.mother.role") }}
                 </p>
+                <div class="link-to" />
               </div>
             </article>
           </NuxtLink>
@@ -65,6 +66,7 @@
                 <p class="member-family__role">
                   {{ t("pages.home.familySection.members.father.role") }}
                 </p>
+                <div class="link-to" />
               </div>
             </article>
           </NuxtLink>
@@ -97,9 +99,9 @@
                     t("pages.home.familySection.members.oleksiiAndWife.role")
                   }}
                 </p>
-              </div>
-            </article></NuxtLink
-          >
+                <div class="link-to" />
+              </div></article
+          ></NuxtLink>
         </li>
       </ul>
     </div>

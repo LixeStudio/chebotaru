@@ -193,11 +193,10 @@
 <script setup>
 import { onMounted } from "vue";
 import { useHeaderLogoVisibility } from "@/composables/useHeaderLogoVisibility";
-import { useRoute, useRouter } from "vue-router";
+import { useRoute } from "vue-router";
 const localePath = useLocalePath();
-const { t, locale, setLocale, defaultLocale } = useI18n();
+const { t, locale, setLocale } = useI18n();
 const route = useRoute();
-const router = useRouter();
 const isClient = ref(false);
 
 onMounted(() => {
@@ -220,22 +219,7 @@ const { isLogoVisible } = useHeaderLogoVisibility();
 
 const switchLanguage = async (lang) => {
   if (locale.value === lang) return;
-
-  const pathWithoutLocale = route.fullPath.replace(/^\/(ru|uk|en)/, "") || "/";
-
   await setLocale(lang);
-
-  const isDefault = lang === defaultLocale;
-
-  const newPath = isDefault
-    ? pathWithoutLocale
-    : `/${lang}${pathWithoutLocale}`;
-
-  router.push({
-    path: newPath,
-    query: route.query,
-    hash: route.hash,
-  });
 };
 </script>
 
