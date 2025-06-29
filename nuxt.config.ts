@@ -17,8 +17,9 @@ export default defineNuxtConfig({
     }
   },
   i18n: {
-    strategy: 'prefix_except_default',
+    lazy: true,
     defaultLocale: 'en',
+    strategy: 'prefix_except_default',
     langDir: 'locales/',
     locales: [
       { code: 'en', name: 'English', iso: 'en-US', language: 'en-US', file: 'en.json' },
@@ -49,8 +50,11 @@ export default defineNuxtConfig({
   vite: {
     build: {
       minify: 'terser',
+      terserOptions: {
+        compress: { drop_console: true },
+      },
     },
-  }
+  },
 })
 
 

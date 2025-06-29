@@ -61,7 +61,9 @@
 </template>
 
 <script setup>
-import VueEasyLightbox from "vue-easy-lightbox";
+import { defineAsyncComponent } from "vue";
+
+const VueEasyLightbox = defineAsyncComponent(() => import("vue-easy-lightbox"));
 const emit = defineEmits(["togglePopup"]);
 const props = defineProps({
   picture: {

@@ -111,13 +111,13 @@
       </nav>
 
       <NuxtLink
-        to="/"
+        :to="localePath('/')"
         class="header__logo"
         :class="{ 'opacity-0': isLogoHidden && !isLogoVisible }"
         :aria-label="t('header.logo.linkAriaLabel')"
       >
         <img
-          src="/assets/images/logo.svg"
+          src="/images/logo.svg"
           :alt="t('header.logo.imgAlt')"
           width="237"
           height="49"
@@ -220,14 +220,18 @@ const { isLogoVisible } = useHeaderLogoVisibility();
 
 const switchLanguage = async (lang) => {
   if (locale.value === lang) return;
+
   const pathWithoutLocale = route.fullPath.replace(/^\/(ru|uk|en)/, "") || "/";
+
   await setLocale(lang);
+
   const isDefault = lang === defaultLocale;
+
   const newPath = isDefault
     ? pathWithoutLocale
     : `/${lang}${pathWithoutLocale}`;
 
-  router.replace({
+  router.push({
     path: newPath,
     query: route.query,
     hash: route.hash,

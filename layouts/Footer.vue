@@ -7,7 +7,7 @@
         :aria-label="t('header.logo.linkAriaLabel')"
       >
         <img
-          src="/assets/images/logo.svg"
+          src="/images/logo.svg"
           :alt="t('header.logo.imgAlt')"
           width="237"
           height="49"
@@ -47,7 +47,7 @@
               class="links-footer__link"
               >{{ t("footer.links.aboutAuthor.aboutArtist") }}</NuxtLink
             >
-            <NuxtLink to="/blog" class="links-footer__link">{{
+            <NuxtLink :to="localePath('/blog')" class="links-footer__link">{{
               t("footer.links.aboutAuthor.blog")
             }}</NuxtLink>
             <NuxtLink

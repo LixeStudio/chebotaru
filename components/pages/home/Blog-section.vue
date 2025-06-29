@@ -6,7 +6,7 @@
           {{ t("pages.home.blogSection.blogBgText") }}
         </p>
         <h2 class="blog__title">{{ t("pages.home.blogSection.blogTitle") }}</h2>
-        <NuxtLink to="/blog" class="blog__link btn-circle">
+        <NuxtLink :to="localePath('/blog')" class="blog__link btn-circle">
           {{ t("pages.home.blogSection.blogLink") }}
         </NuxtLink>
       </div>
@@ -27,6 +27,7 @@
 import BlogArticle from "@/components/BlogArticle.vue";
 import { fetchLimitedArticles } from "@/composables/api/articles";
 const { t } = useI18n();
+const localePath = useLocalePath();
 const locale = useI18n().locale.value;
 const articles = ref([]);
 

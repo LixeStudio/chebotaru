@@ -45,7 +45,7 @@
       </div>
       <NuxtLink
         v-if="pictures.length >= 6"
-        to="/catalog"
+        :to="localePath('/catalog')"
         class="works__btn-view-all btn-circle"
       >
         {{ t("pages.home.worksSection.btnViewAll") }}
