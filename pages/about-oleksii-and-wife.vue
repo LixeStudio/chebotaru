@@ -45,7 +45,7 @@ useHead({
       content: t("seo.aboutOleksiiAndWife.description"),
     },
     { property: "og:url", content: currentUrl },
-    { property: "og:image", content: `${baseUrl}/og/default.jpg` },
+    { property: "og:image", content: `${baseUrl}/og/brotherAndHisWife.jpg` },
   ],
   link: [
     { rel: "canonical", href: currentUrl },

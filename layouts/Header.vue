@@ -226,11 +226,7 @@ const switchLanguage = async (lang) => {
   const newPath = isDefault
     ? pathWithoutLocale
     : `/${lang}${pathWithoutLocale}`;
-  router.beforeEach((to, from, next) => {
-    console.log("FROM", from.fullPath);
-    console.log("TO", to.fullPath);
-    next();
-  });
+
   router.replace({
     path: newPath,
     query: route.query,

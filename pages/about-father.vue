@@ -39,7 +39,7 @@ useHead({
       content: t("seo.aboutFather.description"),
     },
     { property: "og:url", content: currentUrl },
-    { property: "og:image", content: `${baseUrl}/og/default.jpg` },
+    { property: "og:image", content: `${baseUrl}/og/aboutFather.jpg` },
   ],
   link: [
     { rel: "canonical", href: currentUrl },
