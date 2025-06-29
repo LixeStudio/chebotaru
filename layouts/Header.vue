@@ -29,7 +29,7 @@
         class="burger-content"
         :class="{ active: isOpened }"
         :aria-label="t('header.burger.content.navAriaLabel')"
-        :aria-hidden="isOpened.toString()"
+        :aria-hidden="!isOpened.toString()"
       >
         <div class="burger-content__inner header__container">
           <div class="burger-content__panel">
@@ -91,7 +91,7 @@
               <li class="burger-conent__li">
                 <NuxtLink
                   class="burger-content__link"
-                  to="/blog"
+                  :to="localePath('/blog')"
                   @click="toggleMenu('close')"
                   >{{ t("header.burger.content.links.blog") }}</NuxtLink
                 >
@@ -195,7 +195,7 @@ import { onMounted } from "vue";
 import { useHeaderLogoVisibility } from "@/composables/useHeaderLogoVisibility";
 import { useRoute, useRouter } from "vue-router";
 const localePath = useLocalePath();
-const { t, locale, setLocale } = useI18n();
+const { t, locale, setLocale, defaultLocale } = useI18n();
 const route = useRoute();
 const router = useRouter();
 const isClient = ref(false);
@@ -220,15 +220,17 @@ const { isLogoVisible } = useHeaderLogoVisibility();
 
 const switchLanguage = async (lang) => {
   if (locale.value === lang) return;
-
   const pathWithoutLocale = route.fullPath.replace(/^\/(ru|uk|en)/, "") || "/";
   await setLocale(lang);
-
-  const isDefault = lang === "ru";
+  const isDefault = lang === defaultLocale;
   const newPath = isDefault
     ? pathWithoutLocale
     : `/${lang}${pathWithoutLocale}`;
-
+  router.beforeEach((to, from, next) => {
+    console.log("FROM", from.fullPath);
+    console.log("TO", to.fullPath);
+    next();
+  });
   router.replace({
     path: newPath,
     query: route.query,

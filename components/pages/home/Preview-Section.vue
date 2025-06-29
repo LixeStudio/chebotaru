@@ -13,7 +13,14 @@
         />
       </h1>
     </div>
-    <video autoplay muted loop playsinline class="preview__video">
+    <video
+      preload="none"
+      autoplay
+      muted
+      loop
+      playsinline
+      class="preview__video"
+    >
       <source src="assets/videos/preview-video.mp4" type="video/mp4" />
       {{ t("pages.home.previewSection.noVideoText") }}
     </video>

@@ -14,92 +14,92 @@
       </div>
       <ul class="family__members">
         <li class="family__member member-family">
-          <article class="member-family__card">
-            <div class="member-family__image">
-              <NuxtImg
-                src="/images/pages/home/family/mother.webp"
-                :alt="t('pages.home.familySection.members.mother.imgAlt')"
-                width="392"
-                height="490"
-                loading="lazy"
-              />
-            </div>
-            <h3 class="member-family__name">
-              {{ t("pages.home.familySection.members.mother.name") }}
-            </h3>
-            <div class="member-family__bottom">
-              <p class="member-family__role">
-                {{ t("pages.home.familySection.members.mother.role") }}
-              </p>
-              <NuxtLink
-                :to="localePath('/about-mother')"
-                class="member-family__linkto link-to"
-                :aria-label="
-                  t('pages.home.familySection.members.mother.linkAriaLabel')
-                "
-              ></NuxtLink>
-            </div>
-          </article>
+          <NuxtLink
+            :to="localePath('/about-mother')"
+            :aria-label="
+              t('pages.home.familySection.members.mother.linkAriaLabel')
+            "
+          >
+            <article class="member-family__card">
+              <div class="member-family__image">
+                <NuxtImg
+                  src="/images/pages/home/family/mother.webp"
+                  :alt="t('pages.home.familySection.members.mother.imgAlt')"
+                  width="392"
+                  height="490"
+                  loading="lazy"
+                />
+              </div>
+              <h3 class="member-family__name">
+                {{ t("pages.home.familySection.members.mother.name") }}
+              </h3>
+              <div class="member-family__bottom">
+                <p class="member-family__role">
+                  {{ t("pages.home.familySection.members.mother.role") }}
+                </p>
+              </div>
+            </article>
+          </NuxtLink>
         </li>
         <li class="family__member member-family">
-          <article class="member-family__card">
-            <div class="member-family__image">
-              <NuxtImg
-                src="/images/pages/home/family/father.webp"
-                :alt="t('pages.home.familySection.members.father.imgAlt')"
-                width="392"
-                height="490"
-                loading="lazy"
-              />
-            </div>
-            <h3 class="member-family__name">
-              {{ t("pages.home.familySection.members.father.name") }}
-            </h3>
-            <div class="member-family__bottom">
-              <p class="member-family__role">
-                {{ t("pages.home.familySection.members.father.role") }}
-              </p>
-              <NuxtLink
-                :to="localePath('/about-father')"
-                class="member-family__linkto link-to"
-                :aria-label="
-                  t('pages.home.familySection.members.father.linkAriaLabel')
-                "
-              ></NuxtLink>
-            </div>
-          </article>
+          <NuxtLink
+            :to="localePath('/about-father')"
+            :aria-label="
+              t('pages.home.familySection.members.father.linkAriaLabel')
+            "
+          >
+            <article class="member-family__card">
+              <div class="member-family__image">
+                <NuxtImg
+                  src="/images/pages/home/family/father.webp"
+                  :alt="t('pages.home.familySection.members.father.imgAlt')"
+                  width="392"
+                  height="490"
+                  loading="lazy"
+                />
+              </div>
+              <h3 class="member-family__name">
+                {{ t("pages.home.familySection.members.father.name") }}
+              </h3>
+              <div class="member-family__bottom">
+                <p class="member-family__role">
+                  {{ t("pages.home.familySection.members.father.role") }}
+                </p>
+              </div>
+            </article>
+          </NuxtLink>
         </li>
         <li class="family__member member-family">
-          <article class="member-family__card">
-            <div class="member-family__image">
-              <NuxtImg
-                src="/images/pages/home/family/oleksii-and-wife.webp"
-                :alt="
-                  t('pages.home.familySection.members.oleksiiAndWife.imgAlt')
-                "
-                width="392"
-                height="490"
-                loading="lazy"
-              />
-            </div>
-            <h3 class="member-family__name">
-              {{ t("pages.home.familySection.members.oleksiiAndWife.name") }}
-            </h3>
-            <div class="member-family__bottom">
-              <p class="member-family__role">
-                {{ t("pages.home.familySection.members.oleksiiAndWife.role") }}
-              </p>
-              <NuxtLink
-                :to="localePath('/about-oleksii-and-wife')"
-                :aria-label="
-                  t(
-                    'pages.home.familySection.members.oleksiiAndWife.linkAriaLabel'
-                  )
-                "
-                class="member-family__linkto link-to"
-              ></NuxtLink>
-            </div>
-          </article>
+          <NuxtLink
+            :to="localePath('/about-oleksii-and-wife')"
+            :aria-label="
+              t('pages.home.familySection.members.oleksiiAndWife.linkAriaLabel')
+            "
+          >
+            <article class="member-family__card">
+              <div class="member-family__image">
+                <NuxtImg
+                  src="/images/pages/home/family/oleksii-and-wife.webp"
+                  :alt="
+                    t('pages.home.familySection.members.oleksiiAndWife.imgAlt')
+                  "
+                  width="392"
+                  height="490"
+                  loading="lazy"
+                />
+              </div>
+              <h3 class="member-family__name">
+                {{ t("pages.home.familySection.members.oleksiiAndWife.name") }}
+              </h3>
+              <div class="member-family__bottom">
+                <p class="member-family__role">
+                  {{
+                    t("pages.home.familySection.members.oleksiiAndWife.role")
+                  }}
+                </p>
+              </div>
+            </article></NuxtLink
+          >
         </li>
       </ul>
     </div>

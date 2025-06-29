@@ -56,7 +56,7 @@ export async function fetchPictureByDocumentId(
             },
             details: true,
         },
-        locale: locale || "uk", // Явно
+        locale: locale || "en",
     };
 
     const query = qs.stringify(queryObj, {
