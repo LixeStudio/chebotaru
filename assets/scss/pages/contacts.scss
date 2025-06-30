@@ -93,6 +93,9 @@
         center;
       background-size: cover;
       z-index: 0;
+      @media screen and (max-width: 45rem) {
+        background-attachment: scroll;
+      }
     }
   }
 
