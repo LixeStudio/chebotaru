@@ -220,7 +220,12 @@ const { isLogoVisible } = useHeaderLogoVisibility();
 const switchLanguage = async (lang) => {
   if (locale.value === lang) return;
   await setLocale(lang);
+  isOpened.value = false;
 };
+
+watch(locale, () => {
+  window.scrollTo(0, 0);
+});
 </script>
 
 <style lang="scss" scoped>

@@ -6,8 +6,6 @@
 .cache
 dist
 верстка
-assets/videos/
-*.mp4
 
 # Node dependencies
 node_modules

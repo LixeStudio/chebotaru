@@ -53,7 +53,7 @@ export default defineNuxtConfig({
       terserOptions: {
         compress: { drop_console: true },
       },
-    },
+    }
   },
 })
 
