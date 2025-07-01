@@ -24,7 +24,10 @@
           </div>
           <div>
             <dt>{{ t("pages.pictureDetails.artworkSection.details.size") }}</dt>
-            <dd>{{ picture.details.size }}</dd>
+            <dd>
+              {{ picture.details.sizeInSm }}
+              {{ t("units.centimeters") }}
+            </dd>
           </div>
           <div>
             <dt>

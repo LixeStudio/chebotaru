@@ -571,5 +571,8 @@
             "title": "Thoughts and art insights — Andrii Chebotaru",
             "description": "Personal blog of the artist. Reflections on art, exhibitions, teaching, and creative family legacy."
         }
+    },
+    "units": {
+        "centimeters": "cm"
     }
 }

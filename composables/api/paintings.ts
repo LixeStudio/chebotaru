@@ -28,6 +28,7 @@ type StrapiPictureRaw = {
         size: string;
         material: string;
         style: string;
+        sizeInSm: string;
     };
 
 };
@@ -238,12 +239,12 @@ function mapStrapiPicture(raw: StrapiPictureRaw, strapiUrl: string): Picture {
             alt: raw.imageWithMeta?.alt || "", // отдельное поле
             caption: raw.imageWithMeta?.caption || "",
         },
-
         details: {
             year: raw.details?.year || "",
             size: raw.details?.size || "",
             material: raw.details?.material || "",
             style: raw.details?.style || "",
+            sizeInSm: raw.details.sizeInSm || "",
         },
 
         price: raw.price,

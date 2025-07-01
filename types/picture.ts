@@ -13,12 +13,12 @@ export type Picture = {
 
     createdAt: string
     publishedAt?: string
-
     details: {
         year: string
         size: string
         material: string
         style: string
+        sizeInSm: string
     }
 
     price: number
