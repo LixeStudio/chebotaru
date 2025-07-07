@@ -35,6 +35,9 @@ const currentUrl = `${baseUrl}${route.fullPath}`;
 const { locale } = useI18n();
 const [documentId] = route.params["documentId"].split("-");
 
+const isWhiteTheme = useState("header-white-theme");
+isWhiteTheme.value = false;
+
 const article = ref(null);
 const relatedArticles = ref([]);
 

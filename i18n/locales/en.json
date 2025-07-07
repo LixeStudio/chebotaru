@@ -34,7 +34,7 @@
                 "phone": "Phone"
             },
             "aboutAuthor": {
-                "title": "Andrei Chebotaru",
+                "title": "Andrii Chebotaru",
                 "catalog": "Catalog",
                 "aboutArtist": "About Artist",
                 "blog": "Blog",
@@ -43,8 +43,8 @@
             "family": {
                 "title": "Family",
                 "mother": "Tamara Chebotaru",
-                "brother": "Olexei  Chebotaru",
-                "father": "Nicolae  Chebotaru"
+                "brother": "Oleksii  Chebotaru",
+                "father": "Mykola  Chebotaru"
             },
             "social": {
                 "title": "Social Networks"
@@ -89,8 +89,8 @@
     "pages": {
         "home": {
             "previewSection": {
-                "titleSpan": "Andrei Chebotaru",
-                "titleImgAlt": "Andrei Cebotaru - Artist Website",
+                "titleSpan": "Andrii Chebotaru",
+                "titleImgAlt": "Andrii Cebotaru - Artist Website",
                 "noVideoText": "Your browser does not support the video tag."
             },
             "worksSection": {
@@ -124,22 +124,22 @@
                 "bgText": "Family",
                 "members": {
                     "mother": {
-                        "imgAlt": "Tamara Chebotaru is Andrei's mother",
+                        "imgAlt": "Tamara Chebotaru is Andrii's mother",
                         "name": "Tamara Chebotaru",
-                        "role": "Andrei's mother",
+                        "role": "Andrii's mother",
                         "linkAriaLabel": "Read more about Tamara Chebotaru"
                     },
                     "father": {
-                        "imgAlt": "Nicolae Chebotaru is Andrei's father",
-                        "name": "Nicolae Chebotaru",
-                        "role": "Andrei's father",
-                        "linkAriaLabel": "Read more about Nicolae Chebotaru"
+                        "imgAlt": "Mykola Chebotaru is Andrii's father",
+                        "name": "Mykola Chebotaru",
+                        "role": "Andrii's father",
+                        "linkAriaLabel": "Read more about Mykola Chebotaru"
                     },
                     "oleksiiAndWife": {
-                        "imgAlt": "Olexei Chebotaru - Andrei's brother, with his wife Alla Kislyakova",
-                        "name": "Olexei Chebotaru and Alla Kislyakova",
-                        "role": "Andrei's brother and his spouse",
-                        "linkAriaLabel": "Read more about Olexei Chebotaru and Alla Kislyakova"
+                        "imgAlt": "Oleksii Chebotaru - Andrii's brother, with his wife Alla Kislyakova",
+                        "name": "Oleksii Chebotaru and Alla Kislyakova",
+                        "role": "Andrii's brother and his spouse",
+                        "linkAriaLabel": "Read more about Oleksii Chebotaru and Alla Kislyakova"
                     }
                 }
             }
@@ -147,11 +147,11 @@
         "aboutMother": {
             "heroSection": {
                 "heroTitle": "Tamara Chebotaru",
-                "heroRole": "Andrei Chebotaru's mother",
+                "heroRole": "Andrii Chebotaru's mother",
                 "heroText": "Ukrainian artist, master of still life painting, who devoted her life to art and raising a creative family. Her paintings are permeated with color and light, and her pedagogical activity - a sincere love for young talents.",
                 "bgText": "Mother",
                 "heroImg": {
-                    "imgAlt": "Tamara Chebotaru is the mother of Ukrainian artist Andrei Chebotaru"
+                    "imgAlt": "Tamara Chebotaru is the mother of Ukrainian artist Andrii Chebotaru"
                 }
             },
             "careerTimelineSection": {
@@ -196,12 +196,12 @@
         },
         "aboutFather": {
             "heroSection": {
-                "heroTitle": "Nicolae Chebotaru",
-                "heroRole": "Andrei Chebotaru's father",
-                "heroText": "Soviet and Ukrainian painter, father of Andrei Chebotaru. A painter with a pronounced impressionist handwriting, he left a noticeable trace in the fine arts of Crimea and Ukraine. His path in art is decades of teaching, creative pursuits and participation in numerous exhibitions, as well as a profound influence on the formation of his son's artistic vision.",
+                "heroTitle": "Mykola Chebotaru",
+                "heroRole": "Andrii Chebotaru's father",
+                "heroText": "Soviet and Ukrainian painter, father of Andrii Chebotaru. A painter with a pronounced impressionist handwriting, he left a noticeable trace in the fine arts of Crimea and Ukraine. His path in art is decades of teaching, creative pursuits and participation in numerous exhibitions, as well as a profound influence on the formation of his son's artistic vision.",
                 "bgText": "Father",
                 "heroImg": {
-                    "imgAlt": "Nicolae Chebotaru is the father of Ukrainian artist Andrei Chebotaru"
+                    "imgAlt": "Mykola Chebotaru is the father of Ukrainian artist Andrii Chebotaru"
                 }
             },
             "careerTimelineSection": {
@@ -243,18 +243,18 @@
             },
             "quoteSection": {
                 "text": "Painting is a way to stop the moment and absorb the light. Everything else is detail.",
-                "author": "— Nicolae Chebotaru"
+                "author": "— Mykola Chebotaru"
             }
         },
         "aboutArtist": {
             "previewSection": {
-                "hiddenTitle": "Andrei Chebotaru - Ukrainian impressionist painter",
+                "hiddenTitle": "Andrii Chebotaru - Ukrainian impressionist painter",
                 "title": {
                     "part1": "«Art -",
                     "part2": "this is the moment,",
                     "part3": "captured in color.»"
                 },
-                "previewAuthor": "Andrei Chebotaru",
+                "previewAuthor": "Andrii Chebotaru",
                 "previewText": "Ukrainian impressionist painter who creates lively and emotional paintings.",
                 "previewLink": "View Works"
             },
@@ -265,14 +265,14 @@
                     "imgAlt3": "Sunflower - decorative element",
                     "imgAlt4": "Stylized landscape of a village - decorative element"
                 },
-                "text": "Andrei Chebotaru is an outstanding Ukrainian artist, a master of impressionistic landscape and still life. His works are distinguished by bold compositions, richness of color palette and bright emotional sound. He skillfully combines traditional techniques with individual vision, creating a pictorial symphony of poetry and the joy of being."
+                "text": "Andrii Chebotaru is an outstanding Ukrainian artist, a master of impressionistic landscape and still life. His works are distinguished by bold compositions, richness of color palette and bright emotional sound. He skillfully combines traditional techniques with individual vision, creating a pictorial symphony of poetry and the joy of being."
             },
             "heroSection": {
                 "title": "Path in Art",
-                "text": "Andrei Chebotaru was born in 1984 in Sevastopol in an artistic family. His creative path began in early childhood - he grew up among brushes, canvases and sketchbooks. His artist parents, Nikolai and Tamara Chebotaru, became his first mentors.",
+                "text": "Andrii Chebotaru was born in 1984 in Sevastopol in an artistic family. His creative path began in early childhood - he grew up among brushes, canvases and sketchbooks. His artist parents, Nikolai and Tamara Chebotaru, became his first mentors.",
                 "text2": "Already at a young age Andriy began to learn the basics of composition, color and light, and in 2011, while still a student, became a member of the National Union of Artists of Ukraine.",
                 "bgText": "Path",
-                "imgAlt": "Artist Andrei Chebotaru at work on plein air in the mountains"
+                "imgAlt": "Artist Andrii Chebotaru at work on plein air in the mountains"
             },
             "inspirationMapSection": {
                 "title": "Geography of Inspiration",
@@ -310,7 +310,7 @@
                     "item3": "2007-2013 - National Academy of Fine Arts and Architecture (NAOMA), Faculty of Painting (supervisors: Zabashta V.I., Melnichuk I.Yu.)"
                 },
                 "bgText": "Style",
-                "heroImgAlt": "Abstract painting with bright strokes - an example of Andrei Cebotaru's artistic style"
+                "heroImgAlt": "Abstract painting with bright strokes - an example of Andrii Cebotaru's artistic style"
             },
             "quoteSection": {
                 "text": "Traveling is like immersing myself in a land of dreams and desires. The beautiful scenery and magical atmosphere give energy and inspiration for creativity.",
@@ -325,7 +325,7 @@
                     "story3": "2016 - invitation with a personal project to the Council of Europe, Strasbourg (France)",
                     "story4": "Many commendations and diplomas for participation in exhibitions and plein airs",
                     "story5": "The artist’s works adorn private collections around the world, as well as public institutions in Ukraine — in particular, several paintings are displayed in the office of the President of Ukraine.",
-                    "storyImgAlt": "Andrei Cebotaru receives awards and recognition for his contribution to art"
+                    "storyImgAlt": "Andrii Cebotaru receives awards and recognition for his contribution to art"
                 }
             }
         },
@@ -336,10 +336,10 @@
             },
             "heroBrotherSection": {
                 "title": "Oleksii Chebotaru",
-                "role": "Andrei Chebotaru's Brother",
+                "role": "Andrii Chebotaru's Brother",
                 "text": "Ukrainian impressionist painter, a bright representative of the Crimean school of painting. His works are distinguished by lyricism, harmony of colors and light musicality. He actively participates in international exhibitions and auctions, and also teaches art in different countries.",
                 "bgText": "Brother",
-                "imgAlt": "Oleksii Chebotaru is the brother of Andrei Chebotaru, a Ukrainian impressionist painter."
+                "imgAlt": "Oleksii Chebotaru is the brother of Andrii Chebotaru, a Ukrainian impressionist painter."
             },
             "infoCardsSection": {
                 "card1": {
@@ -378,10 +378,10 @@
             },
             "heroBrothersWifeSection": {
                 "title": "Alla Kislyakova",
-                "role": "Spouse of Oleksii (Andrei Chebotaru's brother)",
+                "role": "Spouse of Oleksii (Andrii Chebotaru's brother)",
                 "text": "Professional artist-painter, member of the Union of Artists of Ukraine. Her works cover such styles as Impressionism and Expressionism. Alla actively participates in exhibitions and art symposiums, and also conducts teaching activities in Ukraine and abroad.",
                 "bgText": "Wife",
-                "imgAlt": "Artist Alla Kislyakova, wife of Andrei Chebotaru's brother Oleksiy."
+                "imgAlt": "Artist Alla Kislyakova, wife of Andrii Chebotaru's brother Oleksiy."
             },
             "infoCardsBrothersWifeSection": {
                 "card1": {
