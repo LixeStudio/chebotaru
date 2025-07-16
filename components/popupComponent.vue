@@ -24,7 +24,12 @@
         <nav class="contacts-popup__nav">
           <ul class="contacts-popup__list">
             <li class="contacts-popup__item">
-              <a href="#" class="contacts-popup__link">
+              <a
+                href="https://t.me/andriichebotaru"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="contacts-popup__link"
+              >
                 <NuxtImg
                   src="/images/icons/social/telegram-ico.svg"
                   :alt="t('popup.links.telegram.imgAlt')"
@@ -35,7 +40,12 @@
               </a>
             </li>
             <li class="contacts-popup__item">
-              <a href="#" class="contacts-popup__link">
+              <a
+                href="https://wa.me/380679884402"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="contacts-popup__link"
+              >
                 <NuxtImg
                   src="/images/icons/social/whatsapp-ico.svg"
                   :alt="t('popup.links.whatsapp.imgAlt')"
@@ -46,7 +56,10 @@
               </a>
             </li>
             <li class="contacts-popup__item">
-              <a href="#" class="contacts-popup__link">
+              <a
+                href="mailto:chebotaru.a@gmail.com"
+                class="contacts-popup__link"
+              >
                 <NuxtImg
                   src="/images/icons/social/mail-ico.svg"
                   :alt="t('popup.links.email.imgAlt')"
