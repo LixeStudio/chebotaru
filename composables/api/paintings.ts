@@ -42,6 +42,9 @@ export async function fetchPictureByDocumentId(
     const strapiUrl = config.public.STRAPI_URL;
     const queryObj = {
         filters: { documentId: { $eq: documentId } },
+        pagination: {
+            pageSize: 150,
+        },
         fields: [
             "title",
             "slug",

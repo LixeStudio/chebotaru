@@ -112,6 +112,9 @@ export async function fetchAllArticles(locale: string): Promise<Article[]> {
     const query = qs.stringify(
         {
             locale,
+            pagination: {
+                pageSize: 150,
+            },
             fields: [
                 "title",
                 "slug",
