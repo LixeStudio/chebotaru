@@ -112,10 +112,13 @@
         </ul>
       </nav>
       <div class="footer__bottom">
-        <p class="footer__copyright">Copyright (© 2025 Andrii Chebotaru)</p>
-        <a href="#" class="footer__confidential-police">
+        <p class="footer__copyright">Copyright (© 2026 Andrii Chebotaru)</p>
+        <NuxtLink
+          :to="localePath('/privacy')"
+          class="footer__confidential-police"
+        >
           {{ t("footer.bottom.confidential-police") }}
-        </a>
+        </NuxtLink>
       </div>
     </div>
   </footer>

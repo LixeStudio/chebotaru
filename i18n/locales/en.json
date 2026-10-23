@@ -528,6 +528,69 @@
             "relatedWorks": {
                 "title": "Other Blog Articles"
             }
+        },
+        "privacy": {
+            "title": "Privacy Policy",
+            "updated": "Last updated: October 23, 2026",
+            "intro": "This Privacy Policy explains how Andrii Chebotaru (referred to as “we” or “us”) collects and uses your personal information when you subscribe to email updates through https://andriichebotaru.com.",
+            "sections": {
+                "s01": {
+                    "title": "01 Who is responsible for your data?",
+                    "paragraphs": {
+                        "p1": "The data controller is Andrii Chebotaru. For questions about privacy, contact us at chebotaru.web{'@'}gmail.com."
+                    }
+                },
+                "s02": {
+                    "title": "02 What information do we collect?",
+                    "paragraphs": {
+                        "p1": "When you subscribe to our newsletter, we ask for your email address. We do not ask for your name, postal address, or payment details through this form.",
+                        "p2": "Our website and hosting providers may also record basic subscription and delivery information, such as the date of signup, confirmation status, or technical records, depending on how the service is configured."
+                    }
+                },
+                "s03": {
+                    "title": "03 Why do we use your email address?",
+                    "paragraphs": {
+                        "p1": "We use your email address to send occasional updates about new artworks, exhibitions, creative projects, and other news relating to Chebotaru. We use this information on the basis of your consent, where consent is the applicable legal basis. Subscribing is voluntary, and you can withdraw your consent at any time."
+                    }
+                },
+                "s04": {
+                    "title": "04 Who processes your information?",
+                    "paragraphs": {
+                        "p1": "We store your email address in our website subscriber database and may use our content management system and hosting providers to process and send emails on our behalf. These providers process information only to operate the website and newsletter under their applicable terms and data protection arrangements. We do not sell your email address or share it with third parties for their independent marketing purposes."
+                    }
+                },
+                "s05": {
+                    "title": "05 How long do we keep your email address?",
+                    "paragraphs": {
+                        "p1": "We keep your email address for as long as you remain subscribed. If you unsubscribe, we will stop sending you newsletter emails and remove your address from the active mailing list. Limited records may be retained if necessary to document consent, respect your opt-out request, or comply with applicable law."
+                    }
+                },
+                "s06": {
+                    "title": "06 How can you unsubscribe or exercise your rights?",
+                    "paragraphs": {
+                        "p1": "You can unsubscribe at any time using the “Unsubscribe” link included in our emails or by contacting us at chebotaru.web{'@'}gmail.com.",
+                        "p2": "Depending on the law that applies, you may also have the right to request access to your personal data, correction, deletion, restriction of processing, data portability, or to object to certain processing. You may withdraw your consent without affecting the lawfulness of processing carried out before withdrawal. Where applicable, you may lodge a complaint with your local data protection supervisory authority."
+                    }
+                },
+                "s07": {
+                    "title": "07 How do we protect your information?",
+                    "paragraphs": {
+                        "p1": "We take reasonable technical and organisational measures to protect subscriber information and limit access to people and service providers who need it to manage the newsletter."
+                    }
+                },
+                "s08": {
+                    "title": "08 Do we use automated decision-making?",
+                    "paragraphs": {
+                        "p1": "We do not use newsletter subscriber information for solely automated decisions that produce legal or similarly significant effects."
+                    }
+                },
+                "s09": {
+                    "title": "09 Changes and contact",
+                    "paragraphs": {
+                        "p1": "We may update this Privacy Policy to reflect changes in our newsletter practices or legal requirements. The date at the top of this page indicates when it was last updated. For any privacy questions or requests, email chebotaru.web{'@'}gmail.com."
+                    }
+                }
+            }
         }
     },
     "seo": {
@@ -570,6 +633,10 @@
         "blog": {
             "title": "Thoughts and art insights — Andrii Chebotaru",
             "description": "Personal blog of the artist. Reflections on art, exhibitions, teaching, and creative family legacy."
+        },
+        "privacy": {
+            "title": "Privacy Policy — Andrii Chebotaru",
+            "description": "How Andrii Chebotaru collects and uses email addresses when you subscribe to newsletter updates on andriichebotaru.com."
         }
     },
     "units": {
