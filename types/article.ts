@@ -9,6 +9,8 @@ export type Article = {
     publishedAt: string;
     createdAt: string;
     body?: BlogBlock[];
+    // slug of every locale the article is translated to (detail requests only)
+    localizedSlugs?: Record<string, string>;
 }
 
 export type BlogBlock =

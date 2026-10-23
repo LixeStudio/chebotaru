@@ -3,7 +3,7 @@
     <Header />
     <main class="main">
       <ArtworkSection :picture="picture" @toggle-popup="togglePopup" />
-      <RelatedWorksSection :related-pictures="relatedPictures" />
+      <RelatedWorksSection :related-pictures="relatedPictures || []" />
       <ContactUs />
     </main>
     <Footer />
@@ -21,7 +21,7 @@ import ArtworkSection from "@/components/pages/pictureDetails/artworkSection.vue
 import RelatedWorksSection from "@/components/pages/pictureDetails/relatedWorksSection.vue";
 import PopupComponent from "@/components/popupComponent.vue";
 import { useBodyScrollLock } from "@/composables/useBodyScrollLock";
-import { useRoute, useRouter } from "vue-router";
+import { usePageSeo } from "@/composables/usePageSeo";
 import {
   fetchPictureByDocumentId,
   fetchRelatedPictures,
@@ -30,12 +30,10 @@ const ContactUs = defineAsyncComponent(() =>
   import("@/layouts/Contact-us.vue")
 );
 const Footer = defineAsyncComponent(() => import("@/layouts/Footer.vue"));
-const router = useRouter();
 const route = useRoute();
-const { t } = useI18n();
-const config = useRuntimeConfig();
-const baseUrl = config.public.SITE_URL || "https://andriichebotaru.com";
-const currentUrl = `${baseUrl}${route.fullPath}`;
+const { t, locale } = useI18n();
+const localePath = useLocalePath();
+const setI18nParams = useSetI18nParams();
 
 const isWhiteTheme = useState("header-white-theme");
 isWhiteTheme.value = false;
@@ -48,60 +46,75 @@ const togglePopup = (actionType = "open") => {
 };
 useBodyScrollLock(isPopUpOpened);
 
-const { locale } = useI18n();
-const [documentId] = route.params["documentId"].split("-");
+// the route param is "<documentId>-<slug>", only the documentId identifies the picture
+const documentId = computed(
+  () => String(route.params.documentId || "").split("-")[0]
+);
 
-const picture = ref(null);
-const relatedPictures = ref([]);
+// loaded on the server so that the artwork, title and meta tags are in the initial HTML
+const { data: picture, error } = await useAsyncData(
+  () => `picture-${documentId.value}-${locale.value}`,
+  () => fetchPictureByDocumentId(documentId.value, locale.value)
+);
 
-onMounted(async () => {
-  const res = await fetchPictureByDocumentId(documentId, locale.value);
-  if (!res) {
-    router.replace(
-      locale.value === "ru" ? "/catalog" : `/${locale.value}/catalog`
-    );
-  } else {
-    picture.value = res;
-    relatedPictures.value = await fetchRelatedPictures(res, locale.value);
-  }
-});
-
-watch(picture, () => {
-  if (!picture.value) return;
-
-  useHead({
-    title: picture.value.title + t("seo.pictureDetails.title"),
-    meta: [
-      { name: "description", content: t("seo.pictureDetails.description") },
-      { name: "robots", content: "index, follow" },
-      { property: "og:type", content: "website" },
-      {
-        property: "og:title",
-        content: picture.value.title + t("seo.pictureDetails.title"),
-      },
-      {
-        property: "og:description",
-        content: t("seo.pictureDetails.description"),
-      },
-      { property: "og:url", content: currentUrl },
-      { property: "og:image", content: `${baseUrl}/og/default.jpg` },
-      {
-        name: "twitter:title",
-        content: picture.value.title + t("seo.pictureDetails.title"),
-      },
-      {
-        name: "twitter:description",
-        content: t("seo.pictureDetails.description"),
-      },
-      { name: "twitter:image", content: `${baseUrl}/og/default.jpg` },
-    ],
-    link: [
-      { rel: "canonical", href: currentUrl },
-      { rel: "alternate", hreflang: "uk", href: `${baseUrl}/uk` },
-      { rel: "alternate", hreflang: "ru", href: `${baseUrl}/` },
-      { rel: "alternate", hreflang: "en", href: `${baseUrl}/en` },
-    ],
+if (error.value) {
+  throw createError({
+    statusCode: 503,
+    statusMessage: "Picture is temporarily unavailable",
+    fatal: true,
   });
+}
+if (!picture.value) {
+  throw createError({
+    statusCode: 404,
+    statusMessage: "Picture not found",
+    fatal: true,
+  });
+}
+
+const picturePath = (lang) => {
+  if (!picture.value) return documentId.value;
+  const slug = picture.value.localizedSlugs?.[lang] || picture.value.slug;
+  return `${picture.value.documentId}-${slug}`;
+};
+const canonicalPath = computed(() =>
+  localePath(`/picture-details/${picturePath(locale.value)}`)
+);
+
+// an outdated or foreign-language slug permanently redirects to the canonical URL
+if (decodeURIComponent(route.path) !== canonicalPath.value) {
+  await navigateTo(
+    { path: canonicalPath.value, query: route.query },
+    { redirectCode: 301, replace: true }
+  );
+}
+
+// language switcher and hreflang links use the slug of the target language
+setI18nParams(
+  Object.fromEntries(
+    Object.keys(picture.value.localizedSlugs || {}).map((lang) => [
+      lang,
+      { documentId: picturePath(lang) },
+    ])
+  )
+);
+
+// related works are below the fold: loaded after hydration to keep them off the critical path
+const { data: relatedPictures } = useAsyncData(
+  () => `picture-related-${documentId.value}-${locale.value}`,
+  () =>
+    picture.value ? fetchRelatedPictures(picture.value, locale.value) : [],
+  { server: false, lazy: true, default: () => [] }
+);
+
+usePageSeo({
+  title: () => (picture.value?.title || "") + t("seo.pictureDetails.title"),
+  description: () =>
+    picture.value?.image.alt ||
+    picture.value?.image.caption ||
+    t("seo.pictureDetails.description"),
+  image: () => picture.value?.image.src,
+  path: canonicalPath,
 });
 </script>
 <style lang="scss"></style>

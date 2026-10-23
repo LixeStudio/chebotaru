@@ -31,6 +31,7 @@ type StrapiPictureRaw = {
         sizeInSm: string;
     };
 
+    localizations?: { slug: string; locale: string }[];
 };
 
 
@@ -59,6 +60,9 @@ export async function fetchPictureByDocumentId(
                 populate: "*",
             },
             details: true,
+            localizations: {
+                fields: ["slug", "locale"],
+            },
         },
         locale: locale || "en",
     };
@@ -68,6 +72,8 @@ export async function fetchPictureByDocumentId(
     });
 
 
+    // null = the picture does not exist in this locale (404);
+    // request errors are rethrown so that an API outage is not reported as "not found"
     try {
         const res: { data: StrapiPictureRaw[] } = await $fetch(
             `${config.public.STRAPI_URL}/api/pictures?${query}`
@@ -77,12 +83,15 @@ export async function fetchPictureByDocumentId(
 
         if (!raw) return null;
         const mappedPicture = mapStrapiPicture(raw, strapiUrl);
-        console.log(mappedPicture);
+        mappedPicture.localizedSlugs = {
+            [locale]: raw.slug,
+            ...Object.fromEntries((raw.localizations || []).map((l) => [l.locale, l.slug])),
+        };
 
-        return mappedPicture ?? null;
+        return mappedPicture;
     } catch (e) {
-        console.error("Ошибка при запросе картины по slug:", e);
-        return null;
+        console.error("Ошибка при запросе картины по documentId:", e);
+        throw e;
     }
 }
 
@@ -238,7 +247,7 @@ function mapStrapiPicture(raw: StrapiPictureRaw, strapiUrl: string): Picture {
         publishedAt: raw.publishedAt,
         documentId: raw.documentId,
         image: {
-            src: strapiUrl + raw.imageWithMeta.image?.url || "", // из вложенного image
+            src: raw.imageWithMeta?.image?.url ? strapiUrl + raw.imageWithMeta.image.url : "", // из вложенного image
             alt: raw.imageWithMeta?.alt || "", // отдельное поле
             caption: raw.imageWithMeta?.caption || "",
         },
@@ -247,7 +256,7 @@ function mapStrapiPicture(raw: StrapiPictureRaw, strapiUrl: string): Picture {
             size: raw.details?.size || "",
             material: raw.details?.material || "",
             style: raw.details?.style || "",
-            sizeInSm: raw.details.sizeInSm || "",
+            sizeInSm: raw.details?.sizeInSm || "",
         },
 
         price: raw.price,

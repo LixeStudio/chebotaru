@@ -25,4 +25,7 @@ export type Picture = {
     availability: 'available' | 'sold'
 
     orientation?: 'vertical' | 'horizontal' | 'square'
+
+    // slug of every locale the picture is translated to (detail requests only)
+    localizedSlugs?: Record<string, string>
 }

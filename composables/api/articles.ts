@@ -13,6 +13,7 @@ type StrapiArticleRaw = {
     imageWithMeta: rawImageWithMeta,
     previewText: string,
     body?: rawBlogBlock[];
+    localizations?: { slug: string; locale: string }[];
 };
 
 type rawBlogBlock =
@@ -81,6 +82,9 @@ export async function fetchArticlesByDocumentId(
                         },
                     },
                 },
+                localizations: {
+                    fields: ["slug", "locale"],
+                },
             }
         },
         {
@@ -89,6 +93,8 @@ export async function fetchArticlesByDocumentId(
     );
 
 
+    // null = the article does not exist in this locale (404);
+    // request errors are rethrown so that an API outage is not reported as "not found"
     try {
         const res: { data: StrapiArticleRaw[] } = await $fetch(
             `${config.public.STRAPI_URL}/api/blogs?${query}`
@@ -96,13 +102,16 @@ export async function fetchArticlesByDocumentId(
 
         const raw = res.data?.[0];
         if (!raw) return null;
-        console.log(raw);
 
-        const mappedPicture = mapStrapiArticle(raw, strapiUrl);
-        return mappedPicture ?? null;
+        const mappedArticle = mapStrapiArticle(raw, strapiUrl);
+        mappedArticle.localizedSlugs = {
+            [locale]: raw.slug,
+            ...Object.fromEntries((raw.localizations || []).map((l) => [l.locale, l.slug])),
+        };
+        return mappedArticle;
     } catch (e) {
-        console.error("Ошибка при запросе картины по slug:", e);
-        return null;
+        console.error("Ошибка при запросе статьи по documentId:", e);
+        throw e;
     }
 }
 
@@ -261,7 +270,7 @@ function mapBodyImages(body: rawBlogBlock[] | undefined, strapiUrl: string): Blo
                 case "blog.picture-gallery-block":
                     return {
                         __component: block.__component,
-                        images: block.imageWithMeta.map((img): ImageWithMeta => ({
+                        images: (block.imageWithMeta || []).map((img): ImageWithMeta => ({
                             src: strapiUrl + (img.image?.url || ""),
                             alt: img.alt || "",
                             caption: img.caption || "",
@@ -282,7 +291,7 @@ function mapStrapiArticle(raw: StrapiArticleRaw, strapiUrl: string): Article {
         slug: raw.slug,
         title: raw.title,
         image: {
-            src: strapiUrl + raw.imageWithMeta.image?.url || "",
+            src: raw.imageWithMeta?.image?.url ? strapiUrl + raw.imageWithMeta.image.url : "",
             alt: raw.imageWithMeta?.alt || "",
             caption: raw.imageWithMeta?.caption || "",
         },
