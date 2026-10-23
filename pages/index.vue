@@ -1,11 +1,9 @@
 <template>
-  <ClientOnly>
-    <Home />
-  </ClientOnly>
+  <HomePage />
 </template>
 
 <script setup>
-import Home from "@/pages/Home.vue";
+import HomePage from "@/components/pages/home/HomePage.vue";
 
 const route = useRoute();
 const { t } = useI18n();

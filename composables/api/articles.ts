@@ -154,12 +154,13 @@ export async function fetchAllArticles(locale: string): Promise<Article[]> {
         return mappedData
 
     } catch (e) {
-        console.error("Ошибка при получении всех картин:", e);
+        // rethrown: the blog must not pretend to be empty during an API outage
+        console.error("Ошибка при получении всех статей:", e);
+        throw e;
     }
-    return [];
 }
 
-export async function fetchRelatedArticles(article: Article, locale: string, limit = 3): Promise<Article[]> {
+export async function fetchRelatedArticles(article: Pick<Article, "documentId">, locale: string, limit = 3): Promise<Article[]> {
     const config = useRuntimeConfig();
     const strapiUrl = config.public.STRAPI_URL;
     const query = qs.stringify(

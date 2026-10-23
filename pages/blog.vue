@@ -15,7 +15,6 @@
 </template>
 
 <script setup>
-import { onMounted } from "vue";
 import { useFilters } from "@/composables/useFilters";
 import Header from "@/layouts/Header.vue";
 import HeroSection from "@/components/pages/blog/heroSection.vue";
@@ -55,15 +54,25 @@ useHead({
   ],
 });
 
-const locale = useI18n().locale.value;
+const { locale } = useI18n();
 const { filters } = useFilters({
   typeOfArticle: [],
 });
 const hasAnyFilters = computed(() => !!filters.value.typeOfArticle.length);
-const articles = ref([]);
-onMounted(async () => {
-  articles.value = await fetchAllArticles(locale);
-});
+
+// rendered on the server so the articles are in the initial HTML; filtering stays on the client
+const { data: articles, error } = await useAsyncData(
+  () => `blog-${locale.value}`,
+  () => fetchAllArticles(locale.value),
+  { default: () => [] }
+);
+if (error.value) {
+  throw createError({
+    statusCode: 503,
+    statusMessage: "Blog is temporarily unavailable",
+    fatal: true,
+  });
+}
 
 const filteredArticles = computed(() => {
   return articles.value.filter((article) => {

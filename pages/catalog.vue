@@ -62,12 +62,22 @@ const getPriceMatch = (price, filterPrices) => {
   });
 };
 
-const locale = useI18n().locale.value;
-const pictures = ref([]);
+const { locale } = useI18n();
 
-onMounted(async () => {
-  pictures.value = await fetchAllPictures(locale);
-});
+// rendered on the server so the works are in the initial HTML (no empty state, no layout shift);
+// filtering and sorting stay on the client
+const { data: pictures, error } = await useAsyncData(
+  () => `catalog-${locale.value}`,
+  () => fetchAllPictures(locale.value),
+  { default: () => [] }
+);
+if (error.value) {
+  throw createError({
+    statusCode: 503,
+    statusMessage: "Catalog is temporarily unavailable",
+    fatal: true,
+  });
+}
 
 const { filters } = useFilters({
   price: [],
