@@ -15,6 +15,7 @@
 </template>
 
 <script setup>
+import { usePageSeo } from "@/composables/usePageSeo";
 import { useFilters } from "@/composables/useFilters";
 import Header from "@/layouts/Header.vue";
 import HeroSection from "@/components/pages/blog/heroSection.vue";
@@ -27,31 +28,10 @@ const Footer = defineAsyncComponent(() => import("@/layouts/Footer.vue"));
 const isWhiteTheme = useState("header-white-theme");
 isWhiteTheme.value = false;
 
-const route = useRoute();
 const { t } = useI18n();
-const config = useRuntimeConfig();
-const baseUrl = config.public.SITE_URL || "https://andriichebotaru.com";
-const currentUrl = `${baseUrl}${route.fullPath}`;
-useHead({
-  title: t("seo.blog.title"),
-  meta: [
-    { name: "description", content: t("seo.blog.description") },
-    { name: "robots", content: "index, follow" },
-    { property: "og:type", content: "website" },
-    { property: "og:title", content: t("seo.blog.title") },
-    { property: "og:description", content: t("seo.blog.description") },
-    { property: "og:url", content: currentUrl },
-    { property: "og:image", content: `${baseUrl}/og/default.jpg` },
-    { name: "twitter:title", content: t("seo.blog.title") },
-    { name: "twitter:description", content: t("seo.blog.description") },
-    { name: "twitter:image", content: `${baseUrl}/og/default.jpg` },
-  ],
-  link: [
-    { rel: "canonical", href: currentUrl },
-    { rel: "alternate", hreflang: "uk", href: `${baseUrl}/uk` },
-    { rel: "alternate", hreflang: "ru", href: `${baseUrl}/` },
-    { rel: "alternate", hreflang: "en", href: `${baseUrl}/en` },
-  ],
+usePageSeo({
+  title: () => t("seo.blog.title"),
+  description: () => t("seo.blog.description"),
 });
 
 const { locale } = useI18n();

@@ -45,7 +45,9 @@ export default defineNuxtConfig({
   sitemap: {
     siteUrl: 'https://andriichebotaru.com',
     i18n: true,
-    trailingSlash: false
+    trailingSlash: false,
+    // pictures and blog articles from the CMS (server/api/__sitemap__/urls.ts)
+    sources: ['/api/__sitemap__/urls'],
   },
   vite: {
     build: {

@@ -16,6 +16,7 @@
 </template>
 
 <script setup>
+import { usePageSeo } from "@/composables/usePageSeo";
 import Header from "@/layouts/Header.vue";
 import PreviewSection from "@/components/pages/aboutOleksiiAndWife/previewSection.vue";
 import HeroBrotherSection from "@/components/pages/aboutOleksiiAndWife/HeroBrotherSection.vue";
@@ -28,37 +29,11 @@ const ContactUs = defineAsyncComponent(() =>
   import("@/layouts/Contact-us.vue")
 );
 const Footer = defineAsyncComponent(() => import("@/layouts/Footer.vue"));
-const route = useRoute();
 const { t } = useI18n();
-const config = useRuntimeConfig();
-const baseUrl = config.public.SITE_URL || "https://andriichebotaru.com";
-const currentUrl = `${baseUrl}${route.fullPath}`;
-useHead({
-  title: t("seo.aboutOleksiiAndWife.title"),
-  meta: [
-    { name: "description", content: t("seo.aboutOleksiiAndWife.description") },
-    { name: "robots", content: "index, follow" },
-    { property: "og:type", content: "website" },
-    { property: "og:title", content: t("seo.aboutOleksiiAndWife.title") },
-    {
-      property: "og:description",
-      content: t("seo.aboutOleksiiAndWife.description"),
-    },
-    { property: "og:url", content: currentUrl },
-    { property: "og:image", content: `${baseUrl}/og/brotherAndHisWife.jpg` },
-    { name: "twitter:title", content: t("seo.aboutOleksiiAndWife.title") },
-    {
-      name: "twitter:description",
-      content: t("seo.aboutOleksiiAndWife.description"),
-    },
-    { name: "twitter:image", content: `${baseUrl}/og/brotherAndHisWife.jpg` },
-  ],
-  link: [
-    { rel: "canonical", href: currentUrl },
-    { rel: "alternate", hreflang: "uk", href: `${baseUrl}/uk` },
-    { rel: "alternate", hreflang: "ru", href: `${baseUrl}/` },
-    { rel: "alternate", hreflang: "en", href: `${baseUrl}/en` },
-  ],
+usePageSeo({
+  title: () => t("seo.aboutOleksiiAndWife.title"),
+  description: () => t("seo.aboutOleksiiAndWife.description"),
+  image: "/og/brotherAndHisWife.jpg",
 });
 const isWhiteTheme = useState("header-white-theme");
 isWhiteTheme.value = false;
