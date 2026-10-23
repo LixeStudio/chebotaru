@@ -591,6 +591,13 @@
                     }
                 }
             }
+        },
+        "error": {
+            "title": "Page not found",
+            "text": "This page seems to have left the canvas. You can return to the gallery and continue exploring the artworks.",
+            "btnHome": "Back to home",
+            "genericTitle": "Something went wrong",
+            "genericText": "An unexpected error occurred. Please try again or return to the home page."
         }
     },
     "seo": {
@@ -637,6 +644,12 @@
         "privacy": {
             "title": "Privacy Policy — Andrii Chebotaru",
             "description": "How Andrii Chebotaru collects and uses email addresses when you subscribe to newsletter updates on andriichebotaru.com."
+        },
+        "error": {
+            "title": "Page not found — Andrii Chebotaru",
+            "description": "The requested page was not found on Andrii Chebotaru’s website.",
+            "genericTitle": "Error — Andrii Chebotaru",
+            "genericDescription": "An unexpected error occurred on Andrii Chebotaru’s website."
         }
     },
     "units": {
