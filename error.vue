@@ -30,6 +30,10 @@ const is404 = computed(() => statusCode.value === 404);
 const isWhiteTheme = useState("header-white-theme");
 isWhiteTheme.value = false;
 
+const config = useRuntimeConfig();
+const baseUrl = config.public.SITE_URL || "https://andriichebotaru.com";
+const defaultImage = `${baseUrl}/og/default.jpg`;
+
 useHead({
   title: is404.value ? t("seo.error.title") : t("seo.error.genericTitle"),
   meta: [
@@ -40,6 +44,17 @@ useHead({
         : t("seo.error.genericDescription"),
     },
     { name: "robots", content: "noindex, follow" },
+    {
+      name: "twitter:title",
+      content: is404.value ? t("seo.error.title") : t("seo.error.genericTitle"),
+    },
+    {
+      name: "twitter:description",
+      content: is404.value
+        ? t("seo.error.description")
+        : t("seo.error.genericDescription"),
+    },
+    { name: "twitter:image", content: defaultImage },
   ],
 });
 

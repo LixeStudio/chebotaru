@@ -46,6 +46,12 @@ useHead({
     },
     { property: "og:url", content: currentUrl },
     { property: "og:image", content: `${baseUrl}/og/brotherAndHisWife.jpg` },
+    { name: "twitter:title", content: t("seo.aboutOleksiiAndWife.title") },
+    {
+      name: "twitter:description",
+      content: t("seo.aboutOleksiiAndWife.description"),
+    },
+    { name: "twitter:image", content: `${baseUrl}/og/brotherAndHisWife.jpg` },
   ],
   link: [
     { rel: "canonical", href: currentUrl },

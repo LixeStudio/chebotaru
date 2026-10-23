@@ -450,7 +450,7 @@
             "heroSection": {
                 "title": "Gallery of Works",
                 "text": "Explore my creations inspired by nature, light, and emotions.",
-                "bgText": "Каталог"
+                "bgText": "Catalog"
             },
             "catalogSection": {
                 "filterBtn": "Filters",
@@ -601,6 +601,7 @@
         }
     },
     "seo": {
+        "siteName": "Andrii Chebotaru",
         "home": {
             "title": "Andrii Chebotaru — contemporary Ukrainian artist",
             "description": "The official website of artist Andrii Chebotaru. Art gallery, articles, family, biography, and contact."

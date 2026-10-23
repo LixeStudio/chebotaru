@@ -40,6 +40,9 @@ useHead({
     },
     { property: "og:url", content: currentUrl },
     { property: "og:image", content: `${baseUrl}/og/aboutMother.jpg` },
+    { name: "twitter:title", content: t("seo.aboutMother.title") },
+    { name: "twitter:description", content: t("seo.aboutMother.description") },
+    { name: "twitter:image", content: `${baseUrl}/og/aboutMother.jpg` },
   ],
   link: [
     { rel: "canonical", href: currentUrl },

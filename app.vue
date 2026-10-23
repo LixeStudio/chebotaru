@@ -8,12 +8,19 @@
 </template>
 
 <script setup>
+const { t } = useI18n();
 const i18nHead = useLocaleHead();
 useHead({
   htmlAttrs: {
     lang: i18nHead.value.htmlAttrs?.lang,
     ...(i18nHead.value.htmlAttrs?.dir && { dir: i18nHead.value.htmlAttrs.dir }),
   },
+  meta: [
+    { property: "og:site_name", content: () => t("seo.siteName") },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:site", content: "@chebotaru.a" },
+    { name: "twitter:creator", content: "@chebotaru.a" },
+  ],
   link: [
     ...(i18nHead.value.link || []),
     { rel: "preconnect", href: "https://fonts.googleapis.com" },

@@ -24,11 +24,18 @@ if (import.meta.server && event) {
   setResponseStatus(event, 404);
 }
 
+const config = useRuntimeConfig();
+const baseUrl = config.public.SITE_URL || "https://andriichebotaru.com";
+const defaultImage = `${baseUrl}/og/default.jpg`;
+
 useHead({
   title: t("seo.error.title"),
   meta: [
     { name: "description", content: t("seo.error.description") },
     { name: "robots", content: "noindex, follow" },
+    { name: "twitter:title", content: t("seo.error.title") },
+    { name: "twitter:description", content: t("seo.error.description") },
+    { name: "twitter:image", content: defaultImage },
   ],
 });
 

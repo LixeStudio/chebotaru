@@ -85,6 +85,15 @@ watch(picture, () => {
       },
       { property: "og:url", content: currentUrl },
       { property: "og:image", content: `${baseUrl}/og/default.jpg` },
+      {
+        name: "twitter:title",
+        content: picture.value.title + t("seo.pictureDetails.title"),
+      },
+      {
+        name: "twitter:description",
+        content: t("seo.pictureDetails.description"),
+      },
+      { name: "twitter:image", content: `${baseUrl}/og/default.jpg` },
     ],
     link: [
       { rel: "canonical", href: currentUrl },

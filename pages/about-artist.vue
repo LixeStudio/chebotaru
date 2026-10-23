@@ -46,6 +46,9 @@ useHead({
     },
     { property: "og:url", content: currentUrl },
     { property: "og:image", content: `${baseUrl}/og/default.jpg` },
+    { name: "twitter:title", content: t("seo.aboutArtist.title") },
+    { name: "twitter:description", content: t("seo.aboutArtist.description") },
+    { name: "twitter:image", content: `${baseUrl}/og/default.jpg` },
   ],
   link: [
     { rel: "canonical", href: currentUrl },
