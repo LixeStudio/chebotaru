@@ -22,7 +22,8 @@ import RelatedWorksSection from "@/components/pages/pictureDetails/relatedWorksS
 import PopupComponent from "@/components/popupComponent.vue";
 import { useBodyScrollLock } from "@/composables/useBodyScrollLock";
 import { usePageSeo } from "@/composables/usePageSeo";
-import { useJsonLd } from "@/composables/useJsonLd";
+import { useJsonLd, useBreadcrumbs } from "@/composables/useJsonLd";
+import { seoDescription, seoTitle } from "@/composables/seoText";
 import {
   fetchPictureByDocumentId,
   fetchRelatedPictures,
@@ -123,12 +124,40 @@ setI18nParams(
   localizedRouteParams(documentId.value, picture.value?.localizedSlugs)
 );
 
+// "oil on canvas, impressionism, 80x90 cm, 2024": the facts shown on the page, as one sentence
+const detailsLine = computed(() => {
+  const d = picture.value?.details;
+  if (!d) return "";
+  return [
+    d.material,
+    d.style,
+    d.sizeInSm ? `${d.sizeInSm} ${t("units.centimeters")}` : "",
+    d.year,
+  ]
+    .filter(Boolean)
+    .join(", ");
+});
+
 const { url: pageUrl } = usePageSeo({
-  title: () => (picture.value?.title || "") + t("seo.pictureDetails.title"),
+  // the title with " — artwork by …" only when both fit in 60 characters
+  title: () =>
+    picture.value
+      ? seoTitle(picture.value.title, t("seo.pictureDetails.title"))
+      : "",
+  // 70-160 characters: description, image text, then the facts of the painting
   description: () =>
-    picture.value?.image.alt ||
-    picture.value?.image.caption ||
-    t("seo.pictureDetails.description"),
+    seoDescription(
+      [
+        picture.value?.description,
+        picture.value?.image.alt,
+        picture.value?.image.caption,
+        detailsLine.value,
+      ],
+      {
+        exclude: [picture.value?.title || ""],
+        fallback: t("seo.pictureDetails.description"),
+      }
+    ),
   image: () => picture.value?.image.src,
   path: canonicalPath,
   locales: () => Object.keys(picture.value?.localizedSlugs || {}),
@@ -158,6 +187,19 @@ useJsonLd("artwork", () =>
             }
           : undefined,
       }
+    : null
+);
+
+useBreadcrumbs(() =>
+  picture.value
+    ? [
+        { name: t("seo.siteName"), path: localePath("/") },
+        {
+          name: t("footer.links.aboutAuthor.catalog"),
+          path: localePath("/catalog"),
+        },
+        { name: picture.value.title.trim(), path: canonicalPath.value },
+      ]
     : null
 );
 </script>

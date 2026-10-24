@@ -6,6 +6,8 @@ export type Article = {
     previewText: string;
     image: ImageWithMeta;
     publishedAt: string;
+    // last change in the CMS (detail requests only)
+    updatedAt?: string;
     body?: BlogBlock[];
     // slug of every locale the article is visible in (detail requests only)
     localizedSlugs?: Record<string, string>;
