@@ -104,7 +104,7 @@ body {
     content: "";
     width: 1.5rem;
     height: 1.5rem;
-    background: url("../images/icons/arrow-up-right.svg") no-repeat center;
+    background: url("/images/icons/arrow-up-right.svg") no-repeat center;
   }
 }
 
@@ -164,7 +164,7 @@ body {
     transition: background-color 0.3s ease, border-color 0.3s ease;
 
     &::after {
-      content: url("../images/icons/check-ico.svg");
+      content: url("/images/icons/check-ico.svg");
       position: absolute;
       top: -0.05rem;
       left: -0.05rem;

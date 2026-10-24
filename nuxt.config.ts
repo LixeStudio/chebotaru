@@ -49,6 +49,12 @@ export default defineNuxtConfig({
     // pictures and blog articles from the CMS (server/api/__sitemap__/urls.ts)
     sources: ['/api/__sitemap__/urls'],
   },
+  routeRules: {
+    // static media from /public: file names are not hashed, so no "immutable";
+    // a week instead of the 4h default keeps repeat visits from re-downloading the hero video
+    '/videos/**': { headers: { 'cache-control': 'public, max-age=604800, stale-while-revalidate=86400' } },
+    '/images/**': { headers: { 'cache-control': 'public, max-age=604800, stale-while-revalidate=86400' } },
+  },
   vite: {
     build: {
       minify: 'terser',
