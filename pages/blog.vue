@@ -41,21 +41,21 @@ const { filters } = useFilters({
 const hasAnyFilters = computed(() => !!filters.value.typeOfArticle.length);
 
 // rendered on the server so the articles are in the initial HTML; filtering stays on the client
-const { data: articles, error } = await useAsyncData(
+const { data: articles } = await useAsyncData(
   () => `blog-${locale.value}`,
-  () => fetchAllArticles(locale.value),
+  async () => {
+    try {
+      return await fetchAllArticles(locale.value);
+    } catch {
+      // CMS/network failure: keep the blog page with the empty state, not error.vue
+      return [];
+    }
+  },
   { default: () => [] }
 );
-if (error.value) {
-  throw createError({
-    statusCode: 503,
-    statusMessage: "Blog is temporarily unavailable",
-    fatal: true,
-  });
-}
 
 const filteredArticles = computed(() => {
-  return articles.value.filter((article) => {
+  return (articles.value || []).filter((article) => {
     return filters.value.typeOfArticle.length
       ? filters.value.typeOfArticle.includes(article.theme)
       : true;

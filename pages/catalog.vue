@@ -46,18 +46,18 @@ const { locale } = useI18n();
 
 // rendered on the server so the works are in the initial HTML (no empty state, no layout shift);
 // filtering and sorting stay on the client
-const { data: pictures, error } = await useAsyncData(
+const { data: pictures } = await useAsyncData(
   () => `catalog-${locale.value}`,
-  () => fetchAllPictures(locale.value),
+  async () => {
+    try {
+      return await fetchAllPictures(locale.value);
+    } catch {
+      // CMS/network failure: keep the catalog page with the empty state, not error.vue
+      return [];
+    }
+  },
   { default: () => [] }
 );
-if (error.value) {
-  throw createError({
-    statusCode: 503,
-    statusMessage: "Catalog is temporarily unavailable",
-    fatal: true,
-  });
-}
 
 const { filters } = useFilters({
   price: [],
@@ -76,7 +76,7 @@ const hasAnyFilters = computed(() => {
 });
 // bag tyt
 const filteredPictures = computed(() => {
-  return pictures.value
+  return (pictures.value || [])
     .filter((picture) => {
       const isAvailable = filters.value.availability.length
         ? filters.value.availability.includes(picture.availability)
