@@ -91,6 +91,8 @@ export async function fetchPictureByDocumentId(documentId: string, locale: strin
 
     const picture = mapPicture(result.data, mediaBase);
     picture.description = result.data.description;
+    const photos = (result.data.images || []).map((image) => ({ ...mapCmsImage(image, mediaBase), alt: image.alt || "" }));
+    picture.photos = photos.length ? photos : [picture.image];
     picture.localizedSlugs = result.slugs;
     return { status: "ok", picture };
 }

@@ -497,6 +497,7 @@
         "pictureDetails": {
             "artworkSection": {
                 "buyBtn": "Buy",
+                "photo": "Photo {n} of {total}",
                 "details": {
                     "year": "Year",
                     "size": "Size",

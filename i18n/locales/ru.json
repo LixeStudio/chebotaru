@@ -497,6 +497,7 @@
         "pictureDetails": {
             "artworkSection": {
                 "buyBtn": "Купить",
+                "photo": "Фото {n} из {total}",
                 "details": {
                     "year": "Год",
                     "size": "Размер",
