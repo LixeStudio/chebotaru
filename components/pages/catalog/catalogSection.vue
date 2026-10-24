@@ -14,15 +14,21 @@
         />
       </div>
       <div class="catalog__pictures pictures-catalog gallery">
-        <ul v-if="state === 'list'" class="pictures-catalog__list gallery__list">
+        <TransitionGroup
+          v-if="state === 'list'"
+          tag="ul"
+          name="cards"
+          class="pictures-catalog__list gallery__list"
+        >
           <GalleryItem
             v-for="(pic, index) in pictures"
             :key="pic.documentId"
+            v-reveal
             :picture="pic"
             :eager="index < 3"
             :priority="index === 0"
           />
-        </ul>
+        </TransitionGroup>
         <p v-else-if="state === 'unavailable'" class="catalog__text-second">
           {{ t("pages.catalog.catalogSection.unavailable") }}
         </p>
@@ -42,6 +48,7 @@ import { ref } from "vue";
 import GalleryItem from "@/components/GalleryItem.vue";
 import FiltersMenu from "@/components/filtersMenu.vue";
 import { listState } from "@/composables/listState";
+import { vReveal } from "@/composables/reveal";
 const props = defineProps({
   filters: {
     type: Object,

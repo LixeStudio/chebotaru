@@ -47,6 +47,10 @@
         <div class="artwork__body-bottom">
           <p class="artwork__price">
             {{ formatPrice(picture.price, picture.currency) }}
+            <SoldBadge
+              v-if="picture.availability === 'sold'"
+              placement="inline"
+            />
           </p>
           <button class="artwork__btn btn-circle" @click="emit('togglePopup')">
             {{ t("pages.pictureDetails.artworkSection.buyBtn") }}
@@ -70,6 +74,7 @@
 <script setup>
 import { defineAsyncComponent } from "vue";
 import CmsImage from "@/components/CmsImage.vue";
+import SoldBadge from "@/components/SoldBadge.vue";
 import { formatPrice } from "@/composables/usePrice";
 
 const VueEasyLightbox = defineAsyncComponent(() => import("vue-easy-lightbox"));

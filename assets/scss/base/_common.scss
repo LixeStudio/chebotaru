@@ -47,6 +47,31 @@ input:focus-visible,
 
 // Clases
 
+// Cards of the catalog and the blog: soft fade-in below the first screen (composables/reveal.ts)...
+.reveal {
+  opacity: 0;
+  transform: translateY(1rem);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.reveal--in {
+  opacity: 1;
+  transform: none;
+}
+// ...and when filtering / sorting (TransitionGroup name="cards"): leaving cards fade out, new ones fade in,
+// the others glide to their new places. Only opacity and transform: no layout shift.
+.cards-enter-active,
+.cards-leave-active {
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.cards-enter-from,
+.cards-leave-to {
+  opacity: 0;
+  transform: scale(0.97);
+}
+.cards-move {
+  transition: transform 0.4s ease;
+}
+
 .visually-hidden {
   position: absolute !important;
   width: 0.0625rem;
