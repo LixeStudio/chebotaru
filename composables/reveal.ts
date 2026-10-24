@@ -1,4 +1,4 @@
-import type { Directive } from "vue";
+import { computed, ref, watch, type Directive, type WatchSource } from "vue";
 
 // v-reveal: a card below the first screen fades in softly when it scrolls into view (class .reveal / .reveal--in in
 // assets/scss/base/_common.scss). Cards already on screen when the page opens are left alone (no delay of the first
@@ -35,3 +35,16 @@ export const vReveal: Directive<HTMLElement> = {
     // nothing to render on the server: the card is visible in the HTML
     getSSRProps: () => ({}),
 };
+
+/**
+ * A soft entrance for a list that changes in place (catalog / blog filters and sorting): bind `listKey` as the list's
+ * `key` and `entering` to the class `list-entrance` (assets/scss/base/_common.scss). The first render (server HTML,
+ * the first screen) is never animated; every later change of `source` re-creates the list, whose first cards rise in.
+ */
+export function useListEntrance(source: WatchSource<unknown>) {
+    const listKey = ref(0);
+    watch(source, () => {
+        listKey.value += 1;
+    });
+    return { listKey, entering: computed(() => listKey.value > 0) };
+}

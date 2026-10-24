@@ -14,11 +14,11 @@
         />
       </div>
       <div class="catalog__pictures pictures-catalog gallery">
-        <TransitionGroup
+        <ul
           v-if="state === 'list'"
-          tag="ul"
-          name="cards"
+          :key="listKey"
           class="pictures-catalog__list gallery__list"
+          :class="{ 'list-entrance': entering }"
         >
           <GalleryItem
             v-for="(pic, index) in pictures"
@@ -28,7 +28,7 @@
             :eager="index < 3"
             :priority="index === 0"
           />
-        </TransitionGroup>
+        </ul>
         <p v-else-if="state === 'unavailable'" class="catalog__text-second">
           {{ t("pages.catalog.catalogSection.unavailable") }}
         </p>
@@ -48,7 +48,7 @@ import { ref } from "vue";
 import GalleryItem from "@/components/GalleryItem.vue";
 import FiltersMenu from "@/components/filtersMenu.vue";
 import { listState } from "@/composables/listState";
-import { vReveal } from "@/composables/reveal";
+import { useListEntrance, vReveal } from "@/composables/reveal";
 const props = defineProps({
   filters: {
     type: Object,
@@ -75,6 +75,7 @@ const state = computed(() =>
     hasFilters: props.hasAnyFilters,
   })
 );
+const { listKey, entering } = useListEntrance(() => props.pictures);
 const ifFilterMenuOpened = ref(false);
 
 const toggleFitlerMenu = () => {
