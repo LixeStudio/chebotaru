@@ -443,7 +443,7 @@
             "alert": {
                 "errorMessage": "Ошибка при отправке. Попробуйте позже.",
                 "successMessage": "Спасибо! Вы успешно подписались.",
-                "errorEmailMessage": "Этот email уже подписан."
+                "invalidEmailMessage": "Введите корректный email."
             }
         },
         "catalog": {

@@ -443,7 +443,7 @@
             "alert": {
                 "errorMessage": "Something went wrong. Please try again later.",
                 "successMessage": "Thank you! You’ve successfully subscribed.",
-                "errorEmailMessage": "This email is already subscribed."
+                "invalidEmailMessage": "Please enter a valid email address."
             }
         },
         "catalog": {

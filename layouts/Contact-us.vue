@@ -33,6 +33,16 @@
               required
               aria-label="Email address"
             />
+            <!-- honeypot: hidden from people and screen readers, bots fill it; the CMS then stores nothing -->
+            <input
+              v-model="website"
+              type="text"
+              name="website"
+              class="visually-hidden"
+              tabindex="-1"
+              autocomplete="off"
+              aria-hidden="true"
+            />
             <p
               v-if="alert"
               class="contact-us__alert"
@@ -64,10 +74,11 @@ const { t } = useI18n();
 const alertMessage = {
   error: t("pages.contacts.alert.errorMessage"),
   success: t("pages.contacts.alert.successMessage"),
-  errorEmail: t("pages.contacts.alert.errorEmailMessage"),
+  invalidEmail: t("pages.contacts.alert.invalidEmailMessage"),
 };
 
 const email = useState("contact-email", () => "");
+const website = ref("");
 const success = ref(false);
 const alert = ref(null);
 const handleSubmit = async () => {
@@ -76,8 +87,9 @@ const handleSubmit = async () => {
     return;
   }
 
-  success.value = await subscribe(email.value);
-  email.value = "";
+  success.value = await subscribe(email.value, website.value);
+  // keep the address when it has to be corrected or sent again
+  if (success.value.success) email.value = "";
 };
 
 watch(success, () => {
@@ -86,10 +98,11 @@ watch(success, () => {
       type: "success",
       message: alertMessage.success,
     };
-  if (success.value.success === false && success.value.type === "duplicate")
+  // an already subscribed address gets the same success message: the site does not reveal who is subscribed
+  if (success.value.success === false && success.value.type === "invalid")
     alert.value = {
       type: "error",
-      message: alertMessage.errorEmail,
+      message: alertMessage.invalidEmail,
     };
   if (success.value.success === false && success.value.type === "general")
     alert.value = {

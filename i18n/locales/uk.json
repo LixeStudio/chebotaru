@@ -443,7 +443,7 @@
             "alert": {
                 "errorMessage": "Сталася помилка. Спробуйте пізніше.",
                 "successMessage": "Дякуємо! Ви успішно підписалися.",
-                "errorEmailMessage": "Цей email вже підписаний."
+                "invalidEmailMessage": "Введіть коректний email."
             }
         },
         "catalog": {
