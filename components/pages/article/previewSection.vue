@@ -6,6 +6,14 @@
           {{ article.title }}
         </h1>
         <div class="preview__info">
+          <!-- the author (byline) links to the artist's page; same look and separator dot as the theme -->
+          <NuxtLink
+            :to="localePath('/about-artist')"
+            rel="author"
+            class="preview__author articles-blog__theme article-card__theme"
+          >
+            {{ t("seo.siteName") }}
+          </NuxtLink>
           <p class="articles-blog__theme article-card__theme">
             {{ themeValues[article.theme] }}
           </p>
@@ -13,7 +21,9 @@
             v-if="article.publishedAt"
             class="preview__date article-card__date"
           >
-            {{ formatDate(article.publishedAt, locale) }}
+            <time :datetime="article.publishedAt">{{
+              formatDate(article.publishedAt, locale)
+            }}</time>
           </p>
         </div>
       </div>
@@ -54,6 +64,7 @@ defineProps({
   },
 });
 const { t, locale } = useI18n();
+const localePath = useLocalePath();
 const aboutPictures = t("pages.blog.blogSection.filters.aboutPictures");
 const interview = t("pages.blog.blogSection.filters.interview");
 const exhibitions = t("pages.blog.blogSection.filters.exhibitions");

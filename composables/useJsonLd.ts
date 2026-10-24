@@ -16,6 +16,27 @@ export function useJsonLd(key: string, data: MaybeRefOrGetter<Record<string, unk
     })
 }
 
+/**
+ * BreadcrumbList for a page inside a section (Home → Blog → article). `items` are names and locale-prefixed paths;
+ * URLs are made absolute with the site address.
+ */
+export function useBreadcrumbs(items: MaybeRefOrGetter<{ name: string; path: string }[] | null>) {
+    const baseUrl = String(useRuntimeConfig().public.SITE_URL || 'https://andriichebotaru.com').replace(/\/+$/, '')
+    useJsonLd('breadcrumbs', () => {
+        const list = toValue(items)
+        if (!list?.length) return null
+        return {
+            '@type': 'BreadcrumbList',
+            itemListElement: list.map((item, index) => ({
+                '@type': 'ListItem',
+                position: index + 1,
+                name: item.name,
+                item: item.path === '/' ? baseUrl : baseUrl + item.path,
+            })),
+        }
+    })
+}
+
 export const ARTIST_SAME_AS = [
     'https://www.instagram.com/chebotaru.a',
     'https://youtube.com/@chebotaru.a',

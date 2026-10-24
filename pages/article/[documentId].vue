@@ -17,7 +17,12 @@ import PreviewSection from "@/components/pages/article/previewSection.vue";
 import BodySection from "@/components/pages/article/bodySection.vue";
 import relatedSection from "@/components/pages/article/relatedSection.vue";
 import { usePageSeo } from "@/composables/usePageSeo";
-import { useJsonLd, ARTIST_SAME_AS } from "@/composables/useJsonLd";
+import {
+  useJsonLd,
+  useBreadcrumbs,
+  ARTIST_SAME_AS,
+} from "@/composables/useJsonLd";
+import { seoDescription, seoTitle } from "@/composables/seoText";
 import {
   fetchArticlesByDocumentId,
   fetchRelatedArticles,
@@ -110,19 +115,26 @@ const paragraphs = computed(() =>
   (article.value?.previewText || "").split("\n").filter((p) => p.trim().length)
 );
 
-// preview text of the article (its first line often repeats the title)
-const description = computed(() => {
-  const title = (article.value?.title || "").trim().replace(/\.$/, "");
-  const text = paragraphs.value
-    .filter((p) => p.trim().replace(/\.$/, "") !== title)
-    .join(" ")
-    .trim();
-  if (!text) return t("seo.article.description");
-  return text.length > 160 ? text.slice(0, 157).trimEnd() + "…" : text;
-});
+// 70-160 characters from the preview, then the start of the text (lines repeating the title are skipped)
+const description = computed(() =>
+  seoDescription(
+    [
+      article.value?.previewText,
+      ...(article.value?.body || [])
+        .filter((block) => block.type === "text")
+        .map((block) => block.text),
+    ],
+    {
+      exclude: [article.value?.title || ""],
+      fallback: t("seo.article.description"),
+    }
+  )
+);
 
 const { url: pageUrl } = usePageSeo({
-  title: () => (article.value?.title || "") + t("seo.article.title"),
+  // the title with " — blog by …" only when both fit in 60 characters
+  title: () =>
+    article.value ? seoTitle(article.value.title, t("seo.article.title")) : "",
   description,
   image: () => article.value?.image.src,
   type: "article",
@@ -131,9 +143,20 @@ const { url: pageUrl } = usePageSeo({
 });
 useSeoMeta({
   articlePublishedTime: () => article.value?.publishedAt || undefined,
+  articleModifiedTime: () => article.value?.updatedAt || undefined,
+  articleAuthor: () => [t("seo.siteName")],
 });
 
-// personal blog of the artist: the author is the site owner
+// personal blog of the artist: the author and publisher is the site owner, whose page is "About the artist"
+const siteUrl = String(
+  useRuntimeConfig().public.SITE_URL || "https://andriichebotaru.com"
+).replace(/\/+$/, "");
+const artist = computed(() => ({
+  "@type": "Person",
+  name: t("seo.siteName"),
+  url: siteUrl + localePath("/about-artist"),
+  sameAs: ARTIST_SAME_AS,
+}));
 useJsonLd("article", () =>
   article.value
     ? {
@@ -144,9 +167,22 @@ useJsonLd("article", () =>
         image: article.value.image.src || undefined,
         description: description.value,
         datePublished: article.value.publishedAt || undefined,
+        dateModified:
+          article.value.updatedAt || article.value.publishedAt || undefined,
         inLanguage: locale.value,
-        author: { "@type": "Person", name: t("seo.siteName"), sameAs: ARTIST_SAME_AS },
+        author: artist.value,
+        publisher: artist.value,
       }
+    : null
+);
+
+useBreadcrumbs(() =>
+  article.value
+    ? [
+        { name: t("seo.siteName"), path: localePath("/") },
+        { name: t("footer.links.aboutAuthor.blog"), path: localePath("/blog") },
+        { name: article.value.title.trim(), path: canonicalPath.value },
+      ]
     : null
 );
 </script>

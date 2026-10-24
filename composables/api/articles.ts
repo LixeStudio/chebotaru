@@ -89,6 +89,7 @@ export async function fetchArticlesByDocumentId(documentId: string, locale: stri
 
     const article = mapArticle(result.data, mediaBase);
     article.body = mapBlocks(result.data.blocks, mediaBase);
+    article.updatedAt = result.data.updatedAt;
     article.localizedSlugs = result.slugs;
     return { status: "ok", article };
 }
