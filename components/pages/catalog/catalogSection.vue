@@ -14,7 +14,7 @@
         />
       </div>
       <div class="catalog__pictures pictures-catalog gallery">
-        <ul v-if="pictures.length" class="pictures-catalog__list gallery__list">
+        <ul v-if="state === 'list'" class="pictures-catalog__list gallery__list">
           <GalleryItem
             v-for="(pic, index) in pictures"
             :key="pic.documentId"
@@ -23,7 +23,10 @@
             :priority="index === 0"
           />
         </ul>
-        <p v-else-if="hasAnyFilters" class="catalog__text-second">
+        <p v-else-if="state === 'unavailable'" class="catalog__text-second">
+          {{ t("pages.catalog.catalogSection.unavailable") }}
+        </p>
+        <p v-else-if="state === 'noFilteredResults'" class="catalog__text-second">
           {{ t("pages.catalog.catalogSection.noFilteredResults") }}
         </p>
         <p v-else class="catalog__text-second">
@@ -38,7 +41,8 @@
 import { ref } from "vue";
 import GalleryItem from "@/components/GalleryItem.vue";
 import FiltersMenu from "@/components/filtersMenu.vue";
-defineProps({
+import { listState } from "@/composables/listState";
+const props = defineProps({
   filters: {
     type: Object,
     required: true,
@@ -51,7 +55,19 @@ defineProps({
     type: Boolean,
     required: true,
   },
+  // the CMS request failed (not the same as an empty catalog)
+  unavailable: {
+    type: Boolean,
+    default: false,
+  },
 });
+const state = computed(() =>
+  listState({
+    count: props.pictures.length,
+    failed: props.unavailable,
+    hasFilters: props.hasAnyFilters,
+  })
+);
 const ifFilterMenuOpened = ref(false);
 
 const toggleFitlerMenu = () => {

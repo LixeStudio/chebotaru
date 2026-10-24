@@ -7,6 +7,7 @@
         :filters="filters"
         :articles="filteredArticles"
         :has-any-filters="hasAnyFilters"
+        :unavailable="cmsUnavailable"
       />
       <ContactUs />
     </main>
@@ -41,18 +42,20 @@ const { filters } = useFilters({
 const hasAnyFilters = computed(() => !!filters.value.typeOfArticle.length);
 
 // rendered on the server so the articles are in the initial HTML; filtering stays on the client
-const { data: articles } = await useAsyncData(
+const { data: articles, error } = await useAsyncData(
   () => `blog-${locale.value}`,
-  async () => {
-    try {
-      return await fetchAllArticles(locale.value);
-    } catch {
-      // CMS/network failure: keep the blog page with the empty state, not error.vue
-      return [];
-    }
-  },
+  () => fetchAllArticles(locale.value),
   { default: () => [] }
 );
+
+// CMS outage: the page keeps its layout (header, hero, filters) instead of the error page, but says
+// the articles are temporarily unavailable instead of "nothing here yet", and answers 503 with Retry-After so
+// that search engines keep the indexed page instead of an empty list
+const cmsUnavailable = computed(() => !!error.value);
+if (import.meta.server && error.value) {
+  setResponseStatus(useRequestEvent(), 503, "CMS is unavailable");
+  useResponseHeader("Retry-After").value = "120";
+}
 
 const filteredArticles = computed(() => {
   return (articles.value || []).filter((article) => {

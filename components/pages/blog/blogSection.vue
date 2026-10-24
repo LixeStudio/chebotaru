@@ -2,7 +2,7 @@
   <section class="blog">
     <div class="blog__container">
       <BlogFiltersMenu :filters="filters" />
-      <div v-if="articles.length" class="blog__articles articles-blog">
+      <div v-if="state === 'list'" class="blog__articles articles-blog">
         <BlogArticle
           v-for="(article, index) in articles"
           :key="article.documentId"
@@ -11,7 +11,10 @@
         />
       </div>
       <template v-else>
-        <p v-if="hasAnyFilters" class="blog__text-second">
+        <p v-if="state === 'unavailable'" class="blog__text-second">
+          {{ t("pages.blog.blogSection.unavailable") }}
+        </p>
+        <p v-else-if="state === 'noFilteredResults'" class="blog__text-second">
           {{ t("pages.blog.blogSection.noFilteredResults") }}
         </p>
         <p v-else class="blog__text-second">
@@ -25,8 +28,9 @@
 <script setup>
 import BlogFiltersMenu from "@/components/blogFiltersMenu.vue";
 import BlogArticle from "@/components/BlogArticle.vue";
+import { listState } from "@/composables/listState";
 
-defineProps({
+const props = defineProps({
   filters: {
     type: Object,
     required: true,
@@ -39,7 +43,19 @@ defineProps({
     type: Boolean,
     required: true,
   },
+  // the CMS request failed (not the same as an empty blog)
+  unavailable: {
+    type: Boolean,
+    default: false,
+  },
 });
+const state = computed(() =>
+  listState({
+    count: props.articles.length,
+    failed: props.unavailable,
+    hasFilters: props.hasAnyFilters,
+  })
+);
 
 const { t } = useI18n();
 </script>

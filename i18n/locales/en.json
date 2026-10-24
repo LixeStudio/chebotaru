@@ -490,7 +490,8 @@
                     }
                 },
                 "noFilteredResults": "No artworks found for the selected filters",
-                "noPictures": "There’s nothing here yet"
+                "noPictures": "There’s nothing here yet",
+                "unavailable": "The works are temporarily unavailable. Please try again in a few minutes."
             }
         },
         "pictureDetails": {
@@ -521,7 +522,8 @@
                     "inspiration": "Inspiration"
                 },
                 "noFilteredResults": "No articles found for the selected filters",
-                "noPictures": "There’s nothing here yet"
+                "noPictures": "There’s nothing here yet",
+                "unavailable": "The articles are temporarily unavailable. Please try again in a few minutes."
             }
         },
         "article": {
