@@ -53,8 +53,11 @@
     &::placeholder {
       color: $Default-gray-500;
     }
+    // focus ring comes from the bottom border; skip the global black outline on this field
     &:active,
-    &:focus {
+    &:focus,
+    &:focus-visible {
+      outline: none;
       border-bottom: 0.0625rem solid $Default-gray-600;
     }
   }
