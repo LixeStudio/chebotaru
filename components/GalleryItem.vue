@@ -5,6 +5,14 @@
       class="pictures-works__picture gallery__picture"
     >
       <div class="pictures-works__img gallery__img">
+        <SoldBadge
+          v-if="picture.availability === 'sold'"
+          :image-ratio="
+            picture.image.width && picture.image.height
+              ? picture.image.width / picture.image.height
+              : 1
+          "
+        />
         <CmsImage
           v-if="picture.image && picture.image.src"
           :image="picture.image"
@@ -25,6 +33,7 @@
 
 <script setup>
 import CmsImage from "@/components/CmsImage.vue";
+import SoldBadge from "@/components/SoldBadge.vue";
 import { formatPrice } from "@/composables/usePrice";
 
 defineProps({
