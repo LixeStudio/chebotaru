@@ -51,8 +51,9 @@ export async function fetchArticles(
     locale: string,
     query: ArticleQuery = {}
 ): Promise<{ articles: Article[]; pagination: CmsPagination }> {
-    const res = await cmsFetch<CmsList<CmsArticleItem>>("articles", { locale, ...toCmsQuery(query) });
+    // read before the first await: after it the Nuxt instance (useRuntimeConfig) is not available during SSR
     const mediaBase = cmsMediaBase();
+    const res = await cmsFetch<CmsList<CmsArticleItem>>("articles", { locale, ...toCmsQuery(query) });
     return { articles: res.data.map((raw) => mapArticle(raw, mediaBase)), pagination: res.meta.pagination };
 }
 
@@ -81,10 +82,11 @@ export type ArticleResult =
 // One article with all its blocks and the slug of every language it is visible in. "not_found" = 404,
 // "other_locales" = not translated to this language; request errors are rethrown (not reported as 404).
 export async function fetchArticlesByDocumentId(documentId: string, locale: string): Promise<ArticleResult> {
+    // read before the first await: after it the Nuxt instance (useRuntimeConfig) is not available during SSR
+    const mediaBase = cmsMediaBase();
     const result = await fetchLocalizedDetail<CmsArticleDetail>("articles", documentId, locale);
     if (result.status !== "ok") return result;
 
-    const mediaBase = cmsMediaBase();
     const article = mapArticle(result.data, mediaBase);
     article.body = mapBlocks(result.data.blocks, mediaBase);
     article.localizedSlugs = result.slugs;
@@ -93,9 +95,10 @@ export async function fetchArticlesByDocumentId(documentId: string, locale: stri
 
 // the latest other articles in this language; an API error leaves the section empty
 export async function fetchRelatedArticles(documentId: string, locale: string, limit = 3): Promise<Article[]> {
+    // read before the first await: after it the Nuxt instance (useRuntimeConfig) is not available during SSR
+    const mediaBase = cmsMediaBase();
     try {
         const res = await cmsFetch<{ data: CmsArticleItem[] }>(`articles/${documentId}/related`, { locale, limit });
-        const mediaBase = cmsMediaBase();
         return res.data.map((raw) => mapArticle(raw, mediaBase));
     } catch (e) {
         console.error("Ошибка при получении похожих статей", e);

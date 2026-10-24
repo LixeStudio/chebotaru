@@ -53,8 +53,9 @@ export async function fetchPictures(
     locale: string,
     query: PictureQuery = {}
 ): Promise<{ pictures: Picture[]; pagination: CmsPagination }> {
-    const res = await cmsFetch<CmsList<CmsPictureItem>>("pictures", { locale, ...query });
+    // read before the first await: after it the Nuxt instance (useRuntimeConfig) is not available during SSR
     const mediaBase = cmsMediaBase();
+    const res = await cmsFetch<CmsList<CmsPictureItem>>("pictures", { locale, ...query });
     return { pictures: res.data.map((raw) => mapPicture(raw, mediaBase)), pagination: res.meta.pagination };
 }
 
@@ -83,10 +84,12 @@ export type PictureResult =
 // One picture with the slug of every language it is visible in. "not_found" = 404,
 // "other_locales" = not translated to this language; request errors are rethrown (not reported as 404).
 export async function fetchPictureByDocumentId(documentId: string, locale: string): Promise<PictureResult> {
+    // read before the first await: after it the Nuxt instance (useRuntimeConfig) is not available during SSR
+    const mediaBase = cmsMediaBase();
     const result = await fetchLocalizedDetail<CmsPictureDetail>("pictures", documentId, locale);
     if (result.status !== "ok") return result;
 
-    const picture = mapPicture(result.data, cmsMediaBase());
+    const picture = mapPicture(result.data, mediaBase);
     picture.description = result.data.description;
     picture.localizedSlugs = result.slugs;
     return { status: "ok", picture };
@@ -94,9 +97,10 @@ export async function fetchPictureByDocumentId(documentId: string, locale: strin
 
 // same orientation or size (both first), then newer; an API error leaves the section empty
 export async function fetchRelatedPictures(documentId: string, locale: string, limit = 3): Promise<Picture[]> {
+    // read before the first await: after it the Nuxt instance (useRuntimeConfig) is not available during SSR
+    const mediaBase = cmsMediaBase();
     try {
         const res = await cmsFetch<{ data: CmsPictureItem[] }>(`pictures/${documentId}/related`, { locale, limit });
-        const mediaBase = cmsMediaBase();
         return res.data.map((raw) => mapPicture(raw, mediaBase));
     } catch (e) {
         console.error("Ошибка при получении похожих картин", e);
