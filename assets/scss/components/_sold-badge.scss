@@ -8,6 +8,12 @@
   z-index: 2;
   overflow: hidden;
   pointer-events: none;
+  // zooms with the painting on hover (_gallery.scss: the image scales 1.05 from its centre, which is also the centre
+  // of this frame), so the ribbon stays exactly on the painting's corner
+  transition: transform 0.3s ease-in-out;
+}
+.gallery__picture:hover .sold-frame {
+  transform: scale(1.05);
 }
 .sold-badge {
   display: inline-flex;
