@@ -1,4 +1,12 @@
 @use "../utils/variables" as *;
+// Large backgrounds of this section (the painting set per page, the flowers) load only once the section is near the
+// viewport: layouts/Contact-us.vue adds .contact-us--bg-ready. Until then they are not downloaded at all.
+.contact-us:not(.contact-us--bg-ready) {
+  .contact-us__bg,
+  .contact-us__wrapper::after {
+    background-image: none !important;
+  }
+}
 .contact-us {
   position: relative;
   height: 100%;

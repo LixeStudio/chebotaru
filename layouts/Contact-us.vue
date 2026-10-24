@@ -1,5 +1,9 @@
 <template>
-  <section class="contact-us">
+  <section
+    ref="sectionRef"
+    class="contact-us"
+    :class="{ 'contact-us--bg-ready': backgroundsReady }"
+  >
     <div class="contact-us__container">
       <div class="contact-us__bg" aria-hidden="true"></div>
 
@@ -61,7 +65,7 @@
 </template>
 
 <script setup>
-import { ref, watch } from "vue";
+import { onBeforeUnmount, onMounted, ref, watch } from "vue";
 import { subscribe } from "@/composables/api/subscribe";
 defineProps({
   showTitle: {
@@ -70,6 +74,30 @@ defineProps({
   },
 });
 const { t } = useI18n();
+
+// The painting behind this section (up to ~1 MB) and the flowers are CSS backgrounds, which a browser downloads at once,
+// competing with the first screen of every page. They are switched on (assets/scss/components/_contact-us.scss) only
+// when the section is within about one screen of the viewport.
+const sectionRef = ref(null);
+const backgroundsReady = ref(false);
+let observer = null;
+onMounted(() => {
+  if (!("IntersectionObserver" in window) || !sectionRef.value) {
+    backgroundsReady.value = true;
+    return;
+  }
+  observer = new IntersectionObserver(
+    (entries) => {
+      if (entries.some((entry) => entry.isIntersecting)) {
+        backgroundsReady.value = true;
+        observer?.disconnect();
+      }
+    },
+    { rootMargin: "100% 0px 100% 0px" }
+  );
+  observer.observe(sectionRef.value);
+});
+onBeforeUnmount(() => observer?.disconnect());
 
 const alertMessage = {
   error: t("pages.contacts.alert.errorMessage"),
