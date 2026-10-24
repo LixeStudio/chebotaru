@@ -97,7 +97,8 @@ watch(success, () => {
       message: alertMessage.error,
     };
   setTimeout(() => {
-    alert.value = {};
+    // null (not {}) so that v-if removes the empty alert paragraph
+    alert.value = null;
   }, 3000);
 });
 </script>

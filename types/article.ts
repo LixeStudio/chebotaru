@@ -9,6 +9,8 @@ export type Article = {
     publishedAt: string;
     createdAt: string;
     body?: BlogBlock[];
+    // slug of every locale the article is translated to (detail requests only)
+    localizedSlugs?: Record<string, string>;
 }
 
 export type BlogBlock =
@@ -46,5 +48,9 @@ export interface ImageWithMeta {
     src: string
     alt: string
     caption: string
+    // responsive copies and intrinsic size from the CMS
+    srcset?: string
+    width?: number
+    height?: number
 }
 

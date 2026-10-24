@@ -4,9 +4,10 @@
       <BlogFiltersMenu :filters="filters" />
       <div v-if="articles.length" class="blog__articles articles-blog">
         <BlogArticle
-          v-for="article in articles"
+          v-for="(article, index) in articles"
           :key="article.documentId"
           :article="article"
+          :eager="index < 2"
         />
       </div>
       <template v-else>

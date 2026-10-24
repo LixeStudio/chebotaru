@@ -34,7 +34,11 @@ const config = useRuntimeConfig();
 const baseUrl = config.public.SITE_URL || "https://andriichebotaru.com";
 const defaultImage = `${baseUrl}/og/default.jpg`;
 
+// error.vue replaces app.vue, so the document language is set here as well
+const i18nHead = useLocaleHead({ seo: false });
+
 useHead({
+  htmlAttrs: { lang: () => i18nHead.value.htmlAttrs?.lang },
   title: is404.value ? t("seo.error.title") : t("seo.error.genericTitle"),
   meta: [
     {

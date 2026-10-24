@@ -17,7 +17,7 @@
       right: -4rem;
       width: 11.625rem;
       height: 12rem;
-      background: url("../../images/contact-us__flowers.svg") no-repeat center;
+      background: url("/images/contact-us__flowers.svg") no-repeat center;
       background-size: cover;
     }
   }
@@ -66,7 +66,7 @@
     font-size: 7rem;
     line-height: 47%;
     color: $Default-yellow-300;
-    font-family: "TT Disruptors";
+    font-family: "TT Disruptors", "TT Disruptors Fallback";
     overflow-wrap: break-word;
     white-space: break-spaces;
     &.second {

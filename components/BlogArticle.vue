@@ -4,12 +4,13 @@
       :to="localePath(`/article/${article.documentId}-${article.slug}`)"
     >
       <div class="articles-blog__image article-card__image">
-        <NuxtImg
+        <CmsImage
           v-if="article.image && article.image.src"
-          :src="article.image.src"
-          :alt="article.image.alt"
+          :image="article.image"
+          sizes="(max-width: 767px) 100vw, (max-width: 1100px) 90vw, 460px"
           width="392"
           height="300"
+          :loading="eager ? 'eager' : 'lazy'"
         />
       </div>
       <h3 class="articles-blog__title article-card__title">
@@ -39,10 +40,16 @@
 
 <script setup>
 import { formatDate } from "@/composables/useDate";
+import CmsImage from "@/components/CmsImage.vue";
 defineProps({
   article: {
     type: Object,
     required: true,
+  },
+  // first cards of a page that can be in the first viewport
+  eager: {
+    type: Boolean,
+    default: false,
   },
 });
 const localePath = useLocalePath();

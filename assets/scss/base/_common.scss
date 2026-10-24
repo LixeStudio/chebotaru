@@ -17,8 +17,32 @@ body {
   position: relative;
   overflow: hidden;
   min-height: 100%;
-  min-width: 23.5rem;
+  // 22.5rem (360px) instead of 23.5rem (376px): the old value made 360-375px phones
+  // render a 376px-wide layout with horizontal scrolling; narrower screens still get
+  // the smallest supported layout scaled down, as before
+  min-width: 22.5rem;
   width: 100%;
+}
+
+// Keyboard focus indicator (mouse/touch focus stays without an outline, see base/_clear.scss)
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+[tabindex]:focus-visible {
+  outline: 0.125rem solid currentColor;
+  outline-offset: 0.1875rem;
+}
+
+// Visitors who ask the system for less motion get instant state changes
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 // Clases
@@ -104,7 +128,7 @@ body {
     content: "";
     width: 1.5rem;
     height: 1.5rem;
-    background: url("../images/icons/arrow-up-right.svg") no-repeat center;
+    background: url("/images/icons/arrow-up-right.svg") no-repeat center;
   }
 }
 
@@ -164,7 +188,7 @@ body {
     transition: background-color 0.3s ease, border-color 0.3s ease;
 
     &::after {
-      content: url("../images/icons/check-ico.svg");
+      content: url("/images/icons/check-ico.svg");
       position: absolute;
       top: -0.05rem;
       left: -0.05rem;
@@ -195,7 +219,7 @@ body {
 .bg-text {
   position: absolute;
   z-index: -1;
-  font-family: "TT Disruptors";
+  font-family: "TT Disruptors", "TT Disruptors Fallback";
   font-size: 15rem;
   line-height: 93.75%;
   color: $Default-yellow-300;

@@ -51,7 +51,7 @@
       left: 50%;
       transform: translate(-50%, -55%);
       z-index: 0;
-      font-family: "TT Disruptors";
+      font-family: "TT Disruptors", "TT Disruptors Fallback";
       font-size: 9rem;
       line-height: 80%;
       color: $Default-yellow-300;

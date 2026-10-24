@@ -1,5 +1,6 @@
 import qs from "qs";
 import type { Article, TextBlock, HeadingH2, HeadingH3, HeadingH4, BlogBlock, ImageWithMeta } from "@/types/article";
+import { mapStrapiMedia, type StrapiMedia } from "./media";
 
 
 type StrapiArticleRaw = {
@@ -13,6 +14,7 @@ type StrapiArticleRaw = {
     imageWithMeta: rawImageWithMeta,
     previewText: string,
     body?: rawBlogBlock[];
+    localizations?: { slug: string; locale: string }[];
 };
 
 type rawBlogBlock =
@@ -31,9 +33,7 @@ interface rawImageWithMeta {
     id: number;
     alt: string;
     caption: string;
-    image: {
-        url: string;
-    };
+    image: StrapiMedia;
 }
 
 
@@ -81,6 +81,9 @@ export async function fetchArticlesByDocumentId(
                         },
                     },
                 },
+                localizations: {
+                    fields: ["slug", "locale"],
+                },
             }
         },
         {
@@ -89,6 +92,8 @@ export async function fetchArticlesByDocumentId(
     );
 
 
+    // null = the article does not exist in this locale (404);
+    // request errors are rethrown so that an API outage is not reported as "not found"
     try {
         const res: { data: StrapiArticleRaw[] } = await $fetch(
             `${config.public.STRAPI_URL}/api/blogs?${query}`
@@ -96,13 +101,16 @@ export async function fetchArticlesByDocumentId(
 
         const raw = res.data?.[0];
         if (!raw) return null;
-        console.log(raw);
 
-        const mappedPicture = mapStrapiArticle(raw, strapiUrl);
-        return mappedPicture ?? null;
+        const mappedArticle = mapStrapiArticle(raw, strapiUrl);
+        mappedArticle.localizedSlugs = {
+            [locale]: raw.slug,
+            ...Object.fromEntries((raw.localizations || []).map((l) => [l.locale, l.slug])),
+        };
+        return mappedArticle;
     } catch (e) {
-        console.error("Ошибка при запросе картины по slug:", e);
-        return null;
+        console.error("Ошибка при запросе статьи по documentId:", e);
+        throw e;
     }
 }
 
@@ -145,12 +153,13 @@ export async function fetchAllArticles(locale: string): Promise<Article[]> {
         return mappedData
 
     } catch (e) {
-        console.error("Ошибка при получении всех картин:", e);
+        // rethrown: the blog must not pretend to be empty during an API outage
+        console.error("Ошибка при получении всех статей:", e);
+        throw e;
     }
-    return [];
 }
 
-export async function fetchRelatedArticles(article: Article, locale: string, limit = 3): Promise<Article[]> {
+export async function fetchRelatedArticles(article: Pick<Article, "documentId">, locale: string, limit = 3): Promise<Article[]> {
     const config = useRuntimeConfig();
     const strapiUrl = config.public.STRAPI_URL;
     const query = qs.stringify(
@@ -261,8 +270,8 @@ function mapBodyImages(body: rawBlogBlock[] | undefined, strapiUrl: string): Blo
                 case "blog.picture-gallery-block":
                     return {
                         __component: block.__component,
-                        images: block.imageWithMeta.map((img): ImageWithMeta => ({
-                            src: strapiUrl + (img.image?.url || ""),
+                        images: (block.imageWithMeta || []).map((img): ImageWithMeta => ({
+                            ...mapStrapiMedia(img.image, strapiUrl),
                             alt: img.alt || "",
                             caption: img.caption || "",
                         })),
@@ -282,7 +291,7 @@ function mapStrapiArticle(raw: StrapiArticleRaw, strapiUrl: string): Article {
         slug: raw.slug,
         title: raw.title,
         image: {
-            src: strapiUrl + raw.imageWithMeta.image?.url || "",
+            ...mapStrapiMedia(raw.imageWithMeta?.image, strapiUrl),
             alt: raw.imageWithMeta?.alt || "",
             caption: raw.imageWithMeta?.caption || "",
         },

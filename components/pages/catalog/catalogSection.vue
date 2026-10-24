@@ -16,9 +16,11 @@
       <div class="catalog__pictures pictures-catalog gallery">
         <ul v-if="pictures.length" class="pictures-catalog__list gallery__list">
           <GalleryItem
-            v-for="pic in pictures"
+            v-for="(pic, index) in pictures"
             :key="pic.documentId"
             :picture="pic"
+            :eager="index < 3"
+            :priority="index === 0"
           />
         </ul>
         <p v-else-if="hasAnyFilters" class="catalog__text-second">

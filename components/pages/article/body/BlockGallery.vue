@@ -9,10 +9,10 @@
       :key="indx"
       class="gallery-body__item"
     >
-      <NuxtImg
+      <CmsImage
         v-if="image"
-        :src="image.src"
-        :alt="image.alt"
+        :image="image"
+        sizes="(max-width: 767px) 100vw, (max-width: 1100px) 50vw, 33vw"
         class="gallery-body__img"
       />
     </li>
@@ -20,6 +20,8 @@
 </template>
 
 <script setup>
+import CmsImage from "@/components/CmsImage.vue";
+
 const props = defineProps({
   block: {
     type: Object,

@@ -13,6 +13,7 @@
 </template>
 
 <script setup>
+import { usePageSeo } from "@/composables/usePageSeo";
 import Header from "@/layouts/Header.vue";
 import HeroSection from "@/components/pages/aboutMother/Hero-section.vue";
 import CareerTimelineSection from "@/components/pages/aboutMother/CareerTimeline-section.vue";
@@ -22,34 +23,11 @@ const ContactUs = defineAsyncComponent(() =>
   import("@/layouts/Contact-us.vue")
 );
 const Footer = defineAsyncComponent(() => import("@/layouts/Footer.vue"));
-const route = useRoute();
 const { t } = useI18n();
-const config = useRuntimeConfig();
-const baseUrl = config.public.SITE_URL || "https://andriichebotaru.com";
-const currentUrl = `${baseUrl}${route.fullPath}`;
-useHead({
-  title: t("seo.aboutMother.title"),
-  meta: [
-    { name: "description", content: t("seo.aboutMother.description") },
-    { name: "robots", content: "index, follow" },
-    { property: "og:type", content: "website" },
-    { property: "og:title", content: t("seo.aboutMother.title") },
-    {
-      property: "og:description",
-      content: t("seo.aboutMother.description"),
-    },
-    { property: "og:url", content: currentUrl },
-    { property: "og:image", content: `${baseUrl}/og/aboutMother.jpg` },
-    { name: "twitter:title", content: t("seo.aboutMother.title") },
-    { name: "twitter:description", content: t("seo.aboutMother.description") },
-    { name: "twitter:image", content: `${baseUrl}/og/aboutMother.jpg` },
-  ],
-  link: [
-    { rel: "canonical", href: currentUrl },
-    { rel: "alternate", hreflang: "uk", href: `${baseUrl}/uk` },
-    { rel: "alternate", hreflang: "ru", href: `${baseUrl}/` },
-    { rel: "alternate", hreflang: "en", href: `${baseUrl}/en` },
-  ],
+usePageSeo({
+  title: () => t("seo.aboutMother.title"),
+  description: () => t("seo.aboutMother.description"),
+  image: "/og/aboutMother.jpg",
 });
 
 const isWhiteTheme = useState("header-white-theme");

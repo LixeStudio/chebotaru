@@ -15,6 +15,7 @@
 </template>
 
 <script setup>
+import { usePageSeo } from "@/composables/usePageSeo";
 import { useFilters } from "@/composables/useFilters";
 import Header from "@/layouts/Header.vue";
 import HeroSection from "@/components/pages/catalog/heroSection.vue";
@@ -26,31 +27,10 @@ const ContactUs = defineAsyncComponent(() =>
 const Footer = defineAsyncComponent(() => import("@/layouts/Footer.vue"));
 const isWhiteTheme = useState("header-white-theme");
 isWhiteTheme.value = false;
-const route = useRoute();
 const { t } = useI18n();
-const config = useRuntimeConfig();
-const baseUrl = config.public.SITE_URL || "https://andriichebotaru.com";
-const currentUrl = `${baseUrl}${route.fullPath}`;
-useHead({
-  title: t("seo.catalog.title"),
-  meta: [
-    { name: "description", content: t("seo.catalog.description") },
-    { name: "robots", content: "index, follow" },
-    { property: "og:type", content: "website" },
-    { property: "og:title", content: t("seo.catalog.title") },
-    { property: "og:description", content: t("seo.catalog.description") },
-    { property: "og:url", content: currentUrl },
-    { property: "og:image", content: `${baseUrl}/og/default.jpg` },
-    { name: "twitter:title", content: t("seo.catalog.title") },
-    { name: "twitter:description", content: t("seo.catalog.description") },
-    { name: "twitter:image", content: `${baseUrl}/og/default.jpg` },
-  ],
-  link: [
-    { rel: "canonical", href: currentUrl },
-    { rel: "alternate", hreflang: "uk", href: `${baseUrl}/uk` },
-    { rel: "alternate", hreflang: "ru", href: `${baseUrl}/` },
-    { rel: "alternate", hreflang: "en", href: `${baseUrl}/en` },
-  ],
+usePageSeo({
+  title: () => t("seo.catalog.title"),
+  description: () => t("seo.catalog.description"),
 });
 
 const getPriceMatch = (price, filterPrices) => {
@@ -62,12 +42,22 @@ const getPriceMatch = (price, filterPrices) => {
   });
 };
 
-const locale = useI18n().locale.value;
-const pictures = ref([]);
+const { locale } = useI18n();
 
-onMounted(async () => {
-  pictures.value = await fetchAllPictures(locale);
-});
+// rendered on the server so the works are in the initial HTML (no empty state, no layout shift);
+// filtering and sorting stay on the client
+const { data: pictures, error } = await useAsyncData(
+  () => `catalog-${locale.value}`,
+  () => fetchAllPictures(locale.value),
+  { default: () => [] }
+);
+if (error.value) {
+  throw createError({
+    statusCode: 503,
+    statusMessage: "Catalog is temporarily unavailable",
+    fatal: true,
+  });
+}
 
 const { filters } = useFilters({
   price: [],

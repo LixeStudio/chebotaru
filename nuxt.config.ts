@@ -7,6 +7,11 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   css: ['@/assets/scss/main.scss'],
   modules: ['@nuxt/fonts', '@nuxt/image', '@nuxt/eslint', '@nuxtjs/i18n', '@nuxtjs/sitemap',],
+  fonts: {
+    // Manrope self-hosted as the same variable font (wght 200-800) that app.vue used to load
+    // as a second copy from Google Fonts, so weights 500/700 render exactly as before
+    families: [{ name: 'Manrope', provider: 'google', weights: ['200 800'] }],
+  },
   image: {
     dir: 'assets',
     screens: {
@@ -39,13 +44,25 @@ export default defineNuxtConfig({
     head: {
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/Favicon.ico' },
+        // display font of the hero headings (often the LCP text): preloaded so that it is ready for
+        // the first render instead of swapping in later and shifting the layout
+        { rel: 'preload', as: 'font', type: 'font/woff', href: '/fonts/tt_disruptors_regular-otf.woff', crossorigin: '' },
       ]
     },
   },
   sitemap: {
     siteUrl: 'https://andriichebotaru.com',
     i18n: true,
-    trailingSlash: false
+    trailingSlash: false,
+    // pictures and blog articles from the CMS (server/api/__sitemap__/urls.ts)
+    sources: ['/api/__sitemap__/urls'],
+  },
+  routeRules: {
+    // static media from /public: file names are not hashed, so no "immutable";
+    // a week instead of the 4h default keeps repeat visits from re-downloading the hero video
+    '/videos/**': { headers: { 'cache-control': 'public, max-age=604800, stale-while-revalidate=86400' } },
+    '/images/**': { headers: { 'cache-control': 'public, max-age=604800, stale-while-revalidate=86400' } },
+    '/fonts/**': { headers: { 'cache-control': 'public, max-age=604800, stale-while-revalidate=86400' } },
   },
   vite: {
     build: {
