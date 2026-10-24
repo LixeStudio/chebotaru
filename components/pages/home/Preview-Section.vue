@@ -53,7 +53,11 @@ const startVideo = () => {
     "(prefers-reduced-motion: reduce)"
   ).matches;
   const saveData = navigator.connection?.saveData === true;
-  if (reducedMotion || saveData) return;
+  if (reducedMotion || saveData) {
+    // the clip starts on black frames: show a still from it instead of a black hero
+    video.poster = "/videos/preview-still.webp";
+    return;
+  }
   video.muted = true;
   video.play().catch(() => {});
 };
