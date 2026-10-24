@@ -38,6 +38,9 @@ export default defineNuxtConfig({
     // Chebotaru CMS Public API (/api/public/v1), requested only by the Nuxt server (server/api/cms):
     // NUXT_CMS_API_BASE, e.g. http://127.0.0.1:3000 locally; not exposed to the browser
     cmsApiBase: '',
+    // shared secret of the CMS "content changed" call (server/api/cms-revalidate.post.ts):
+    // NUXT_CMS_REVALIDATE_SECRET; empty = the route is off and the cache simply expires after 15-30 s
+    cmsRevalidateSecret: '',
     public: {
       // where the browser loads CMS images from (the API address or a CDN in front of it):
       // NUXT_PUBLIC_CMS_MEDIA_BASE
