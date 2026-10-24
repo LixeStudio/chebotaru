@@ -1,10 +1,7 @@
 <template>
   <header
     ref="headerRef"
-    :class="[
-      'header',
-      isClient && { sticky: isSticky, 'white-theme': isWhiteTheme },
-    ]"
+    :class="['header', { sticky: isSticky, 'white-theme': isWhiteTheme }]"
   >
     <div class="header__container">
       <button
@@ -29,7 +26,8 @@
         class="burger-content"
         :class="{ active: isOpened }"
         :aria-label="t('header.burger.content.navAriaLabel')"
-        :aria-hidden="!isOpened.toString()"
+        :aria-hidden="isOpened ? 'false' : 'true'"
+        :inert="!isOpened"
       >
         <div class="burger-content__inner header__container">
           <div class="burger-content__panel">
@@ -190,17 +188,20 @@
 </template>
 
 <script setup>
-import { onMounted } from "vue";
+import { onMounted, onBeforeUnmount } from "vue";
 import { useHeaderLogoVisibility } from "@/composables/useHeaderLogoVisibility";
 import { useRoute } from "vue-router";
 const localePath = useLocalePath();
 const { t, locale, setLocale } = useI18n();
 const route = useRoute();
-const isClient = ref(false);
 
-onMounted(() => {
-  isClient.value = true;
-});
+const closeOnEscape = (event) => {
+  if (event.key === "Escape" && isOpened.value) isOpened.value = false;
+};
+onMounted(() => window.addEventListener("keydown", closeOnEscape));
+onBeforeUnmount(() => window.removeEventListener("keydown", closeOnEscape));
+// the theme is known on the server (pages set "header-white-theme" before the header renders),
+// so it is part of the initial HTML instead of switching after hydration
 const isWhiteTheme = useState("header-white-theme", () => false);
 const isSticky = useState("header-is-sticky");
 const isOpened = useState("burger-opened", () => false);

@@ -23,21 +23,7 @@ useHead({
     { name: "twitter:site", content: "@chebotaru.a" },
     { name: "twitter:creator", content: "@chebotaru.a" },
   ],
-  link: [
-    { rel: "preconnect", href: "https://fonts.googleapis.com" },
-    { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: "" },
-    {
-      rel: "preload",
-      as: "style",
-      href: "https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap",
-    },
-    {
-      rel: "stylesheet",
-      href: "https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap",
-      media: "print",
-      onload: "this.media='all'",
-    },
-  ],
+  // Manrope is self-hosted by @nuxt/fonts (see "fonts" in nuxt.config.ts)
 });
 </script>
 

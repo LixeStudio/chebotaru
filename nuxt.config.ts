@@ -7,6 +7,11 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   css: ['@/assets/scss/main.scss'],
   modules: ['@nuxt/fonts', '@nuxt/image', '@nuxt/eslint', '@nuxtjs/i18n', '@nuxtjs/sitemap',],
+  fonts: {
+    // every Manrope weight used in the SCSS, self-hosted (previously 500/700 came from a second,
+    // render-delaying copy of the font loaded from Google Fonts in app.vue)
+    families: [{ name: 'Manrope', provider: 'google', weights: [400, 500, 700] }],
+  },
   image: {
     dir: 'assets',
     screens: {
