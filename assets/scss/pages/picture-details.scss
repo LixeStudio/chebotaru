@@ -130,9 +130,15 @@
     }
     &__body-bottom {
       display: flex;
+      align-items: center;
       gap: 2.5rem;
     }
     &__price {
+      position: relative;
+      flex-shrink: 0;
+      width: fit-content;
+      // room for the absolute Sold plaque so Buy does not cover it
+      padding-right: 5.25rem;
       font-size: 1.5rem;
       font-weight: 500;
       line-height: 133.333%;
