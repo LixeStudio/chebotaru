@@ -311,3 +311,48 @@
     }
   }
 }
+
+// Formatted text of article blocks (components/pages/article/body/RichText.vue). Here, not in the component: a component
+// <style> becomes a separate render-blocking CSS file.
+// the reset (base/_clear.scss) removes list markers, link underline and bold weight;
+// these restore them for formatted article text only
+.body__rich-text {
+  & > :not(:last-child) {
+    margin-bottom: 1rem;
+  }
+  .body__list {
+    padding-left: 1.5rem;
+    .body__list {
+      margin-top: 0.5rem;
+    }
+  }
+  .body__list--bulletList > .body__list-item {
+    list-style: disc;
+  }
+  .body__list--orderedList > .body__list-item {
+    list-style: decimal;
+  }
+  .body__list-item {
+    line-height: 150%;
+    &:not(:last-child) {
+      margin-bottom: 0.5rem;
+    }
+    & > .body__text:not(:last-child) {
+      margin-bottom: 0.5rem;
+    }
+  }
+  strong {
+    font-weight: 700;
+  }
+  em {
+    font-style: italic;
+  }
+  .body__link {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
