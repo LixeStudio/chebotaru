@@ -2,9 +2,9 @@
   <section v-if="body.length" class="body">
     <div class="body__container">
       <component
-        :is="components[block.__component]"
-        v-for="(block, index) in body"
-        :key="`${block.__component}-${block.id ?? index}`"
+        :is="componentOf(block)"
+        v-for="block in body"
+        :key="block.key"
         :block="block"
       />
     </div>
@@ -24,11 +24,10 @@ defineProps({
   },
 });
 
-const components = {
-  "blog.heading-h2": BlockH2,
-  "blog.heading-h3": BlockH3,
-  "blog.heading-h4": BlockH4,
-  "blog.text-block": BlockText,
-  "blog.picture-gallery-block": BlockGallery,
+const headings = { 2: BlockH2, 3: BlockH3, 4: BlockH4 };
+const componentOf = (block) => {
+  if (block.type === "heading") return headings[block.level];
+  if (block.type === "text") return BlockText;
+  return BlockGallery;
 };
 </script>

@@ -1,11 +1,13 @@
 <template>
+  <!-- the layout has rules for 1-4 images: longer galleries (up to 12) are shown as several rows of up to 4 -->
   <ul
-    v-if="block.images.length"
+    v-for="(group, groupIndex) in groups"
+    :key="groupIndex"
     class="body__gallery gallery-body"
-    :class="pictureCountClass"
+    :class="`gallery--${group.length}-images`"
   >
     <li
-      v-for="(image, indx) in block.images"
+      v-for="(image, indx) in group"
       :key="indx"
       class="gallery-body__item"
     >
@@ -21,6 +23,7 @@
 
 <script setup>
 import CmsImage from "@/components/CmsImage.vue";
+import { splitGallery } from "@/composables/splitGallery";
 
 const props = defineProps({
   block: {
@@ -29,8 +32,5 @@ const props = defineProps({
   },
 });
 
-const pictureCountClass = computed(() => {
-  const count = props.block.images?.length || 0;
-  return `gallery--${count}-images`;
-});
+const groups = computed(() => splitGallery(props.block.images || []));
 </script>

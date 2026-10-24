@@ -45,7 +45,9 @@
           </div>
         </dl>
         <div class="artwork__body-bottom">
-          <p class="artwork__price">${{ picture.price }}</p>
+          <p class="artwork__price">
+            {{ formatPrice(picture.price, picture.currency) }}
+          </p>
           <button class="artwork__btn btn-circle" @click="emit('togglePopup')">
             {{ t("pages.pictureDetails.artworkSection.buyBtn") }}
           </button>
@@ -68,6 +70,7 @@
 <script setup>
 import { defineAsyncComponent } from "vue";
 import CmsImage from "@/components/CmsImage.vue";
+import { formatPrice } from "@/composables/usePrice";
 
 const VueEasyLightbox = defineAsyncComponent(() => import("vue-easy-lightbox"));
 const emit = defineEmits(["togglePopup"]);

@@ -8,9 +8,14 @@ type PageSeoOptions = {
     // canonical path (already locale-prefixed); defaults to the current route path
     path?: MaybeRefOrGetter<string | undefined>
     robots?: string
+    // site locales the page exists in (CMS records are not translated to every language);
+    // defaults to all of them
+    locales?: MaybeRefOrGetter<string[] | undefined>
 }
 
 const withoutQuery = (href: string) => href.split(/[?#]/)[0]
+// "en-US" / "en" / "ru_RU" -> "en" / "ru"
+const languageOf = (tag: string) => tag.split(/[-_]/)[0].toLowerCase()
 
 // Server-rendered SEO tags for a page: title, description, canonical, hreflang alternates,
 // Open Graph and Twitter. Pages with localized slugs must call useSetI18nParams(false) before it,
@@ -46,16 +51,26 @@ export function usePageSeo(options: PageSeoOptions) {
         twitterImage: image,
     })
 
+    const { defaultLocale } = useNuxtApp().$i18n
+    const exists = (tag: string) => {
+        const locales = toValue(options.locales)
+        return !locales || locales.includes(languageOf(tag))
+    }
+
     useHead(() => ({
         link: [
             { key: 'i18n-can', rel: 'canonical', href: url.value },
-            // en/ru/uk + x-default from @nuxtjs/i18n, without query parameters (filters, tracking)
+            // en/ru/uk + x-default from @nuxtjs/i18n, without query parameters (filters, tracking),
+            // only for the languages the page exists in (x-default is the default language)
             ...(localeHead.value.link || [])
                 .filter((link) => link.rel === 'alternate')
+                .filter((link) => exists(link.hreflang === 'x-default' ? defaultLocale : String(link.hreflang)))
                 .map((link) => ({ ...link, href: withoutQuery(String(link.href)) })),
         ],
         // og:locale and og:locale:alternate (og:url is set above)
-        meta: (localeHead.value.meta || []).filter((meta) => meta.property !== 'og:url'),
+        meta: (localeHead.value.meta || []).filter(
+            (meta) => meta.property !== 'og:url' && (meta.property !== 'og:locale:alternate' || exists(String(meta.content)))
+        ),
     }))
 
     return { url }

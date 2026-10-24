@@ -16,13 +16,16 @@
         />
       </div>
       <h3 class="pictures-works__name gallery__name">{{ picture.title }}</h3>
-      <p class="pictures-works__price gallery__price">${{ picture.price }}</p>
+      <p class="pictures-works__price gallery__price">
+        {{ formatPrice(picture.price, picture.currency) }}
+      </p>
     </NuxtLink>
   </li>
 </template>
 
 <script setup>
 import CmsImage from "@/components/CmsImage.vue";
+import { formatPrice } from "@/composables/usePrice";
 
 defineProps({
   picture: {

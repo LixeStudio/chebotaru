@@ -1,15 +1,15 @@
-// Responsive image data from a CMS media object.
-// Strapi stores resized copies (small 500w, medium 750w, large 1000w) next to the original;
-// the original stays the `src` (used by the lightbox) and the largest `srcset` candidate,
-// so the browser only downloads a smaller copy where it looks identical.
+// Responsive image data from a CMS image.
+// The CMS serves two WebP files of every image with their exact pixel size: `large` (url) and `thumb`
+// (thumbnail.url, up to 480 px). Both go into srcset, so the browser downloads the small one where it
+// looks identical; `large` is the src (lightbox, fallback). URLs are relative to the CMS address and carry
+// a version token (?v=), so they are used exactly as received.
 
-type StrapiFormat = { url: string; width: number; height: number };
+export type CmsImageFile = { url: string; width: number; height: number };
 
-export type StrapiMedia = {
-    url: string;
-    width?: number;
-    height?: number;
-    formats?: Record<string, StrapiFormat | undefined> | null;
+export type CmsImage = CmsImageFile & {
+    thumbnail?: CmsImageFile | null;
+    alt?: string;
+    caption?: string | null;
 };
 
 export type ResponsiveMedia = {
@@ -19,21 +19,24 @@ export type ResponsiveMedia = {
     height?: number;
 };
 
-const RESPONSIVE_FORMATS = ["small", "medium", "large"];
+export function mapCmsImage(image: CmsImage | null | undefined, mediaBase: string): ResponsiveMedia {
+    if (!image?.url) return { src: "" };
 
-export function mapStrapiMedia(media: StrapiMedia | null | undefined, strapiUrl: string): ResponsiveMedia {
-    if (!media?.url) return { src: "" };
-
-    const candidates = RESPONSIVE_FORMATS
-        .map((name) => media.formats?.[name])
-        .filter((f): f is StrapiFormat => !!f?.url && !!f.width && (!media.width || f.width < media.width))
-        .map((f) => `${strapiUrl}${f.url} ${f.width}w`);
-    if (candidates.length && media.width) candidates.push(`${strapiUrl}${media.url} ${media.width}w`);
+    const base = mediaBase.replace(/\/+$/, "");
+    const thumb = image.thumbnail;
+    const srcset =
+        thumb?.url && thumb.width && image.width && thumb.width < image.width
+            ? `${base}${thumb.url} ${thumb.width}w, ${base}${image.url} ${image.width}w`
+            : undefined;
 
     return {
-        src: strapiUrl + media.url,
-        srcset: candidates.length > 1 ? candidates.join(", ") : undefined,
-        width: media.width,
-        height: media.height,
+        src: base + image.url,
+        srcset,
+        width: image.width,
+        height: image.height,
     };
+}
+
+export function cmsMediaBase(): string {
+    return String(useRuntimeConfig().public.cmsMediaBase || "");
 }
