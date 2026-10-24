@@ -52,7 +52,12 @@ export default defineNuxtConfig({
         // display font of the hero headings (often the LCP text): preloaded so that it is ready for
         // the first render instead of swapping in later and shifting the layout
         { rel: 'preload', as: 'font', type: 'font/woff', href: '/fonts/tt_disruptors_regular-otf.woff', crossorigin: '' },
-      ]
+      ],
+      script: [
+        // marks the page as running JavaScript before anything is drawn: only then the newsletter section backgrounds
+        // wait until the section is near the viewport (_contact-us.scss); without JavaScript they load as before
+        { innerHTML: "document.documentElement.classList.add('js')", tagPriority: 'critical' },
+      ],
     },
   },
   sitemap: {
