@@ -219,7 +219,7 @@ input:focus-visible,
 .bg-text {
   position: absolute;
   z-index: -1;
-  font-family: "TT Disruptors";
+  font-family: "TT Disruptors", "TT Disruptors Fallback";
   font-size: 15rem;
   line-height: 93.75%;
   color: $Default-yellow-300;

@@ -153,7 +153,7 @@
       color: $Default-yellow-300;
       font-size: 15rem;
       line-height: 75%;
-      font-family: "TT Disruptors";
+      font-family: "TT Disruptors", "TT Disruptors Fallback";
       user-select: none;
       font-weight: 400;
       opacity: 0.6;
@@ -222,7 +222,7 @@
       color: $Default-yellow-300;
       font-size: 13rem;
       line-height: 75%;
-      font-family: "TT Disruptors";
+      font-family: "TT Disruptors", "TT Disruptors Fallback";
       user-select: none;
       font-weight: 400;
       opacity: 0.6;

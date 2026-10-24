@@ -44,6 +44,9 @@ export default defineNuxtConfig({
     head: {
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/Favicon.ico' },
+        // display font of the hero headings (often the LCP text): preloaded so that it is ready for
+        // the first render instead of swapping in later and shifting the layout
+        { rel: 'preload', as: 'font', type: 'font/woff', href: '/fonts/tt_disruptors_regular-otf.woff', crossorigin: '' },
       ]
     },
   },
@@ -59,6 +62,7 @@ export default defineNuxtConfig({
     // a week instead of the 4h default keeps repeat visits from re-downloading the hero video
     '/videos/**': { headers: { 'cache-control': 'public, max-age=604800, stale-while-revalidate=86400' } },
     '/images/**': { headers: { 'cache-control': 'public, max-age=604800, stale-while-revalidate=86400' } },
+    '/fonts/**': { headers: { 'cache-control': 'public, max-age=604800, stale-while-revalidate=86400' } },
   },
   vite: {
     build: {

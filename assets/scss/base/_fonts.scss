@@ -1,11 +1,24 @@
 @font-face {
   font-family: "TT Disruptors";
-  // tt_disruptors_regular-otf.woff is the original OTF repacked into WOFF without changes
-  // (same glyphs and metrics, 236 KB instead of 354 KB). The .woff2/.woff/.ttf files next to it
-  // come from a different build of the font with different widths, so they are not used.
-  src: url("@/assets/fonts/tt_disruptors_regular-otf.woff") format("woff"),
+  // public/fonts/tt_disruptors_regular-otf.woff is the original OTF repacked into WOFF without
+  // changes (same glyphs and metrics, 236 KB instead of 354 KB); it is preloaded in nuxt.config.ts.
+  // The .woff2/.woff/.ttf files in assets/fonts come from a different build of the font with
+  // different widths, so they are not used.
+  src: url("/fonts/tt_disruptors_regular-otf.woff") format("woff"),
     url("@/assets/fonts/tt_disruptors_regular-webfont.otf") format("opentype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
+}
+
+// Local fallback with the vertical metrics of TT Disruptors (hhea ascent 773, descent 227, line gap 200
+// per 1000 units; average glyph width 0.341em vs 0.441em for Arial), so the text keeps its position
+// while the web font loads instead of jumping when it swaps in (layout shift of the large hero words).
+@font-face {
+  font-family: "TT Disruptors Fallback";
+  src: local("Arial");
+  size-adjust: 77%;
+  ascent-override: 100.4%;
+  descent-override: 29.5%;
+  line-gap-override: 26%;
 }
