@@ -57,11 +57,20 @@ const documentId = computed(
   () => String(route.params.documentId || "").split("-")[0]
 );
 
-// loaded on the server so that the artwork, title and meta tags are in the initial HTML
-const { data: result, error } = await useAsyncData(
-  () => `picture-${documentId.value}-${locale.value}`,
-  () => fetchPictureByDocumentId(documentId.value, locale.value)
-);
+// loaded on the server so that the artwork, title and meta tags are in the initial HTML. Related works only depend
+// on the documentId, so both requests run in parallel; rendering them on the server (not after hydration) keeps the
+// section from appearing later and pushing the page down (layout shift)
+const [{ data: result, error }, { data: relatedPictures }] = await Promise.all([
+  useAsyncData(
+    () => `picture-${documentId.value}-${locale.value}`,
+    () => fetchPictureByDocumentId(documentId.value, locale.value)
+  ),
+  useAsyncData(
+    () => `picture-related-${documentId.value}-${locale.value}`,
+    () => fetchRelatedPictures(documentId.value, locale.value),
+    { default: () => [] }
+  ),
+]);
 
 if (error.value) {
   throw createError({
@@ -112,14 +121,6 @@ if (picture.value && decodeURIComponent(route.path) !== canonicalPath.value) {
 // (no record while redirecting to another language: navigateTo does not stop setup on the client)
 setI18nParams(
   localizedRouteParams(documentId.value, picture.value?.localizedSlugs)
-);
-
-// related works are below the fold: loaded after hydration to keep them off the critical path
-const { data: relatedPictures } = useAsyncData(
-  () => `picture-related-${documentId.value}-${locale.value}`,
-  () =>
-    picture.value ? fetchRelatedPictures(documentId.value, locale.value) : [],
-  { server: false, lazy: true, default: () => [] }
 );
 
 const { url: pageUrl } = usePageSeo({
