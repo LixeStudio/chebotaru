@@ -2,14 +2,20 @@
   <section class="blog">
     <div class="blog__container">
       <BlogFiltersMenu :filters="filters" />
-      <div v-if="state === 'list'" class="blog__articles articles-blog">
+      <TransitionGroup
+        v-if="state === 'list'"
+        tag="div"
+        name="cards"
+        class="blog__articles articles-blog"
+      >
         <BlogArticle
           v-for="(article, index) in articles"
           :key="article.documentId"
+          v-reveal
           :article="article"
           :eager="index < 2"
         />
-      </div>
+      </TransitionGroup>
       <template v-else>
         <p v-if="state === 'unavailable'" class="blog__text-second">
           {{ t("pages.blog.blogSection.unavailable") }}
@@ -29,6 +35,7 @@
 import BlogFiltersMenu from "@/components/blogFiltersMenu.vue";
 import BlogArticle from "@/components/BlogArticle.vue";
 import { listState } from "@/composables/listState";
+import { vReveal } from "@/composables/reveal";
 
 const props = defineProps({
   filters: {
