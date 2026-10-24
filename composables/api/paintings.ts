@@ -1,275 +1,129 @@
-import qs from "qs";
-import type { Picture } from "@/types/picture";
-import { mapStrapiMedia, type StrapiMedia } from "./media";
+import type { Currency, Picture } from "@/types/picture";
+import { mapCmsImage, cmsMediaBase, type CmsImage } from "./media";
+import {
+    cmsFetch,
+    fetchAllPages,
+    fetchLocalizedDetail,
+    type CmsList,
+    type CmsLocale,
+    type CmsPagination,
+} from "./cms";
 
+// Pictures of the Chebotaru CMS Public API: GET /pictures, /pictures/{documentId}, /pictures/{documentId}/related
 
-type StrapiPictureRaw = {
-    id: string | number;
-
+type CmsPictureItem = {
+    documentId: string;
     slug: string;
     title: string;
-    description?: string;
-    createdAt: string;
-    publishedAt?: string;
-    orientation: "vertical" | "horizontal" | "square";
+    price: number | null;
+    currency: Currency;
     availability: "available" | "sold";
-    price: number;
-    documentId: string
-    imageWithMeta: {
-        id: number;
-        alt: string;
-        caption: string;
-        image: StrapiMedia;
-    },
-
-    details: {
-        year: string;
-        size: string;
-        material: string;
-        style: string;
-        sizeInSm: string;
-    };
-
-    localizations?: { slug: string; locale: string }[];
+    orientation: "vertical" | "horizontal" | "square" | null;
+    size: "small" | "middle" | "large" | null;
+    widthCm: number | null;
+    heightCm: number | null;
+    year: number | null;
+    material: string;
+    style: string;
+    publishedAt: string;
+    image: CmsImage;
 };
 
+type CmsPictureDetail = CmsPictureItem & {
+    description: string | null;
+    images: (CmsImage & { isMain: boolean })[];
+    availableLocales: CmsLocale[];
+    updatedAt: string;
+};
 
-export async function fetchPictureByDocumentId(
-    documentId: string,
-    locale: string
-): Promise<Picture | null> {
-    const config = useRuntimeConfig();
-    const strapiUrl = config.public.STRAPI_URL;
-    const queryObj = {
-        filters: { documentId: { $eq: documentId } },
-        pagination: {
-            pageSize: 150,
-        },
-        fields: [
-            "title",
-            "slug",
-            "price",
-            "orientation",
-            "availability",
-            "createdAt",
-            "publishedAt",
-        ],
-        populate: {
-            imageWithMeta: {
-                populate: "*",
-            },
-            details: true,
-            localizations: {
-                fields: ["slug", "locale"],
-            },
-        },
-        locale: locale || "en",
-    };
+// filters, sorting and pages of GET /pictures (one value per filter; the price only together with a currency)
+export type PictureQuery = {
+    availability?: "available" | "sold";
+    orientation?: "vertical" | "horizontal" | "square";
+    size?: "small" | "middle" | "large";
+    currency?: Currency;
+    priceMin?: number;
+    priceMax?: number;
+    sort?: "newest" | "oldest" | "price_asc" | "price_desc";
+    page?: number;
+    pageSize?: number;
+};
 
-    const query = qs.stringify(queryObj, {
-        encodeValuesOnly: true,
-    });
-
-
-    // null = the picture does not exist in this locale (404);
-    // request errors are rethrown so that an API outage is not reported as "not found"
-    try {
-        const res: { data: StrapiPictureRaw[] } = await $fetch(
-            `${config.public.STRAPI_URL}/api/pictures?${query}`
-        );
-
-        const raw = res.data?.[0];
-
-        if (!raw) return null;
-        const mappedPicture = mapStrapiPicture(raw, strapiUrl);
-        mappedPicture.localizedSlugs = {
-            [locale]: raw.slug,
-            ...Object.fromEntries((raw.localizations || []).map((l) => [l.locale, l.slug])),
-        };
-
-        return mappedPicture;
-    } catch (e) {
-        console.error("Ошибка при запросе картины по documentId:", e);
-        throw e;
-    }
+export async function fetchPictures(
+    locale: string,
+    query: PictureQuery = {}
+): Promise<{ pictures: Picture[]; pagination: CmsPagination }> {
+    const res = await cmsFetch<CmsList<CmsPictureItem>>("pictures", { locale, ...query });
+    const mediaBase = cmsMediaBase();
+    return { pictures: res.data.map((raw) => mapPicture(raw, mediaBase)), pagination: res.meta.pagination };
 }
 
-// Strapi returns 25 entries per page by default and at most 100
-const ALL_PICTURES_PAGE_SIZE = 100;
-
-export async function fetchAllPictures(locale: string): Promise<Picture[]> {
-    const config = useRuntimeConfig();
-    const strapiUrl = config.public.STRAPI_URL;
-    const pageQuery = (page: number) => qs.stringify(
-        {
-            locale,
-            pagination: {
-                page,
-                pageSize: ALL_PICTURES_PAGE_SIZE,
-            },
-            fields: [
-                "title",
-                "slug",
-                "price",
-                "orientation",
-                "availability",
-                "createdAt",
-                "publishedAt",
-                "documentId"
-            ],
-            populate: {
-                imageWithMeta: {
-                    populate: "*",
-                },
-                details: true,
-            },
-        },
-        {
-            encodeValuesOnly: true,
-        }
-    );
-
-    type PicturesPage = { data: StrapiPictureRaw[]; meta?: { pagination?: { pageCount?: number } } };
-    const fetchPage = (page: number): Promise<PicturesPage> =>
-        $fetch(`${config.public.STRAPI_URL}/api/pictures?${pageQuery(page)}`);
-
-    // request errors are rethrown: the catalog must not pretend to be empty during an API outage
-    try {
-        const first = await fetchPage(1);
-        const pageCount = first.meta?.pagination?.pageCount || 1;
-        const rest = await Promise.all(
-            Array.from({ length: pageCount - 1 }, (_, i) => fetchPage(i + 2))
-        );
-
-        return [first, ...rest]
-            .flatMap((res) => res.data || [])
-            .map((raw: StrapiPictureRaw) => mapStrapiPicture(raw, strapiUrl));
-    } catch (e) {
-        console.error("Ошибка при получении всех картин:", e);
-        throw e;
-    }
+// the whole catalog (all pages); request errors are rethrown
+export async function fetchAllPictures(locale: string, query: Omit<PictureQuery, "page" | "pageSize"> = {}): Promise<Picture[]> {
+    const mediaBase = cmsMediaBase();
+    const items = await fetchAllPages<CmsPictureItem>("pictures", { locale, ...query });
+    return items.map((raw) => mapPicture(raw, mediaBase));
 }
 
+// the newest pictures (home page); an API error leaves the section empty
 export async function fetchLimitedPictures(locale: string, limit: number): Promise<Picture[]> {
-    const config = useRuntimeConfig();
-    const strapiUrl = config.public.STRAPI_URL;
-
-    const query = qs.stringify(
-        {
-            locale,
-            pagination: {
-                limit,
-            },
-            fields: [
-                "title",
-                "slug",
-                "price",
-                "orientation",
-                "availability",
-                "createdAt",
-                "publishedAt",
-                "documentId"
-            ],
-            populate: {
-                imageWithMeta: {
-                    populate: "*",
-                },
-                details: true,
-            },
-        },
-        {
-            encodeValuesOnly: true,
-        }
-    );
-
     try {
-        const res: { data: StrapiPictureRaw[] } = await $fetch(
-            `${strapiUrl}/api/pictures?${query}`
-        );
-
-        return res.data.map((raw: StrapiPictureRaw) =>
-            mapStrapiPicture(raw, strapiUrl)
-        );
+        return (await fetchPictures(locale, { sort: "newest", pageSize: limit })).pictures;
     } catch (e) {
         console.error("Ошибка при получении лимитированных картин:", e);
+        return [];
     }
-
-    return [];
 }
 
-export async function fetchRelatedPictures(picture: Picture, locale: string, limit = 3): Promise<Picture[]> {
-    const config = useRuntimeConfig();
-    const strapiUrl = config.public.STRAPI_URL;
-    const query = qs.stringify(
-        {
-            locale,
-            filters: {
-                documentId: { $ne: picture.documentId },
-                $or: [
-                    { orientation: { $eq: picture.orientation } },
-                    {
-                        details: {
-                            size: {
-                                $eq: picture.details.size
-                            }
-                        }
-                    }
-                ],
-            },
-            populate: {
-                imageWithMeta: {
-                    populate: "*",
-                },
-                details: true,
-            },
-            pagination: {
-                limit,
-            },
-        },
-        { encodeValuesOnly: true }
-    );
+export type PictureResult =
+    | { status: "ok"; picture: Picture }
+    | { status: "other_locales"; slugs: Record<string, string> }
+    | { status: "not_found" };
 
+// One picture with the slug of every language it is visible in. "not_found" = 404,
+// "other_locales" = not translated to this language; request errors are rethrown (not reported as 404).
+export async function fetchPictureByDocumentId(documentId: string, locale: string): Promise<PictureResult> {
+    const result = await fetchLocalizedDetail<CmsPictureDetail>("pictures", documentId, locale);
+    if (result.status !== "ok") return result;
 
+    const picture = mapPicture(result.data, cmsMediaBase());
+    picture.description = result.data.description;
+    picture.localizedSlugs = result.slugs;
+    return { status: "ok", picture };
+}
+
+// same orientation or size (both first), then newer; an API error leaves the section empty
+export async function fetchRelatedPictures(documentId: string, locale: string, limit = 3): Promise<Picture[]> {
     try {
-        const res: { data: StrapiPictureRaw[] } = await $fetch(
-            `${config.public.STRAPI_URL}/api/pictures?${query}`
-        );
-        const mappedData = res.data.map((raw: StrapiPictureRaw) =>
-            mapStrapiPicture(raw, strapiUrl)
-        );
-        return mappedData
+        const res = await cmsFetch<{ data: CmsPictureItem[] }>(`pictures/${documentId}/related`, { locale, limit });
+        const mediaBase = cmsMediaBase();
+        return res.data.map((raw) => mapPicture(raw, mediaBase));
     } catch (e) {
         console.error("Ошибка при получении похожих картин", e);
         return [];
     }
 }
 
-
-
-function mapStrapiPicture(raw: StrapiPictureRaw, strapiUrl: string): Picture {
-    // const { id, attributes } = raw;
+function mapPicture(raw: CmsPictureItem, mediaBase: string): Picture {
     return {
-        id: raw.id,
+        documentId: raw.documentId,
         slug: raw.slug,
         title: raw.title,
-        description: raw.description,
-        createdAt: raw.createdAt,
         publishedAt: raw.publishedAt,
-        documentId: raw.documentId,
         image: {
-            ...mapStrapiMedia(raw.imageWithMeta?.image, strapiUrl), // src (оригинал), srcset, width, height
-            alt: raw.imageWithMeta?.alt || "", // отдельное поле
-            caption: raw.imageWithMeta?.caption || "",
+            ...mapCmsImage(raw.image, mediaBase), // src (large), srcset (thumb + large), width, height
+            alt: raw.image?.alt || "",
+            caption: raw.image?.caption || "",
         },
         details: {
-            year: raw.details?.year || "",
-            size: raw.details?.size || "",
-            material: raw.details?.material || "",
-            style: raw.details?.style || "",
-            sizeInSm: raw.details?.sizeInSm || "",
+            year: raw.year ? String(raw.year) : "",
+            size: raw.size || "",
+            material: raw.material || "",
+            style: raw.style || "",
+            sizeInSm: raw.widthCm && raw.heightCm ? `${raw.widthCm}x${raw.heightCm}` : "",
         },
-
         price: raw.price,
+        currency: raw.currency,
         availability: raw.availability,
         orientation: raw.orientation,
     };

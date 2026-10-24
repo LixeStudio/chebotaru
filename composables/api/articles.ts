@@ -1,306 +1,146 @@
-import qs from "qs";
-import type { Article, TextBlock, HeadingH2, HeadingH3, HeadingH4, BlogBlock, ImageWithMeta } from "@/types/article";
-import { mapStrapiMedia, type StrapiMedia } from "./media";
+import type { Article, BlogBlock, RichTextDoc } from "@/types/article";
+import { mapCmsImage, cmsMediaBase, type CmsImage } from "./media";
+import {
+    cmsFetch,
+    fetchAllPages,
+    fetchLocalizedDetail,
+    type CmsList,
+    type CmsLocale,
+    type CmsPagination,
+} from "./cms";
 
+// Blog of the Chebotaru CMS Public API: GET /articles, /articles/{documentId}, /articles/{documentId}/related
 
-type StrapiArticleRaw = {
-    id: string | number;
+type Theme = Article["theme"];
+
+type CmsArticleItem = {
+    documentId: string;
     slug: string;
     title: string;
-    createdAt: string;
-    publishedAt?: string;
-    theme: "aboutPictures" | "interview" | "exhibitions" | "inspiration";
-    documentId: string
-    imageWithMeta: rawImageWithMeta,
-    previewText: string,
-    body?: rawBlogBlock[];
-    localizations?: { slug: string; locale: string }[];
+    theme: Theme;
+    previewText: string;
+    publishedAt: string;
+    cover: CmsImage;
 };
 
-type rawBlogBlock =
-    | TextBlock
-    | HeadingH2
-    | HeadingH3
-    | HeadingH4
-    | rawPictureGalleryBlock;
+type CmsBlock =
+    | { key: string; type: "heading"; level: 2 | 3 | 4; text: string }
+    | { key: string; type: "text"; doc: RichTextDoc; text: string }
+    | { key: string; type: "gallery"; images: CmsImage[] };
 
-interface rawPictureGalleryBlock {
-    __component: "blog.picture-gallery-block";
-    imageWithMeta: rawImageWithMeta[];
+type CmsArticleDetail = CmsArticleItem & {
+    blocks: CmsBlock[];
+    availableLocales: CmsLocale[];
+    updatedAt: string;
+};
+
+// themes (one or several), sorting and pages of GET /articles
+export type ArticleQuery = {
+    theme?: Theme[];
+    sort?: "newest" | "oldest";
+    page?: number;
+    pageSize?: number;
+};
+
+const toCmsQuery = ({ theme, ...rest }: ArticleQuery) => ({
+    ...rest,
+    theme: theme?.length ? theme.join(",") : undefined,
+});
+
+export async function fetchArticles(
+    locale: string,
+    query: ArticleQuery = {}
+): Promise<{ articles: Article[]; pagination: CmsPagination }> {
+    const res = await cmsFetch<CmsList<CmsArticleItem>>("articles", { locale, ...toCmsQuery(query) });
+    const mediaBase = cmsMediaBase();
+    return { articles: res.data.map((raw) => mapArticle(raw, mediaBase)), pagination: res.meta.pagination };
 }
 
-interface rawImageWithMeta {
-    id: number;
-    alt: string;
-    caption: string;
-    image: StrapiMedia;
+// the whole blog (all pages, newest first); request errors are rethrown
+export async function fetchAllArticles(locale: string, query: Omit<ArticleQuery, "page" | "pageSize"> = {}): Promise<Article[]> {
+    const mediaBase = cmsMediaBase();
+    const items = await fetchAllPages<CmsArticleItem>("articles", { locale, ...toCmsQuery(query) });
+    return items.map((raw) => mapArticle(raw, mediaBase));
 }
 
-
-
-
-export async function fetchArticlesByDocumentId(
-    documentId: string,
-    locale: string
-): Promise<Article | null> {
-    const config = useRuntimeConfig();
-    const strapiUrl = config.public.STRAPI_URL;
-    const query = qs.stringify(
-        {
-            filters: { documentId: { $eq: documentId } },
-            locale,
-            fields: [
-                "title",
-                "slug",
-                "theme",
-                "previewText",
-                "createdAt",
-                "publishedAt",
-                "documentId",
-            ],
-            populate: {
-                imageWithMeta: {
-                    populate: {
-                        image: true,
-                    },
-                },
-                body: {
-                    on: {
-                        "blog.text-block": true,
-                        "blog.heading-h2": true,
-                        "blog.heading-h3": true,
-                        "blog.heading-h4": true,
-                        "blog.picture-gallery-block": {
-                            populate: {
-                                imageWithMeta: {
-                                    populate: {
-                                        image: true,
-                                    },
-                                },
-                            },
-                        },
-                    },
-                },
-                localizations: {
-                    fields: ["slug", "locale"],
-                },
-            }
-        },
-        {
-            encodeValuesOnly: true,
-        }
-    );
-
-
-    // null = the article does not exist in this locale (404);
-    // request errors are rethrown so that an API outage is not reported as "not found"
+// the newest articles (home page); an API error leaves the section empty
+export async function fetchLimitedArticles(locale: string, limit: number): Promise<Article[]> {
     try {
-        const res: { data: StrapiArticleRaw[] } = await $fetch(
-            `${config.public.STRAPI_URL}/api/blogs?${query}`
-        );
-
-        const raw = res.data?.[0];
-        if (!raw) return null;
-
-        const mappedArticle = mapStrapiArticle(raw, strapiUrl);
-        mappedArticle.localizedSlugs = {
-            [locale]: raw.slug,
-            ...Object.fromEntries((raw.localizations || []).map((l) => [l.locale, l.slug])),
-        };
-        return mappedArticle;
+        return (await fetchArticles(locale, { sort: "newest", pageSize: limit })).articles;
     } catch (e) {
-        console.error("Ошибка при запросе статьи по documentId:", e);
-        throw e;
-    }
-}
-
-export async function fetchAllArticles(locale: string): Promise<Article[]> {
-    const config = useRuntimeConfig();
-    const strapiUrl = config.public.STRAPI_URL;
-    const query = qs.stringify(
-        {
-            locale,
-            pagination: {
-                pageSize: 150,
-            },
-            fields: [
-                "title",
-                "slug",
-                "theme",
-                "previewText",
-                "createdAt",
-                "publishedAt",
-                "documentId",
-            ],
-            populate: {
-                imageWithMeta: {
-                    populate: "*",
-                },
-            },
-        },
-        {
-            encodeValuesOnly: true,
-        }
-    );
-
-    try {
-        const res: { data: StrapiArticleRaw[] } = await $fetch(
-            `${config.public.STRAPI_URL}/api/blogs?${query}`
-        );
-        const mappedData = res.data.map((raw: StrapiArticleRaw) =>
-            mapStrapiArticle(raw, strapiUrl)
-        );
-        return mappedData
-
-    } catch (e) {
-        // rethrown: the blog must not pretend to be empty during an API outage
-        console.error("Ошибка при получении всех статей:", e);
-        throw e;
-    }
-}
-
-export async function fetchRelatedArticles(article: Pick<Article, "documentId">, locale: string, limit = 3): Promise<Article[]> {
-    const config = useRuntimeConfig();
-    const strapiUrl = config.public.STRAPI_URL;
-    const query = qs.stringify(
-        {
-            locale,
-            filters: {
-                documentId: {
-                    $ne: article.documentId,
-                },
-            },
-            sort: ["publishedAt:desc"],
-            pagination: {
-                limit,
-            },
-            fields: [
-                "title",
-                "slug",
-                "theme",
-                "previewText",
-                "createdAt",
-                "publishedAt",
-                "documentId",
-            ],
-            populate: {
-                imageWithMeta: {
-                    populate: "*",
-                },
-            },
-        },
-        {
-            encodeValuesOnly: true,
-        }
-    );
-
-
-    try {
-        const res: { data: StrapiArticleRaw[] } = await $fetch(
-            `${config.public.STRAPI_URL}/api/blogs?${query}`
-        );
-        const mappedData = res.data.map((raw: StrapiArticleRaw) =>
-            mapStrapiArticle(raw, strapiUrl)
-        );
-        return mappedData
-
-    } catch (e) {
-        console.error("Ошибка при получении похожих картин", e);
+        console.error("Ошибка при получении лимитированных статей:", e);
         return [];
     }
 }
 
-export async function fetchLimitedArticles(locale: string, limit: number): Promise<Article[]> {
-    const config = useRuntimeConfig();
-    const strapiUrl = config.public.STRAPI_URL;
-    const query = qs.stringify(
-        {
-            locale,
-            pagination: {
-                limit,
-            },
-            fields: [
-                "title",
-                "slug",
-                "theme",
-                "previewText",
-                "createdAt",
-                "publishedAt",
-                "documentId",
-            ],
-            populate: {
-                imageWithMeta: {
-                    populate: "*",
-                },
-            },
-        },
-        {
-            encodeValuesOnly: true,
-        }
-    );
+export type ArticleResult =
+    | { status: "ok"; article: Article }
+    | { status: "other_locales"; slugs: Record<string, string> }
+    | { status: "not_found" };
 
+// One article with all its blocks and the slug of every language it is visible in. "not_found" = 404,
+// "other_locales" = not translated to this language; request errors are rethrown (not reported as 404).
+export async function fetchArticlesByDocumentId(documentId: string, locale: string): Promise<ArticleResult> {
+    const result = await fetchLocalizedDetail<CmsArticleDetail>("articles", documentId, locale);
+    if (result.status !== "ok") return result;
+
+    const mediaBase = cmsMediaBase();
+    const article = mapArticle(result.data, mediaBase);
+    article.body = mapBlocks(result.data.blocks, mediaBase);
+    article.localizedSlugs = result.slugs;
+    return { status: "ok", article };
+}
+
+// the latest other articles in this language; an API error leaves the section empty
+export async function fetchRelatedArticles(documentId: string, locale: string, limit = 3): Promise<Article[]> {
     try {
-        const res: { data: StrapiArticleRaw[] } = await $fetch(
-            `${config.public.STRAPI_URL}/api/blogs?${query}`
-        );
-
-        const mappedData = res.data.map((raw: StrapiArticleRaw) =>
-            mapStrapiArticle(raw, strapiUrl)
-        );
-        return mappedData
+        const res = await cmsFetch<{ data: CmsArticleItem[] }>(`articles/${documentId}/related`, { locale, limit });
+        const mediaBase = cmsMediaBase();
+        return res.data.map((raw) => mapArticle(raw, mediaBase));
     } catch (e) {
-        console.error("Ошибка при получении лимитированных статей:", e);
+        console.error("Ошибка при получении похожих статей", e);
+        return [];
     }
-
-    return [];
 }
 
-function mapBodyImages(body: rawBlogBlock[] | undefined, strapiUrl: string): BlogBlock[] {
-    if (!body) return [];
-
-    return body
-        .map((block): BlogBlock | null => {
-            switch (block.__component) {
-                case "blog.text-block":
-                case "blog.heading-h2":
-                case "blog.heading-h3":
-                case "blog.heading-h4":
-                    return block;
-
-                case "blog.picture-gallery-block":
-                    return {
-                        __component: block.__component,
-                        images: (block.imageWithMeta || []).map((img): ImageWithMeta => ({
-                            ...mapStrapiMedia(img.image, strapiUrl),
-                            alt: img.alt || "",
-                            caption: img.caption || "",
-                        })),
-                    };
-
-                default:
-                    console.warn("Неизвестный блок в статье:", block);
-                    return null;
-            }
-        })
-        .filter((b): b is BlogBlock => b !== null); // фильтруем null и уточняем тип
-}
-
-function mapStrapiArticle(raw: StrapiArticleRaw, strapiUrl: string): Article {
+function mapImage(image: CmsImage | null | undefined, mediaBase: string) {
     return {
-        id: raw.id,
-        slug: raw.slug,
-        title: raw.title,
-        image: {
-            ...mapStrapiMedia(raw.imageWithMeta?.image, strapiUrl),
-            alt: raw.imageWithMeta?.alt || "",
-            caption: raw.imageWithMeta?.caption || "",
-        },
-        documentId: raw.documentId,
-        theme: raw.theme,
-        createdAt: raw.createdAt,
-        publishedAt: raw.publishedAt || "",
-        previewText: raw.previewText,
-        body: mapBodyImages(raw.body, strapiUrl),
+        ...mapCmsImage(image, mediaBase),
+        alt: image?.alt || "",
+        caption: image?.caption || "",
     };
 }
 
+function mapBlocks(blocks: CmsBlock[] | undefined, mediaBase: string): BlogBlock[] {
+    return (blocks || [])
+        .map((block): BlogBlock | null => {
+            switch (block.type) {
+                case "heading":
+                    return { key: block.key, type: "heading", level: block.level, text: block.text };
+                case "text":
+                    return { key: block.key, type: "text", text: block.text || "", doc: block.doc };
+                case "gallery":
+                    return {
+                        key: block.key,
+                        type: "gallery",
+                        images: (block.images || []).map((image) => mapImage(image, mediaBase)),
+                    };
+                default:
+                    // new block types may be added by the CMS: skipped until the site supports them
+                    return null;
+            }
+        })
+        .filter((b): b is BlogBlock => b !== null);
+}
+
+function mapArticle(raw: CmsArticleItem, mediaBase: string): Article {
+    return {
+        documentId: raw.documentId,
+        slug: raw.slug,
+        title: raw.title,
+        image: mapImage(raw.cover, mediaBase),
+        theme: raw.theme,
+        publishedAt: raw.publishedAt || "",
+        previewText: raw.previewText || "",
+    };
+}

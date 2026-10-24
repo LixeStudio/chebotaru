@@ -22,6 +22,7 @@ import {
   fetchArticlesByDocumentId,
   fetchRelatedArticles,
 } from "@/composables/api/articles";
+import { availableLocale } from "@/composables/api/cms";
 const ContactUs = defineAsyncComponent(() =>
   import("@/layouts/Contact-us.vue")
 );
@@ -42,14 +43,14 @@ const documentId = computed(
 
 // the article and the related articles only depend on the documentId,
 // so both requests run in parallel on the server
-const [{ data: article, error }, { data: relatedArticles }] = await Promise.all([
+const [{ data: result, error }, { data: relatedArticles }] = await Promise.all([
   useAsyncData(
     () => `article-${documentId.value}-${locale.value}`,
     () => fetchArticlesByDocumentId(documentId.value, locale.value)
   ),
   useAsyncData(
     () => `article-related-${documentId.value}-${locale.value}`,
-    () => fetchRelatedArticles({ documentId: documentId.value }, locale.value),
+    () => fetchRelatedArticles(documentId.value, locale.value),
     { default: () => [] }
   ),
 ]);
@@ -61,13 +62,23 @@ if (error.value) {
     fatal: true,
   });
 }
-if (!article.value) {
+// not translated to this language: temporary redirect to a language it is published in
+if (result.value?.status === "other_locales") {
+  const lang = availableLocale(result.value.slugs);
+  await navigateTo(
+    localePath(`/article/${documentId.value}-${result.value.slugs[lang]}`, lang),
+    { redirectCode: 302, replace: true }
+  );
+} else if (result.value?.status !== "ok") {
   throw createError({
     statusCode: 404,
     statusMessage: "Article not found",
     fatal: true,
   });
 }
+const article = computed(() =>
+  result.value?.status === "ok" ? result.value.article : null
+);
 
 const articlePath = (lang) => {
   if (!article.value) return documentId.value;
@@ -79,7 +90,7 @@ const canonicalPath = computed(() =>
 );
 
 // an outdated or foreign-language slug permanently redirects to the canonical URL
-if (decodeURIComponent(route.path) !== canonicalPath.value) {
+if (article.value && decodeURIComponent(route.path) !== canonicalPath.value) {
   await navigateTo(
     { path: canonicalPath.value, query: route.query },
     { redirectCode: 301, replace: true }
@@ -117,6 +128,7 @@ const { url: pageUrl } = usePageSeo({
   image: () => article.value?.image.src,
   type: "article",
   path: canonicalPath,
+  locales: () => Object.keys(article.value?.localizedSlugs || {}),
 });
 useSeoMeta({
   articlePublishedTime: () => article.value?.publishedAt || undefined,

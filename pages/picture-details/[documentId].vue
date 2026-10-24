@@ -27,6 +27,7 @@ import {
   fetchPictureByDocumentId,
   fetchRelatedPictures,
 } from "@/composables/api/paintings";
+import { availableLocale } from "@/composables/api/cms";
 const ContactUs = defineAsyncComponent(() =>
   import("@/layouts/Contact-us.vue")
 );
@@ -54,7 +55,7 @@ const documentId = computed(
 );
 
 // loaded on the server so that the artwork, title and meta tags are in the initial HTML
-const { data: picture, error } = await useAsyncData(
+const { data: result, error } = await useAsyncData(
   () => `picture-${documentId.value}-${locale.value}`,
   () => fetchPictureByDocumentId(documentId.value, locale.value)
 );
@@ -66,13 +67,26 @@ if (error.value) {
     fatal: true,
   });
 }
-if (!picture.value) {
+// not translated to this language: temporary redirect to a language it is published in
+if (result.value?.status === "other_locales") {
+  const lang = availableLocale(result.value.slugs);
+  await navigateTo(
+    localePath(
+      `/picture-details/${documentId.value}-${result.value.slugs[lang]}`,
+      lang
+    ),
+    { redirectCode: 302, replace: true }
+  );
+} else if (result.value?.status !== "ok") {
   throw createError({
     statusCode: 404,
     statusMessage: "Picture not found",
     fatal: true,
   });
 }
+const picture = computed(() =>
+  result.value?.status === "ok" ? result.value.picture : null
+);
 
 const picturePath = (lang) => {
   if (!picture.value) return documentId.value;
@@ -84,7 +98,7 @@ const canonicalPath = computed(() =>
 );
 
 // an outdated or foreign-language slug permanently redirects to the canonical URL
-if (decodeURIComponent(route.path) !== canonicalPath.value) {
+if (picture.value && decodeURIComponent(route.path) !== canonicalPath.value) {
   await navigateTo(
     { path: canonicalPath.value, query: route.query },
     { redirectCode: 301, replace: true }
@@ -105,7 +119,7 @@ setI18nParams(
 const { data: relatedPictures } = useAsyncData(
   () => `picture-related-${documentId.value}-${locale.value}`,
   () =>
-    picture.value ? fetchRelatedPictures(picture.value, locale.value) : [],
+    picture.value ? fetchRelatedPictures(documentId.value, locale.value) : [],
   { server: false, lazy: true, default: () => [] }
 );
 
@@ -117,6 +131,7 @@ const { url: pageUrl } = usePageSeo({
     t("seo.pictureDetails.description"),
   image: () => picture.value?.image.src,
   path: canonicalPath,
+  locales: () => Object.keys(picture.value?.localizedSlugs || {}),
 });
 
 // only data shown on the page; the author is not a separate CMS field, so "creator" is omitted
@@ -135,7 +150,7 @@ useJsonLd("artwork", () =>
           ? {
               "@type": "Offer",
               price: picture.value.price,
-              priceCurrency: "USD",
+              priceCurrency: picture.value.currency,
               availability:
                 picture.value.availability === "sold"
                   ? "https://schema.org/SoldOut"

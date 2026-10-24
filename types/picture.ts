@@ -1,5 +1,7 @@
+export type Currency = 'USD' | 'EUR' | 'UAH'
+
 export type Picture = {
-    id: string | number
+    documentId: string
     slug: string
 
     image: {
@@ -11,25 +13,26 @@ export type Picture = {
         width?: number
         height?: number
     }
-    documentId: string,
     title: string
-    description?: string
+    description?: string | null
 
-    createdAt: string
     publishedAt?: string
     details: {
         year: string
         size: string
         material: string
         style: string
+        // "<width>x<height>" in centimeters
         sizeInSm: string
     }
 
-    price: number
+    // as stored in the CMS: no conversion between currencies
+    price: number | null
+    currency: Currency
     availability: 'available' | 'sold'
 
-    orientation?: 'vertical' | 'horizontal' | 'square'
+    orientation?: 'vertical' | 'horizontal' | 'square' | null
 
-    // slug of every locale the picture is translated to (detail requests only)
+    // slug of every locale the picture is visible in (detail requests only)
     localizedSlugs?: Record<string, string>
 }

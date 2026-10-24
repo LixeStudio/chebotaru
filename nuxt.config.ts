@@ -35,7 +35,14 @@ export default defineNuxtConfig({
     detectBrowserLanguage: false,
   },
   runtimeConfig: {
+    // Chebotaru CMS Public API (/api/public/v1), requested only by the Nuxt server (server/api/cms):
+    // NUXT_CMS_API_BASE, e.g. http://127.0.0.1:3000 locally; not exposed to the browser
+    cmsApiBase: '',
     public: {
+      // where the browser loads CMS images from (the API address or a CDN in front of it):
+      // NUXT_PUBLIC_CMS_MEDIA_BASE
+      cmsMediaBase: '',
+      // Strapi is still used for the newsletter form only (the CMS has no public subscribe endpoint yet)
       STRAPI_URL: process.env.NUXT_PUBLIC_STRAPI_URL,
       SITE_URL: 'https://andriichebotaru.com'
     }
