@@ -1,10 +1,11 @@
-import { FetchError, ofetch } from 'ofetch'
+import { FetchError } from 'ofetch'
 
 // The only place that talks to the Chebotaru CMS Public API (/api/public/v1, read-only).
 // Pages call /api/cms/<route> both during SSR (an in-process call, no extra HTTP hop) and after client-side
 // navigation, so the CMS address stays private and the CMS needs no CORS for the site.
 // Only the documented routes and query parameters are forwarded. CMS error bodies ({ code, availableLocales, ... })
 // are passed on in `data`; an unreachable or failing CMS becomes 503 { code: 'cms_unavailable' }.
+// Successful answers are cached for 15-30 s on the server (server/utils/cms.ts); errors never are.
 
 const ROUTES = [
     /^locales$/,
@@ -25,21 +26,13 @@ export default defineEventHandler(async (event) => {
         throw createError({ statusCode: 404, statusMessage: 'Not Found', data: { code: 'not_found' } })
     }
 
-    const { cmsApiBase } = useRuntimeConfig(event)
-    if (!cmsApiBase) {
-        throw createError({ statusCode: 503, statusMessage: 'CMS is not configured', data: { code: 'cms_unavailable' } })
-    }
-
     const incoming = getQuery(event)
     const query = Object.fromEntries(
         QUERY_KEYS.filter((key) => typeof incoming[key] === 'string').map((key) => [key, incoming[key] as string])
     )
 
     try {
-        return await ofetch(`${String(cmsApiBase).replace(/\/+$/, '')}/api/public/v1/${route}`, {
-            query,
-            timeout: 10_000,
-        })
+        return await cmsGet(event, route, query)
     } catch (error) {
         const status = error instanceof FetchError ? error.response?.status : undefined
         if (status && status >= 400 && status < 500 && status !== 429) {

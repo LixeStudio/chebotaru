@@ -1,3 +1,5 @@
+import type { H3Event } from 'h3'
+
 // Dynamic sitemap entries (pictures and blog articles) for @nuxtjs/sitemap, from the Chebotaru CMS Public API.
 // Every translation has its own slug, so each locale gets its own <url> with explicit hreflang alternatives;
 // a record that is not translated to a language (not visible in it) simply has no URL there.
@@ -13,9 +15,9 @@ const LOCALES = [
 ]
 const DEFAULT_LOCALE = 'en'
 
-async function fetchCollection(apiBase: string, collection: string, locale: string): Promise<LocalizedEntry[]> {
-    const page = (n: number) =>
-        $fetch<ListPage>(`${apiBase}/api/public/v1/${collection}`, { query: { locale, page: n, pageSize: 100 }, timeout: 10_000 })
+async function fetchCollection(event: H3Event, collection: string, locale: string): Promise<LocalizedEntry[]> {
+    // the same requests (and cache entries) as the catalog and blog pages
+    const page = (n: number) => cmsGet<ListPage>(event, collection, { locale, page: String(n), pageSize: '100' })
     const first = await page(1)
     const rest = await Promise.all(
         Array.from({ length: first.meta.pagination.totalPages - 1 }, (_, i) => page(i + 2))
@@ -26,8 +28,8 @@ async function fetchCollection(apiBase: string, collection: string, locale: stri
         .map((e) => ({ documentId: e.documentId, slug: e.slug, locale }))
 }
 
-async function collectionUrls(apiBase: string, collection: string, routePrefix: string) {
-    const perLocale = await Promise.all(LOCALES.map((l) => fetchCollection(apiBase, collection, l.code)))
+async function collectionUrls(event: H3Event, collection: string, routePrefix: string) {
+    const perLocale = await Promise.all(LOCALES.map((l) => fetchCollection(event, collection, l.code)))
     const byDocument = new Map<string, LocalizedEntry[]>()
     for (const entry of perLocale.flat()) {
         byDocument.set(entry.documentId, [...(byDocument.get(entry.documentId) || []), entry])
@@ -50,11 +52,10 @@ async function collectionUrls(apiBase: string, collection: string, routePrefix: 
 }
 
 export default defineSitemapEventHandler(async (event) => {
-    const apiBase = String(useRuntimeConfig(event).cmsApiBase || '').replace(/\/+$/, '')
-    if (!apiBase) return []
+    if (!useRuntimeConfig(event).cmsApiBase) return []
     const [pictures, articles] = await Promise.all([
-        collectionUrls(apiBase, 'pictures', '/picture-details'),
-        collectionUrls(apiBase, 'articles', '/article'),
+        collectionUrls(event, 'pictures', '/picture-details'),
+        collectionUrls(event, 'articles', '/article'),
     ])
     return [...pictures, ...articles]
 })
