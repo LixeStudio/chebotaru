@@ -2,11 +2,11 @@
   <section class="blog">
     <div class="blog__container">
       <BlogFiltersMenu :filters="filters" />
-      <TransitionGroup
+      <div
         v-if="state === 'list'"
-        tag="div"
-        name="cards"
+        :key="listKey"
         class="blog__articles articles-blog"
+        :class="{ 'list-entrance': entering }"
       >
         <BlogArticle
           v-for="(article, index) in articles"
@@ -15,7 +15,7 @@
           :article="article"
           :eager="index < 2"
         />
-      </TransitionGroup>
+      </div>
       <template v-else>
         <p v-if="state === 'unavailable'" class="blog__text-second">
           {{ t("pages.blog.blogSection.unavailable") }}
@@ -35,7 +35,7 @@
 import BlogFiltersMenu from "@/components/blogFiltersMenu.vue";
 import BlogArticle from "@/components/BlogArticle.vue";
 import { listState } from "@/composables/listState";
-import { vReveal } from "@/composables/reveal";
+import { useListEntrance, vReveal } from "@/composables/reveal";
 
 const props = defineProps({
   filters: {
@@ -63,6 +63,7 @@ const state = computed(() =>
     hasFilters: props.hasAnyFilters,
   })
 );
+const { listKey, entering } = useListEntrance(() => props.articles);
 
 const { t } = useI18n();
 </script>

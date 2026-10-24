@@ -57,19 +57,25 @@ input:focus-visible,
   opacity: 1;
   transform: none;
 }
-// ...and when filtering / sorting (TransitionGroup name="cards"): leaving cards fade out, new ones fade in,
-// the others glide to their new places. Only opacity and transform: no layout shift.
-.cards-enter-active,
-.cards-leave-active {
-  transition: opacity 0.25s ease, transform 0.25s ease;
+// ...and after filtering / sorting (useListEntrance): the new list appears at once and its first cards rise in softly,
+// one after another. Nothing leaves or slides across the page; only opacity and transform change (no layout shift).
+@keyframes card-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
-.cards-enter-from,
-.cards-leave-to {
-  opacity: 0;
-  transform: scale(0.97);
+.list-entrance > :nth-child(-n + 8) {
+  animation: card-in 0.35s ease-out both;
 }
-.cards-move {
-  transition: transform 0.4s ease;
+@for $i from 2 through 8 {
+  .list-entrance > :nth-child(#{$i}) {
+    animation-delay: #{($i - 1) * 30}ms;
+  }
 }
 
 .visually-hidden {
