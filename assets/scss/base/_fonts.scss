@@ -1,8 +1,10 @@
 @font-face {
   font-family: "TT Disruptors";
-  // the browser takes the first supported format: WOFF2 (61 KB) instead of OTF (354 KB)
-  src: url("@/assets/fonts/tt_disruptors_regular-webfont.woff2") format("woff2"),
-    url("@/assets/fonts/tt_disruptors_regular-webfont.woff") format("woff");
+  // tt_disruptors_regular-otf.woff is the original OTF repacked into WOFF without changes
+  // (same glyphs and metrics, 236 KB instead of 354 KB). The .woff2/.woff/.ttf files next to it
+  // come from a different build of the font with different widths, so they are not used.
+  src: url("@/assets/fonts/tt_disruptors_regular-otf.woff") format("woff"),
+    url("@/assets/fonts/tt_disruptors_regular-webfont.otf") format("opentype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
