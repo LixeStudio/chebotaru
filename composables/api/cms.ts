@@ -52,7 +52,18 @@ export function availableLocale(slugs: Record<string, string>): string {
     return [DEFAULT_LOCALE, ...SITE_LOCALES].find((l) => slugs[l]) || DEFAULT_LOCALE;
 }
 
-type LocalizedDetail ={ slug: string; availableLocales: CmsLocale[] };
+// Route params "<documentId>-<slug>" of every language a record is visible in, for the language switcher
+// and hreflang (useSetI18nParams). Empty while there is no record, e.g. during a redirect to another language.
+export function localizedRouteParams(
+    documentId: string,
+    slugs: Record<string, string> | null | undefined
+): Record<string, { documentId: string }> {
+    return Object.fromEntries(
+        Object.entries(slugs || {}).map(([lang, slug]) => [lang, { documentId: `${documentId}-${slug}` }])
+    );
+}
+
+type LocalizedDetail = { slug: string; availableLocales: CmsLocale[] };
 
 export type DetailResult<T> =
     | { status: "ok"; data: T; slugs: Record<string, string> }

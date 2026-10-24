@@ -27,7 +27,10 @@ import {
   fetchPictureByDocumentId,
   fetchRelatedPictures,
 } from "@/composables/api/paintings";
-import { availableLocale } from "@/composables/api/cms";
+import {
+  availableLocale,
+  localizedRouteParams,
+} from "@/composables/api/cms";
 const ContactUs = defineAsyncComponent(() =>
   import("@/layouts/Contact-us.vue")
 );
@@ -106,13 +109,9 @@ if (picture.value && decodeURIComponent(route.path) !== canonicalPath.value) {
 }
 
 // language switcher and hreflang links use the slug of the target language
+// (no record while redirecting to another language: navigateTo does not stop setup on the client)
 setI18nParams(
-  Object.fromEntries(
-    Object.keys(picture.value.localizedSlugs || {}).map((lang) => [
-      lang,
-      { documentId: picturePath(lang) },
-    ])
-  )
+  localizedRouteParams(documentId.value, picture.value?.localizedSlugs)
 );
 
 // related works are below the fold: loaded after hydration to keep them off the critical path
