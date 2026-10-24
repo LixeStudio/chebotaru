@@ -1,5 +1,6 @@
 import qs from "qs";
 import type { Picture } from "@/types/picture";
+import { mapStrapiMedia, type StrapiMedia } from "./media";
 
 
 type StrapiPictureRaw = {
@@ -18,9 +19,7 @@ type StrapiPictureRaw = {
         id: number;
         alt: string;
         caption: string;
-        image: {
-            url: string;
-        };
+        image: StrapiMedia;
     },
 
     details: {
@@ -258,7 +257,7 @@ function mapStrapiPicture(raw: StrapiPictureRaw, strapiUrl: string): Picture {
         publishedAt: raw.publishedAt,
         documentId: raw.documentId,
         image: {
-            src: raw.imageWithMeta?.image?.url ? strapiUrl + raw.imageWithMeta.image.url : "", // из вложенного image
+            ...mapStrapiMedia(raw.imageWithMeta?.image, strapiUrl), // src (оригинал), srcset, width, height
             alt: raw.imageWithMeta?.alt || "", // отдельное поле
             caption: raw.imageWithMeta?.caption || "",
         },

@@ -6,6 +6,10 @@ export type Picture = {
         src: string
         alt: string
         caption: string
+        // responsive copies and intrinsic size from the CMS
+        srcset?: string
+        width?: number
+        height?: number
     }
     documentId: string,
     title: string

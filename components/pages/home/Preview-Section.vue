@@ -10,6 +10,8 @@
           :alt="t('pages.home.previewSection.titleImgAlt')"
           width="969"
           height="201"
+          fetchpriority="high"
+          preload
         />
       </h1>
     </div>

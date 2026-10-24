@@ -48,5 +48,9 @@ export interface ImageWithMeta {
     src: string
     alt: string
     caption: string
+    // responsive copies and intrinsic size from the CMS
+    srcset?: string
+    width?: number
+    height?: number
 }
 

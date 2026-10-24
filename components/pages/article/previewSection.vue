@@ -18,11 +18,13 @@
         </div>
       </div>
       <div v-if="article.image && article.image.src" class="preview__image">
-        <NuxtImg
-          :src="article.image.src"
-          :alt="article.image.alt"
+        <CmsImage
+          :image="article.image"
+          sizes="100vw"
           width="1440"
           height="690"
+          loading="eager"
+          priority
         />
       </div>
       <div v-if="paragraphs.length" class="preview__text-block">
@@ -40,6 +42,7 @@
 
 <script setup>
 import { formatDate } from "@/composables/useDate";
+import CmsImage from "@/components/CmsImage.vue";
 defineProps({
   article: {
     type: Object,

@@ -121,7 +121,6 @@
           :alt="t('header.logo.imgAlt')"
           width="237"
           height="49"
-          loading="lazy"
           decoding="async"
         />
       </NuxtLink>

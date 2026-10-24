@@ -2,11 +2,13 @@
   <article class="artwork">
     <div class="artwork__container">
       <figure class="artwork__image">
-        <NuxtImg
-          :src="picture.image.src"
-          :alt="picture.image.alt"
+        <CmsImage
+          :image="picture.image"
+          sizes="(max-width: 1023px) 100vw, 854px"
           width="854"
           height="621"
+          loading="eager"
+          priority
           @click="openLightbox"
         />
         <figcaption class="visually-hidden">
@@ -65,6 +67,7 @@
 
 <script setup>
 import { defineAsyncComponent } from "vue";
+import CmsImage from "@/components/CmsImage.vue";
 
 const VueEasyLightbox = defineAsyncComponent(() => import("vue-easy-lightbox"));
 const emit = defineEmits(["togglePopup"]);

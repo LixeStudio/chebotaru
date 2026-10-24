@@ -1,5 +1,6 @@
 import qs from "qs";
 import type { Article, TextBlock, HeadingH2, HeadingH3, HeadingH4, BlogBlock, ImageWithMeta } from "@/types/article";
+import { mapStrapiMedia, type StrapiMedia } from "./media";
 
 
 type StrapiArticleRaw = {
@@ -32,9 +33,7 @@ interface rawImageWithMeta {
     id: number;
     alt: string;
     caption: string;
-    image: {
-        url: string;
-    };
+    image: StrapiMedia;
 }
 
 
@@ -272,7 +271,7 @@ function mapBodyImages(body: rawBlogBlock[] | undefined, strapiUrl: string): Blo
                     return {
                         __component: block.__component,
                         images: (block.imageWithMeta || []).map((img): ImageWithMeta => ({
-                            src: strapiUrl + (img.image?.url || ""),
+                            ...mapStrapiMedia(img.image, strapiUrl),
                             alt: img.alt || "",
                             caption: img.caption || "",
                         })),
@@ -292,7 +291,7 @@ function mapStrapiArticle(raw: StrapiArticleRaw, strapiUrl: string): Article {
         slug: raw.slug,
         title: raw.title,
         image: {
-            src: raw.imageWithMeta?.image?.url ? strapiUrl + raw.imageWithMeta.image.url : "",
+            ...mapStrapiMedia(raw.imageWithMeta?.image, strapiUrl),
             alt: raw.imageWithMeta?.alt || "",
             caption: raw.imageWithMeta?.caption || "",
         },
