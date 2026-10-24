@@ -21,7 +21,8 @@
           :alt="t('pages.aboutMother.heroSection.heroImg.imgAlt')"
           width="720"
           height="840"
-          loading="lazy"
+          fetchpriority="high"
+          preload
         />
       </div>
     </div>
