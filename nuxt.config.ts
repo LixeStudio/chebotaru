@@ -6,7 +6,13 @@ export default defineNuxtConfig({
   ssr: true,
   devtools: { enabled: true },
   css: ['@/assets/scss/main.scss'],
-  modules: ['@nuxt/fonts', '@nuxt/image', '@nuxt/eslint', '@nuxtjs/i18n', '@nuxtjs/sitemap',],
+  modules: ['@nuxt/fonts', '@nuxt/image', '@nuxt/eslint', '@nuxtjs/i18n', '@nuxtjs/sitemap', 'nuxt-gtag'],
+  // GA4 (G-…): ID from NUXT_PUBLIC_GTAG_ID. Script is not injected on boot — plugins/gtag.client.ts
+  // loads it after the first interaction or ~3.5 s, so LCP / TBT stay clean. Empty ID = analytics off.
+  gtag: {
+    initMode: 'manual',
+    loadingStrategy: 'defer',
+  },
   fonts: {
     // Manrope self-hosted as the same variable font (wght 200-800) that app.vue used to load
     // as a second copy from Google Fonts, so weights 500/700 render exactly as before
