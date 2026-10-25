@@ -19,6 +19,7 @@
 // Pages
 @use "./components/contacts-popup";
 @use "./components/sold-badge";
+@use "./components/cookie-consent";
 body.has-sticky-header {
   padding-top: $headerHeight;
 }

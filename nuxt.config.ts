@@ -8,10 +8,21 @@ export default defineNuxtConfig({
   css: ['@/assets/scss/main.scss'],
   modules: ['@nuxt/fonts', '@nuxt/image', '@nuxt/eslint', '@nuxtjs/i18n', '@nuxtjs/sitemap', 'nuxt-gtag'],
   // GA4 (G-…): ID from NUXT_PUBLIC_GTAG_ID. Script is not injected on boot — plugins/gtag.client.ts
-  // loads it after the first interaction or ~3.5 s, so LCP / TBT stay clean. Empty ID = analytics off.
+  // loads it only after "Accept" in the cookie banner, then after the first interaction or ~3.5 s,
+  // so LCP / TBT stay clean. Empty ID = analytics off and no banner.
   gtag: {
     initMode: 'manual',
     loadingStrategy: 'defer',
+    // Consent Mode v2: everything denied until the visitor accepts; no ads on the site, so ad_* stay denied
+    initCommands: [
+      ['consent', 'default', {
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        analytics_storage: 'denied',
+        wait_for_update: 500,
+      }],
+    ],
   },
   fonts: {
     // Manrope self-hosted as the same variable font (wght 200-800) that app.vue used to load
