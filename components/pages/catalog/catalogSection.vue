@@ -38,6 +38,19 @@
         <p v-else class="catalog__text-second">
           {{ t("pages.catalog.catalogSection.noPictures") }}
         </p>
+        <div v-if="state === 'list' && total > pictures.length" class="catalog__more">
+          <p class="catalog__shown">
+            {{ t("pages.catalog.catalogSection.shown", { shown: pictures.length, total }) }}
+          </p>
+          <NuxtLink
+            v-if="nextPage"
+            :to="nextPage"
+            class="catalog__more-btn btn-circle"
+            replace
+          >
+            {{ t("pages.catalog.catalogSection.showMore") }}
+          </NuxtLink>
+        </div>
       </div>
     </div>
   </section>
@@ -67,6 +80,21 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  // all works that match the filters (the list shows the first pages of them)
+  total: {
+    type: Number,
+    default: 0,
+  },
+  // the address of the next page ("show more"), or null when everything is shown
+  nextPage: {
+    type: Object,
+    default: null,
+  },
+  // changes with the filters and the sorting only: then the list animates in again (more cards just appear)
+  listId: {
+    type: String,
+    default: "",
+  },
 });
 const state = computed(() =>
   listState({
@@ -75,7 +103,7 @@ const state = computed(() =>
     hasFilters: props.hasAnyFilters,
   })
 );
-const { listKey, entering } = useListEntrance(() => props.pictures);
+const { listKey, entering } = useListEntrance(() => props.listId);
 const ifFilterMenuOpened = ref(false);
 
 const toggleFitlerMenu = () => {

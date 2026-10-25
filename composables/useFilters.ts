@@ -50,11 +50,14 @@ export function useFilters<T extends Record<string, FilterValue>>(initialFilters
         { immediate: true }
     )
 
-    // ✅ Синхронизация filters → query
+    // ✅ Синхронизация filters → query. The address changes only when a filter really changed (re-reading the same
+    // address must keep ?page=); a changed filter starts the list from the first page again.
     watch(
         filters,
         (newFilters) => {
             const query = stringifyFiltersToQuery(newFilters)
+            const current = stringifyFiltersToQuery(parseQueryToFilters(route.query))
+            if (JSON.stringify(query) === JSON.stringify(current)) return
             router.replace({ query })
         },
         { deep: true }

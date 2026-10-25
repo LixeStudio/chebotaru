@@ -454,6 +454,8 @@
             },
             "catalogSection": {
                 "filterBtn": "Фільтри",
+                "showMore": "Показати ще",
+                "shown": "Показано {shown} з {total}",
                 "filters": {
                     "availability": {
                         "available": "В наявності",

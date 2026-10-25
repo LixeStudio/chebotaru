@@ -454,6 +454,8 @@
             },
             "catalogSection": {
                 "filterBtn": "Фильтры",
+                "showMore": "Показать ещё",
+                "shown": "Показано {shown} из {total}",
                 "filters": {
                     "availability": {
                         "available": "В наличии",
