@@ -113,18 +113,32 @@
       </nav>
       <div class="footer__bottom">
         <p class="footer__copyright">Copyright (© 2026 Andrii Chebotaru)</p>
-        <NuxtLink
-          :to="localePath('/privacy')"
-          class="footer__confidential-police"
-        >
-          {{ t("footer.bottom.confidential-police") }}
-        </NuxtLink>
+        <div class="footer__legal">
+          <NuxtLink
+            :to="localePath('/privacy')"
+            class="footer__confidential-police"
+          >
+            {{ t("footer.bottom.confidential-police") }}
+          </NuxtLink>
+          <!-- reopens the cookie banner to change the answer (only when the site has Google Analytics) -->
+          <button
+            v-if="cookieConsent.analyticsEnabled"
+            type="button"
+            class="footer__confidential-police footer__cookie-settings"
+            @click="cookieConsent.openSettings"
+          >
+            {{ t("footer.bottom.cookieSettings") }}
+          </button>
+        </div>
       </div>
     </div>
   </footer>
 </template>
 
 <script setup>
+import { useCookieConsent } from "@/composables/useCookieConsent";
+
 const localePath = useLocalePath();
 const { t } = useI18n();
+const cookieConsent = useCookieConsent();
 </script>

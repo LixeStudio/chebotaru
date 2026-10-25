@@ -25,6 +25,12 @@
     line-height: 150%;
     opacity: 0.7;
   }
+  &__legal {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem 1.5rem;
+  }
   &__confidential-police {
     color: $Default-gray-900;
     opacity: 0.7;
@@ -32,6 +38,13 @@
     &:hover {
       text-decoration-line: underline;
     }
+  }
+  &__cookie-settings {
+    padding: 0;
+    font: inherit;
+    background: none;
+    border: none;
+    cursor: pointer;
   }
 }
 

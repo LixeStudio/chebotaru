@@ -51,8 +51,16 @@
             }
         },
         "bottom": {
-            "confidential-police": "Privacy Policy"
+            "confidential-police": "Privacy Policy",
+            "cookieSettings": "Cookie settings"
         }
+    },
+    "cookieConsent": {
+        "label": "Cookie consent",
+        "text": "With your permission, we use Google Analytics cookies to understand how visitors use the site. If you decline, they are not set.",
+        "policy": "Privacy Policy",
+        "accept": "Accept",
+        "decline": "Decline"
     },
     "contactUs": {
         "title": {
@@ -536,8 +544,8 @@
         },
         "privacy": {
             "title": "Privacy Policy",
-            "updated": "Last updated: October 23, 2026",
-            "intro": "This Privacy Policy explains how Andrii Chebotaru (referred to as “we” or “us”) collects and uses your personal information when you subscribe to email updates through https://andriichebotaru.com.",
+            "updated": "Last updated: October 25, 2026",
+            "intro": "This Privacy Policy explains how Andrii Chebotaru (referred to as “we” or “us”) collects and uses your personal information when you visit https://andriichebotaru.com and when you subscribe to email updates through it.",
             "sections": {
                 "s01": {
                     "title": "01 Who is responsible for your data?",
@@ -590,9 +598,18 @@
                     }
                 },
                 "s09": {
-                    "title": "09 Changes and contact",
+                    "title": "09 Cookies and website analytics",
                     "paragraphs": {
-                        "p1": "We may update this Privacy Policy to reflect changes in our newsletter practices or legal requirements. The date at the top of this page indicates when it was last updated. For any privacy questions or requests, email chebotaru.web{'@'}gmail.com."
+                        "p1": "We use Cloudflare Web Analytics to count visits. It does not use cookies or similar storage on your device and does not identify you: we only see aggregated figures such as page views, referring websites, countries, device types, and page loading speed.",
+                        "p2": "With your consent, we also use Google Analytics 4, provided by Google Ireland Limited and Google LLC, to understand how visitors use the site: which pages are viewed, how visitors arrived, approximate location (country and city), device and browser type, and how long a visit lasts. Google Analytics 4 does not log or store IP addresses. Google may process this data outside the EEA, including in the United States, under appropriate safeguards such as the EU–U.S. Data Privacy Framework.",
+                        "p3": "Google Analytics is loaded only after you click “Accept” in the cookie banner. It then sets the cookies _ga and _ga_* on our domain, which store a random identifier and expire after up to 2 years. Analytics data is kept by Google for up to 14 months. If you click “Decline”, Google Analytics is not loaded at all and these cookies are not set.",
+                        "p4": "Your answer is saved in your browser’s local storage for 12 months, so that we do not ask again on every visit. You can change it at any time with the “Cookie settings” link at the bottom of every page; if you withdraw consent, we stop Google Analytics and delete its cookies from your browser. The site does not use advertising cookies."
+                    }
+                },
+                "s10": {
+                    "title": "10 Changes and contact",
+                    "paragraphs": {
+                        "p1": "We may update this Privacy Policy to reflect changes in how we handle personal data or legal requirements. The date at the top of this page indicates when it was last updated. For any privacy questions or requests, email chebotaru.web{'@'}gmail.com."
                     }
                 }
             }
@@ -649,7 +666,7 @@
         },
         "privacy": {
             "title": "Privacy Policy — Andrii Chebotaru",
-            "description": "How Andrii Chebotaru collects and uses email addresses when you subscribe to newsletter updates on andriichebotaru.com."
+            "description": "How Andrii Chebotaru uses cookies, website analytics, and email addresses for newsletter updates on andriichebotaru.com."
         },
         "error": {
             "title": "Page not found — Andrii Chebotaru",
