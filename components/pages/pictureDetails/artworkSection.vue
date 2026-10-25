@@ -32,8 +32,11 @@
         </ul>
       </div>
       <section class="artwork__body">
-        <h1 class="artwork__title">{{ picture.title }}</h1>
-        <dl class="artwork__details">
+        <h1 class="artwork__title" :class="{ 'artwork__title--sold': isSold }">
+          {{ picture.title }}
+        </h1>
+        <SoldBadge v-if="isSold" placement="title" />
+        <dl class="artwork__details" :class="{ 'artwork__details--sold': isSold }">
           <div>
             <dt>
               {{ t("pages.pictureDetails.artworkSection.details.year") }}
@@ -53,20 +56,39 @@
             </dt>
             <dd>{{ picture.details.material }}</dd>
           </div>
-          <div>
+          <div v-if="!isSold">
             <dt>
               {{ t("pages.pictureDetails.artworkSection.details.style") }}
             </dt>
             <dd>{{ picture.details.style }}</dd>
           </div>
+          <div v-else>
+            <dt>
+              {{ t("pages.pictureDetails.artworkSection.details.status") }}
+            </dt>
+            <dd>{{ t("pages.pictureDetails.artworkSection.details.sold") }}</dd>
+          </div>
         </dl>
-        <div class="artwork__body-bottom">
+        <!-- a sold painting (the design's "Sold out" page): the sale price, and a request for a similar work in the Buy popup -->
+        <div v-if="isSold" class="artwork__sold">
+          <p class="artwork__sale">
+            <span class="artwork__sale-label">
+              {{ t("pages.pictureDetails.artworkSection.salePrice") }}
+            </span>
+            <span class="artwork__sale-price">
+              {{ formatPrice(picture.price, picture.currency) }}
+            </span>
+          </p>
+          <button
+            class="artwork__similar btn-circle"
+            @click="emit('togglePopup')"
+          >
+            {{ t("pages.pictureDetails.artworkSection.similarBtn") }}
+          </button>
+        </div>
+        <div v-else class="artwork__body-bottom">
           <p class="artwork__price">
             {{ formatPrice(picture.price, picture.currency) }}
-            <SoldBadge
-              v-if="picture.availability === 'sold'"
-              placement="inline"
-            />
           </p>
           <button class="artwork__btn btn-circle" @click="emit('togglePopup')">
             {{ t("pages.pictureDetails.artworkSection.buyBtn") }}
@@ -105,6 +127,7 @@ const props = defineProps({
 
 const { t } = useI18n();
 // every photo of the painting, the main one first; the thumbnails switch the large one
+const isSold = computed(() => props.picture.availability === "sold");
 const photos = computed(() => (props.picture.photos?.length ? props.picture.photos : [props.picture.image]));
 const active = ref(0);
 watch(() => props.picture.documentId, () => (active.value = 0));

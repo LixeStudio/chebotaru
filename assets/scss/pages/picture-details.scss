@@ -146,6 +146,56 @@
     &__btn {
       width: 100%;
     }
+    // a sold painting (Figma "Picture Details – Sold out"): the stroke under the title, capital labels,
+    // a line, "Sale price" and a full-width request for a similar work
+    &__title.artwork__title--sold {
+      margin-bottom: 0.25rem;
+    }
+    &__details--sold dt {
+      text-transform: uppercase;
+    }
+    &__sold {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 0.0625rem solid $Default-gray-200;
+    }
+    &__sale {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+    &__sale-label {
+      color: $Default-gray-500;
+      font-size: 0.875rem;
+      line-height: 143%;
+      text-transform: uppercase;
+    }
+    &__sale-price {
+      font-size: 1.5rem;
+      font-weight: 500;
+      line-height: 133.333%;
+    }
+    &__similar {
+      width: 100%;
+    }
+  }
+  // tablet: the price under its label on the left, the button on the right (the image is above the text here)
+  @media screen and (min-width: $tablet) and (max-width: ($laptop - 0.0625rem)) {
+    .artwork {
+      &__sold {
+        flex-direction: row;
+        align-items: center;
+      }
+      &__sale {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+        flex-shrink: 0;
+      }
+    }
   }
   .related-works {
     margin-bottom: 2.5rem;
