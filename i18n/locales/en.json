@@ -56,7 +56,7 @@
         }
     },
     "cookieConsent": {
-        "label": "Cookie consent",
+        "title": "Cookie settings",
         "text": "With your permission, we use Google Analytics cookies to understand how visitors use the site. If you decline, they are not set.",
         "policy": "Privacy Policy",
         "accept": "Accept",

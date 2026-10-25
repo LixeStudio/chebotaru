@@ -1,34 +1,43 @@
 <template>
-  <section
-    class="cookie-consent"
-    role="region"
-    :aria-label="t('cookieConsent.label')"
-  >
-    <p class="cookie-consent__text">
-      {{ t("cookieConsent.text") }}
-      <NuxtLink :to="localePath('/privacy')" class="cookie-consent__link">{{
-        t("cookieConsent.policy")
-      }}</NuxtLink>
-    </p>
-    <div class="cookie-consent__actions">
-      <!-- both answers look the same: declining must be as easy as accepting -->
-      <button
-        ref="firstButton"
-        type="button"
-        class="btn-circle cookie-consent__btn"
-        @click="decline"
-      >
-        {{ t("cookieConsent.decline") }}
-      </button>
-      <button
-        type="button"
-        class="btn-circle cookie-consent__btn"
-        @click="accept"
-      >
-        {{ t("cookieConsent.accept") }}
-      </button>
-    </div>
-  </section>
+  <div class="cookie-consent-layer">
+    <!-- dims the page as in the design; the page stays scrollable and clickable under it -->
+    <div class="cookie-consent-backdrop" aria-hidden="true" />
+    <section
+      class="cookie-consent"
+      role="region"
+      aria-labelledby="cookie-consent-title"
+    >
+      <div class="cookie-consent__body">
+        <h2 id="cookie-consent-title" class="cookie-consent__title">
+          {{ t("cookieConsent.title") }}
+        </h2>
+        <p class="cookie-consent__text">
+          {{ t("cookieConsent.text") }}
+          <NuxtLink :to="localePath('/privacy')" class="cookie-consent__link">{{
+            t("cookieConsent.policy")
+          }}</NuxtLink>
+        </p>
+      </div>
+      <div class="cookie-consent__actions">
+        <!-- the same size and the same yellow frame: declining stays as easy to see as accepting -->
+        <button
+          ref="firstButton"
+          type="button"
+          class="btn-circle cookie-consent__btn cookie-consent__btn--accept"
+          @click="accept"
+        >
+          {{ t("cookieConsent.accept") }}
+        </button>
+        <button
+          type="button"
+          class="btn-circle cookie-consent__btn"
+          @click="decline"
+        >
+          {{ t("cookieConsent.decline") }}
+        </button>
+      </div>
+    </section>
+  </div>
 </template>
 
 <script setup>
