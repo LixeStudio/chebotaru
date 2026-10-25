@@ -454,6 +454,8 @@
             },
             "catalogSection": {
                 "filterBtn": "Filters",
+                "showMore": "Show more",
+                "shown": "Shown {shown} of {total}",
                 "filters": {
                     "availability": {
                         "available": "Available",

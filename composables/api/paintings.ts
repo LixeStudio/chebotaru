@@ -66,6 +66,17 @@ export async function fetchAllPictures(locale: string, query: Omit<PictureQuery,
     return items.map((raw) => mapPicture(raw, mediaBase));
 }
 
+export type CatalogPage = { pictures: Picture[]; total: number; page: number; pageSize: number; hasMore: boolean };
+
+// One page of the catalog (pages 1..page together), filtered and sorted by the site's server (server/api/catalog.get.ts):
+// only the works shown travel to the browser. Request errors are rethrown.
+export async function fetchCatalogPage(locale: string, query: Record<string, string | undefined>): Promise<CatalogPage> {
+    // read before the first await: after it the Nuxt instance (useRuntimeConfig) is not available during SSR
+    const mediaBase = cmsMediaBase();
+    const res = await $fetch<Omit<CatalogPage, "pictures"> & { items: CmsPictureItem[] }>("/api/catalog", { query: { ...query, locale } });
+    return { pictures: res.items.map((raw) => mapPicture(raw, mediaBase)), total: res.total, page: res.page, pageSize: res.pageSize, hasMore: res.hasMore };
+}
+
 // the newest pictures (home page); an API error leaves the section empty
 export async function fetchLimitedPictures(locale: string, limit: number): Promise<Picture[]> {
     try {

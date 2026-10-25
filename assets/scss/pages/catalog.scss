@@ -81,6 +81,22 @@
       text-align: center;
       font-weight: 500;
     }
+    // "Show more" under the list: how many are shown, and the link to the next page
+    &__more {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 2.5rem;
+    }
+    &__shown {
+      color: $Default-gray-500;
+    }
+    &__more-btn {
+      min-width: 12rem;
+      text-align: center;
+    }
   }
   .filters-catalog {
     width: 100%;
