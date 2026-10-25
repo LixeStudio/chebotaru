@@ -3,6 +3,7 @@
     <NuxtLink
       :to="localePath(`/picture-details/${picture.documentId}-${picture.slug}`)"
       class="pictures-works__picture gallery__picture"
+      :class="{ 'gallery__picture--sold': picture.availability === 'sold' }"
     >
       <div class="pictures-works__img gallery__img">
         <SoldBadge

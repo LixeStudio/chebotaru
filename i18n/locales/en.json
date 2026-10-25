@@ -512,8 +512,12 @@
                     "year": "Year",
                     "size": "Size",
                     "material": "Materials",
-                    "style": "Style"
-                }
+                    "style": "Style",
+                    "status": "Status",
+                    "sold": "Sold"
+                },
+                "salePrice": "Sale price",
+                "similarBtn": "Commission a similar piece"
             },
             "relatedWorks": {
                 "title": "Related works"
@@ -678,5 +682,5 @@
     "units": {
         "centimeters": "cm"
     },
-    "sold": "Sold"
+    "sold": "Sold out"
 }
