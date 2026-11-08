@@ -17,7 +17,7 @@
             :alt="t('pages.aboutOleksiiAndWife.previewSection.imgAlt')"
             width="1440"
             height="747"
-            loading="lazy"
+            fetchpriority="high"
           />
         </picture>
       </div>

@@ -1,4 +1,13 @@
 @use "../utils/variables" as *;
+// Large backgrounds of this section (the painting set per page, the flowers) load only once the section is near the
+// viewport: layouts/Contact-us.vue adds .contact-us--bg-ready. Until then they are not downloaded at all.
+// Only with JavaScript (html.js, set in nuxt.config.ts): without it nothing would add the class, so they load at once.
+.js .contact-us:not(.contact-us--bg-ready) {
+  .contact-us__bg,
+  .contact-us__wrapper::after {
+    background-image: none !important;
+  }
+}
 .contact-us {
   position: relative;
   height: 100%;
@@ -17,7 +26,7 @@
       right: -4rem;
       width: 11.625rem;
       height: 12rem;
-      background: url("../../images/contact-us__flowers.svg") no-repeat center;
+      background: url("/images/contact-us__flowers.svg") no-repeat center;
       background-size: cover;
     }
   }
@@ -53,8 +62,11 @@
     &::placeholder {
       color: $Default-gray-500;
     }
+    // focus ring comes from the bottom border; skip the global black outline on this field
     &:active,
-    &:focus {
+    &:focus,
+    &:focus-visible {
+      outline: none;
       border-bottom: 0.0625rem solid $Default-gray-600;
     }
   }
@@ -66,7 +78,7 @@
     font-size: 7rem;
     line-height: 47%;
     color: $Default-yellow-300;
-    font-family: "TT Disruptors";
+    font-family: "TT Disruptors", "TT Disruptors Fallback";
     overflow-wrap: break-word;
     white-space: break-spaces;
     &.second {

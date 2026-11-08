@@ -26,12 +26,13 @@
 <script setup>
 import BlogArticle from "@/components/BlogArticle.vue";
 import { fetchLimitedArticles } from "@/composables/api/articles";
-const { t } = useI18n();
+const { t, locale } = useI18n();
 const localePath = useLocalePath();
-const locale = useI18n().locale.value;
-const articles = ref([]);
 
-onMounted(async () => {
-  articles.value = await fetchLimitedArticles(locale, 2);
-});
+// rendered on the server; an API error leaves the section without articles (fetchLimitedArticles returns [])
+const { data: articles } = await useAsyncData(
+  () => `home-articles-${locale.value}`,
+  () => fetchLimitedArticles(locale.value, 2),
+  { default: () => [] }
+);
 </script>

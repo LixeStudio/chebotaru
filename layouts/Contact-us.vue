@@ -1,5 +1,9 @@
 <template>
-  <section class="contact-us">
+  <section
+    ref="sectionRef"
+    class="contact-us"
+    :class="{ 'contact-us--bg-ready': backgroundsReady }"
+  >
     <div class="contact-us__container">
       <div class="contact-us__bg" aria-hidden="true"></div>
 
@@ -33,6 +37,16 @@
               required
               aria-label="Email address"
             />
+            <!-- honeypot: hidden from people and screen readers, bots fill it; the CMS then stores nothing -->
+            <input
+              v-model="website"
+              type="text"
+              name="website"
+              class="visually-hidden"
+              tabindex="-1"
+              autocomplete="off"
+              aria-hidden="true"
+            />
             <p
               v-if="alert"
               class="contact-us__alert"
@@ -51,7 +65,7 @@
 </template>
 
 <script setup>
-import { ref, watch } from "vue";
+import { onBeforeUnmount, onMounted, ref, watch } from "vue";
 import { subscribe } from "@/composables/api/subscribe";
 defineProps({
   showTitle: {
@@ -61,13 +75,38 @@ defineProps({
 });
 const { t } = useI18n();
 
+// The painting behind this section (up to ~1 MB) and the flowers are CSS backgrounds, which a browser downloads at once,
+// competing with the first screen of every page. They are switched on (assets/scss/components/_contact-us.scss) only
+// when the section is within about one screen of the viewport.
+const sectionRef = ref(null);
+const backgroundsReady = ref(false);
+let observer = null;
+onMounted(() => {
+  if (!("IntersectionObserver" in window) || !sectionRef.value) {
+    backgroundsReady.value = true;
+    return;
+  }
+  observer = new IntersectionObserver(
+    (entries) => {
+      if (entries.some((entry) => entry.isIntersecting)) {
+        backgroundsReady.value = true;
+        observer?.disconnect();
+      }
+    },
+    { rootMargin: "100% 0px 100% 0px" }
+  );
+  observer.observe(sectionRef.value);
+});
+onBeforeUnmount(() => observer?.disconnect());
+
 const alertMessage = {
   error: t("pages.contacts.alert.errorMessage"),
   success: t("pages.contacts.alert.successMessage"),
-  errorEmail: t("pages.contacts.alert.errorEmailMessage"),
+  invalidEmail: t("pages.contacts.alert.invalidEmailMessage"),
 };
 
 const email = useState("contact-email", () => "");
+const website = ref("");
 const success = ref(false);
 const alert = ref(null);
 const handleSubmit = async () => {
@@ -76,8 +115,9 @@ const handleSubmit = async () => {
     return;
   }
 
-  success.value = await subscribe(email.value);
-  email.value = "";
+  success.value = await subscribe(email.value, website.value);
+  // keep the address when it has to be corrected or sent again
+  if (success.value.success) email.value = "";
 };
 
 watch(success, () => {
@@ -86,10 +126,11 @@ watch(success, () => {
       type: "success",
       message: alertMessage.success,
     };
-  if (success.value.success === false && success.value.type === "duplicate")
+  // an already subscribed address gets the same success message: the site does not reveal who is subscribed
+  if (success.value.success === false && success.value.type === "invalid")
     alert.value = {
       type: "error",
-      message: alertMessage.errorEmail,
+      message: alertMessage.invalidEmail,
     };
   if (success.value.success === false && success.value.type === "general")
     alert.value = {
@@ -97,7 +138,8 @@ watch(success, () => {
       message: alertMessage.error,
     };
   setTimeout(() => {
-    alert.value = {};
+    // null (not {}) so that v-if removes the empty alert paragraph
+    alert.value = null;
   }, 3000);
 });
 </script>

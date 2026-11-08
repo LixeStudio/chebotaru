@@ -7,6 +7,7 @@
         :filters="filters"
         :articles="filteredArticles"
         :has-any-filters="hasAnyFilters"
+        :unavailable="cmsUnavailable"
       />
       <ContactUs />
     </main>
@@ -15,7 +16,7 @@
 </template>
 
 <script setup>
-import { onMounted } from "vue";
+import { usePageSeo } from "@/composables/usePageSeo";
 import { useFilters } from "@/composables/useFilters";
 import Header from "@/layouts/Header.vue";
 import HeroSection from "@/components/pages/blog/heroSection.vue";
@@ -28,42 +29,36 @@ const Footer = defineAsyncComponent(() => import("@/layouts/Footer.vue"));
 const isWhiteTheme = useState("header-white-theme");
 isWhiteTheme.value = false;
 
-const route = useRoute();
 const { t } = useI18n();
-const config = useRuntimeConfig();
-const baseUrl = config.public.SITE_URL || "https://andriichebotaru.com";
-const currentUrl = `${baseUrl}${route.fullPath}`;
-useHead({
-  title: t("seo.blog.title"),
-  meta: [
-    { name: "description", content: t("seo.blog.description") },
-    { name: "robots", content: "index, follow" },
-    { property: "og:type", content: "website" },
-    { property: "og:title", content: t("seo.blog.title") },
-    { property: "og:description", content: t("seo.blog.description") },
-    { property: "og:url", content: currentUrl },
-    { property: "og:image", content: `${baseUrl}/og/default.jpg` },
-  ],
-  link: [
-    { rel: "canonical", href: currentUrl },
-    { rel: "alternate", hreflang: "uk", href: `${baseUrl}/uk` },
-    { rel: "alternate", hreflang: "ru", href: `${baseUrl}/` },
-    { rel: "alternate", hreflang: "en", href: `${baseUrl}/en` },
-  ],
+usePageSeo({
+  title: () => t("seo.blog.title"),
+  description: () => t("seo.blog.description"),
 });
 
-const locale = useI18n().locale.value;
+const { locale } = useI18n();
 const { filters } = useFilters({
   typeOfArticle: [],
 });
 const hasAnyFilters = computed(() => !!filters.value.typeOfArticle.length);
-const articles = ref([]);
-onMounted(async () => {
-  articles.value = await fetchAllArticles(locale);
-});
+
+// rendered on the server so the articles are in the initial HTML; filtering stays on the client
+const { data: articles, error } = await useAsyncData(
+  () => `blog-${locale.value}`,
+  () => fetchAllArticles(locale.value),
+  { default: () => [] }
+);
+
+// CMS outage: the page keeps its layout (header, hero, filters) instead of the error page, but says
+// the articles are temporarily unavailable instead of "nothing here yet", and answers 503 with Retry-After so
+// that search engines keep the indexed page instead of an empty list
+const cmsUnavailable = computed(() => !!error.value);
+if (import.meta.server && error.value) {
+  setResponseStatus(useRequestEvent(), 503, "CMS is unavailable");
+  useResponseHeader("Retry-After").value = "120";
+}
 
 const filteredArticles = computed(() => {
-  return articles.value.filter((article) => {
+  return (articles.value || []).filter((article) => {
     return filters.value.typeOfArticle.length
       ? filters.value.typeOfArticle.includes(article.theme)
       : true;

@@ -12,10 +12,14 @@
 @use "@/assets/scss/pages/contacts";
 @use "@/assets/scss/pages/picture-details";
 @use "@/assets/scss/pages/about-artist";
+@use "@/assets/scss/pages/privacy";
+@use "@/assets/scss/pages/error";
 @use "./layout/header";
 @use "./layout/footer";
 // Pages
 @use "./components/contacts-popup";
+@use "./components/sold-badge";
+@use "./components/cookie-consent";
 body.has-sticky-header {
   padding-top: $headerHeight;
 }

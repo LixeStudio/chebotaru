@@ -8,7 +8,7 @@
         <ul class="related-works__list gallery__list">
           <GalleryItem
             v-for="pic in relatedPictures"
-            :key="pic.id"
+            :key="pic.documentId"
             :picture="pic"
             class="related-works__item"
           />

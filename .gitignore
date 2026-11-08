@@ -23,3 +23,9 @@ logs
 .env
 .env.*
 !.env.example
+
+# Local performance baselines / Lighthouse reports
+perf-baseline/
+
+# Local scripts
+scripts/

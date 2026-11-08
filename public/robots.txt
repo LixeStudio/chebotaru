@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://andriichebotaru.com/sitemap.xml
+Sitemap: https://andriichebotaru.com/sitemap_index.xml

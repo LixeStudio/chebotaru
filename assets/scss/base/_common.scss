@@ -17,11 +17,66 @@ body {
   position: relative;
   overflow: hidden;
   min-height: 100%;
-  min-width: 23.5rem;
+  // 22.5rem (360px) instead of 23.5rem (376px): the old value made 360-375px phones
+  // render a 376px-wide layout with horizontal scrolling; narrower screens still get
+  // the smallest supported layout scaled down, as before
+  min-width: 22.5rem;
   width: 100%;
 }
 
+// Keyboard focus indicator (mouse/touch focus stays without an outline, see base/_clear.scss)
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+[tabindex]:focus-visible {
+  outline: 0.125rem solid currentColor;
+  outline-offset: 0.1875rem;
+}
+
+// Visitors who ask the system for less motion get instant state changes
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 // Clases
+
+// Cards of the catalog and the blog: soft fade-in below the first screen (composables/reveal.ts)...
+.reveal {
+  opacity: 0;
+  transform: translateY(1rem);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.reveal--in {
+  opacity: 1;
+  transform: none;
+}
+// ...and after filtering / sorting (useListEntrance): the new list appears at once and its first cards rise in softly,
+// one after another. Nothing leaves or slides across the page; only opacity and transform change (no layout shift).
+@keyframes card-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.list-entrance > :nth-child(-n + 8) {
+  animation: card-in 0.35s ease-out both;
+}
+@for $i from 2 through 8 {
+  .list-entrance > :nth-child(#{$i}) {
+    animation-delay: #{($i - 1) * 30}ms;
+  }
+}
 
 .visually-hidden {
   position: absolute !important;
@@ -104,7 +159,7 @@ body {
     content: "";
     width: 1.5rem;
     height: 1.5rem;
-    background: url("../images/icons/arrow-up-right.svg") no-repeat center;
+    background: url("/images/icons/arrow-up-right.svg") no-repeat center;
   }
 }
 
@@ -164,7 +219,7 @@ body {
     transition: background-color 0.3s ease, border-color 0.3s ease;
 
     &::after {
-      content: url("../images/icons/check-ico.svg");
+      content: url("/images/icons/check-ico.svg");
       position: absolute;
       top: -0.05rem;
       left: -0.05rem;
@@ -195,7 +250,7 @@ body {
 .bg-text {
   position: absolute;
   z-index: -1;
-  font-family: "TT Disruptors";
+  font-family: "TT Disruptors", "TT Disruptors Fallback";
   font-size: 15rem;
   line-height: 93.75%;
   color: $Default-yellow-300;

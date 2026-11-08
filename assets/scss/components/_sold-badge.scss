@@ -1,0 +1,71 @@
+// "Sold" mark of components/SoldBadge.vue (Figma "Catalog card"): the painting dimmed by 40 % black, the designer's
+// yellow brush stroke in its centre with "Sold out", and the title and price faded; or a small plaque next to the price.
+// The stroke is one cached file (/images/sold-stroke.svg) shared by every card. Kept in the global stylesheet:
+// a component <style> would become a separate render-blocking CSS file on every page with cards (it delayed the home
+// page LCP).
+// the painting's box inside the card image
+.sold-frame {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  background-color: rgba(0, 0, 0, 0.4);
+  // zooms with the painting on hover (_gallery.scss: the image scales 1.05 from its centre, which is also the centre
+  // of this frame), so the dimming stays exactly on the painting
+  transition: transform 0.3s ease-in-out;
+}
+.gallery__picture:hover .sold-frame {
+  transform: scale(1.05);
+}
+.sold-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  // the stroke as in the design: 153 × 59
+  width: 9.5625rem;
+  aspect-ratio: 153 / 59;
+  pointer-events: none;
+  // the stroke file used as a mask: one file, painted in either yellow
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: #fbbf24;
+    -webkit-mask: url("/images/sold-stroke.svg") center / contain no-repeat;
+    mask: url("/images/sold-stroke.svg") center / contain no-repeat;
+  }
+  // under the title on the picture page: 109 × 42 in yellow-300
+  &--title {
+    width: 6.8125rem;
+    margin-bottom: 1.5rem;
+    &::before {
+      background-color: #fcd34d;
+    }
+  }
+  // Manrope Medium 11/14, letter spacing 10 % (the design); 500 is already loaded, 600 would be another font file
+  &__text {
+    position: relative;
+    font-size: 0.6875rem;
+    font-weight: 500;
+    line-height: 0.875rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    // gray/800 of the design
+    color: #1f2937;
+    white-space: nowrap;
+  }
+}
+// a sold painting's title and price: faded (the design has 50 %; 60 % keeps the contrast readable, 4.7:1)
+// (doubled class: stays above the hover rule of _gallery.scss whatever order the stylesheets come in)
+.gallery__picture.gallery__picture--sold {
+  .gallery__name,
+  .gallery__price,
+  &:hover .gallery__name,
+  &:hover .gallery__price {
+    opacity: 0.6;
+  }
+}

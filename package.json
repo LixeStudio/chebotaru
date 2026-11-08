@@ -7,7 +7,8 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "test": "node --test \"tests/*.test.ts\""
   },
   "dependencies": {
     "@nuxt/eslint": "^1.4.1",
@@ -16,9 +17,11 @@
     "@nuxtjs/i18n": "^9.5.5",
     "@nuxtjs/sitemap": "^7.4.2",
     "eslint": "^9.28.0",
-    "nuxt": "^3.17.5",
+    "h3": "^1.15.11",
+    "nuxt": "^3.21.11",
+    "nuxt-gtag": "^3.0.3",
     "qs": "^6.14.0",
-    "vue": "^3.5.16",
+    "vue": "^3.5.45",
     "vue-easy-lightbox": "^1.19.0",
     "vue-router": "^4.5.1"
   },

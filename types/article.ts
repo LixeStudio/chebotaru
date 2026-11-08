@@ -1,5 +1,4 @@
 export type Article = {
-    id: string | number;
     documentId: string;
     title: string;
     slug: string;
@@ -7,38 +6,35 @@ export type Article = {
     previewText: string;
     image: ImageWithMeta;
     publishedAt: string;
-    createdAt: string;
+    // last change in the CMS (detail requests only)
+    updatedAt?: string;
     body?: BlogBlock[];
+    // slug of every locale the article is visible in (detail requests only)
+    localizedSlugs?: Record<string, string>;
 }
 
-export type BlogBlock =
-    | TextBlock
-    | HeadingH2
-    | HeadingH3
-    | HeadingH4
-    | PictureGalleryBlock;
+export type BlogBlock = HeadingBlock | TextBlock | PictureGalleryBlock;
 
+export interface HeadingBlock {
+    key: string;
+    type: "heading";
+    level: 2 | 3 | 4;
+    text: string;
+}
 
 export interface TextBlock {
-    __component: "blog.text-block";
+    key: string;
+    type: "text";
+    // the same text as plain lines (one paragraph per line)
     text: string;
-}
-
-export interface HeadingH2 {
-    __component: "blog.heading-h2";
-    text: string;
-}
-export interface HeadingH3 {
-    __component: "blog.heading-h3";
-    text: string;
-}
-export interface HeadingH4 {
-    __component: "blog.heading-h4";
-    text: string;
+    // formatted text: a restricted TipTap document (JSON nodes, not HTML)
+    doc?: RichTextDoc;
 }
 
 export interface PictureGalleryBlock {
-    __component: "blog.picture-gallery-block";
+    key: string;
+    type: "gallery";
+    // all images in order, up to 12
     images: ImageWithMeta[];
 }
 
@@ -46,5 +42,18 @@ export interface ImageWithMeta {
     src: string
     alt: string
     caption: string
+    // responsive copies and intrinsic size from the CMS
+    srcset?: string
+    width?: number
+    height?: number
 }
 
+// TipTap document of a text block, as validated by the CMS:
+// doc -> (paragraph | bulletList | orderedList)*, paragraph -> (text | hardBreak)*,
+// list -> listItem+, listItem -> paragraph (paragraph | list)*; marks: bold, italic, link { href }
+export type RichTextMark = { type: "bold" } | { type: "italic" } | { type: "link"; attrs: { href: string } };
+export type RichTextInline = { type: "text"; text: string; marks?: RichTextMark[] } | { type: "hardBreak" };
+export type RichTextParagraph = { type: "paragraph"; content?: RichTextInline[] };
+export type RichTextList = { type: "bulletList" | "orderedList"; content: RichTextListItem[] };
+export type RichTextListItem = { type: "listItem"; content: (RichTextParagraph | RichTextList)[] };
+export type RichTextDoc = { type: "doc"; content: (RichTextParagraph | RichTextList)[] };

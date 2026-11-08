@@ -51,8 +51,16 @@
             }
         },
         "bottom": {
-            "confidential-police": "Privacy Policy"
+            "confidential-police": "Privacy Policy",
+            "cookieSettings": "Cookie settings"
         }
+    },
+    "cookieConsent": {
+        "title": "Cookie settings",
+        "text": "With your permission, we use Google Analytics cookies to understand how visitors use the site. If you decline, they are not set.",
+        "policy": "Privacy Policy",
+        "accept": "Accept",
+        "decline": "Decline"
     },
     "contactUs": {
         "title": {
@@ -248,7 +256,7 @@
         },
         "aboutArtist": {
             "previewSection": {
-                "hiddenTitle": "Andrii Chebotaru - Ukrainian impressionist painter",
+                "hiddenTitle": "About the artist Andrii Chebotaru",
                 "title": {
                     "part1": "«Art -",
                     "part2": "this is the moment,",
@@ -443,17 +451,19 @@
             "alert": {
                 "errorMessage": "Something went wrong. Please try again later.",
                 "successMessage": "Thank you! You’ve successfully subscribed.",
-                "errorEmailMessage": "This email is already subscribed."
+                "invalidEmailMessage": "Please enter a valid email address."
             }
         },
         "catalog": {
             "heroSection": {
                 "title": "Gallery of Works",
                 "text": "Explore my creations inspired by nature, light, and emotions.",
-                "bgText": "Каталог"
+                "bgText": "Catalog"
             },
             "catalogSection": {
                 "filterBtn": "Filters",
+                "showMore": "Show more",
+                "shown": "Shown {shown} of {total}",
                 "filters": {
                     "availability": {
                         "available": "Available",
@@ -490,18 +500,24 @@
                     }
                 },
                 "noFilteredResults": "No artworks found for the selected filters",
-                "noPictures": "There’s nothing here yet"
+                "noPictures": "There’s nothing here yet",
+                "unavailable": "The works are temporarily unavailable. Please try again in a few minutes."
             }
         },
         "pictureDetails": {
             "artworkSection": {
                 "buyBtn": "Buy",
+                "photo": "Photo {n} of {total}",
                 "details": {
                     "year": "Year",
                     "size": "Size",
                     "material": "Materials",
-                    "style": "Style"
-                }
+                    "style": "Style",
+                    "status": "Status",
+                    "sold": "Sold"
+                },
+                "salePrice": "Sale price",
+                "similarBtn": "Commission a similar piece"
             },
             "relatedWorks": {
                 "title": "Related works"
@@ -521,19 +537,100 @@
                     "inspiration": "Inspiration"
                 },
                 "noFilteredResults": "No articles found for the selected filters",
-                "noPictures": "There’s nothing here yet"
+                "noPictures": "There’s nothing here yet",
+                "unavailable": "The articles are temporarily unavailable. Please try again in a few minutes."
             }
         },
         "article": {
             "relatedWorks": {
                 "title": "Other Blog Articles"
             }
+        },
+        "privacy": {
+            "title": "Privacy Policy",
+            "updated": "Last updated: October 25, 2026",
+            "intro": "This Privacy Policy explains how Andrii Chebotaru (referred to as “we” or “us”) collects and uses your personal information when you visit https://andriichebotaru.com and when you subscribe to email updates through it.",
+            "sections": {
+                "s01": {
+                    "title": "01 Who is responsible for your data?",
+                    "paragraphs": {
+                        "p1": "The data controller is Andrii Chebotaru. For questions about privacy, contact us at chebotaru.web{'@'}gmail.com."
+                    }
+                },
+                "s02": {
+                    "title": "02 What information do we collect?",
+                    "paragraphs": {
+                        "p1": "When you subscribe to our newsletter, we ask for your email address. We do not ask for your name, postal address, or payment details through this form.",
+                        "p2": "Our website and hosting providers may also record basic subscription and delivery information, such as the date of signup, confirmation status, or technical records, depending on how the service is configured."
+                    }
+                },
+                "s03": {
+                    "title": "03 Why do we use your email address?",
+                    "paragraphs": {
+                        "p1": "We use your email address to send occasional updates about new artworks, exhibitions, creative projects, and other news relating to Chebotaru. We use this information on the basis of your consent, where consent is the applicable legal basis. Subscribing is voluntary, and you can withdraw your consent at any time."
+                    }
+                },
+                "s04": {
+                    "title": "04 Who processes your information?",
+                    "paragraphs": {
+                        "p1": "We store your email address in our website subscriber database and may use our content management system and hosting providers to process and send emails on our behalf. These providers process information only to operate the website and newsletter under their applicable terms and data protection arrangements. We do not sell your email address or share it with third parties for their independent marketing purposes."
+                    }
+                },
+                "s05": {
+                    "title": "05 How long do we keep your email address?",
+                    "paragraphs": {
+                        "p1": "We keep your email address for as long as you remain subscribed. If you unsubscribe, we will stop sending you newsletter emails and remove your address from the active mailing list. Limited records may be retained if necessary to document consent, respect your opt-out request, or comply with applicable law."
+                    }
+                },
+                "s06": {
+                    "title": "06 How can you unsubscribe or exercise your rights?",
+                    "paragraphs": {
+                        "p1": "You can unsubscribe at any time using the “Unsubscribe” link included in our emails or by contacting us at chebotaru.web{'@'}gmail.com.",
+                        "p2": "Depending on the law that applies, you may also have the right to request access to your personal data, correction, deletion, restriction of processing, data portability, or to object to certain processing. You may withdraw your consent without affecting the lawfulness of processing carried out before withdrawal. Where applicable, you may lodge a complaint with your local data protection supervisory authority."
+                    }
+                },
+                "s07": {
+                    "title": "07 How do we protect your information?",
+                    "paragraphs": {
+                        "p1": "We take reasonable technical and organisational measures to protect subscriber information and limit access to people and service providers who need it to manage the newsletter."
+                    }
+                },
+                "s08": {
+                    "title": "08 Do we use automated decision-making?",
+                    "paragraphs": {
+                        "p1": "We do not use newsletter subscriber information for solely automated decisions that produce legal or similarly significant effects."
+                    }
+                },
+                "s09": {
+                    "title": "09 Cookies and website analytics",
+                    "paragraphs": {
+                        "p1": "We use Cloudflare Web Analytics to count visits. It does not use cookies or similar storage on your device and does not identify you: we only see aggregated figures such as page views, referring websites, countries, device types, and page loading speed.",
+                        "p2": "With your consent, we also use Google Analytics 4, provided by Google Ireland Limited and Google LLC, to understand how visitors use the site: which pages are viewed, how visitors arrived, approximate location (country and city), device and browser type, and how long a visit lasts. Google Analytics 4 does not log or store IP addresses. Google may process this data outside the EEA, including in the United States, under appropriate safeguards such as the EU–U.S. Data Privacy Framework.",
+                        "p3": "Google Analytics is loaded only after you click “Accept” in the cookie banner. It then sets the cookies _ga and _ga_* on our domain, which store a random identifier and expire after up to 2 years. Analytics data is kept by Google for up to 14 months. If you click “Decline”, Google Analytics is not loaded at all and these cookies are not set.",
+                        "p4": "Your answer is saved in your browser’s local storage for 12 months, so that we do not ask again on every visit. You can change it at any time with the “Cookie settings” link at the bottom of every page; if you withdraw consent, we stop Google Analytics and delete its cookies from your browser. The site does not use advertising cookies."
+                    }
+                },
+                "s10": {
+                    "title": "10 Changes and contact",
+                    "paragraphs": {
+                        "p1": "We may update this Privacy Policy to reflect changes in how we handle personal data or legal requirements. The date at the top of this page indicates when it was last updated. For any privacy questions or requests, email chebotaru.web{'@'}gmail.com."
+                    }
+                }
+            }
+        },
+        "error": {
+            "title": "Page not found",
+            "text": "This page seems to have left the canvas. You can return to the gallery and continue exploring the artworks.",
+            "btnHome": "Back to home",
+            "genericTitle": "Something went wrong",
+            "genericText": "An unexpected error occurred. Please try again or return to the home page."
         }
     },
     "seo": {
+        "siteName": "Andrii Chebotaru",
         "home": {
-            "title": "Andrii Chebotaru — contemporary Ukrainian artist",
-            "description": "The official website of artist Andrii Chebotaru. Art gallery, articles, family, biography, and contact."
+            "title": "Andrii Chebotaru — official artist website",
+            "description": "Paintings, gallery, blog, and the creative story of Ukrainian artist Andrii Chebotaru and his family."
         },
         "contacts": {
             "title": "Contact the artist — Andrii Chebotaru",
@@ -570,9 +667,20 @@
         "blog": {
             "title": "Thoughts and art insights — Andrii Chebotaru",
             "description": "Personal blog of the artist. Reflections on art, exhibitions, teaching, and creative family legacy."
+        },
+        "privacy": {
+            "title": "Privacy Policy — Andrii Chebotaru",
+            "description": "How Andrii Chebotaru uses cookies, website analytics, and email addresses for newsletter updates on andriichebotaru.com."
+        },
+        "error": {
+            "title": "Page not found — Andrii Chebotaru",
+            "description": "The requested page was not found on Andrii Chebotaru’s website.",
+            "genericTitle": "Error — Andrii Chebotaru",
+            "genericDescription": "An unexpected error occurred on Andrii Chebotaru’s website."
         }
     },
     "units": {
         "centimeters": "cm"
-    }
+    },
+    "sold": "Sold out"
 }

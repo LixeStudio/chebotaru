@@ -1,5 +1,5 @@
 <template>
-  <h2 class="body__h3">{{ block.text }}</h2>
+  <h3 class="body__h3">{{ block.text }}</h3>
 </template>
 
 <script setup>

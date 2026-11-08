@@ -5,8 +5,12 @@
       <HeroSection />
       <CatalogSection
         :filters="filters"
-        :pictures="filteredPictures"
+        :pictures="pictures"
         :has-any-filters="hasAnyFilters"
+        :unavailable="cmsUnavailable"
+        :total="catalog.total"
+        :next-page="nextPage"
+        :list-id="listId"
       />
       <ContactUs />
     </main>
@@ -15,56 +19,26 @@
 </template>
 
 <script setup>
+import { usePageSeo } from "@/composables/usePageSeo";
 import { useFilters } from "@/composables/useFilters";
 import Header from "@/layouts/Header.vue";
 import HeroSection from "@/components/pages/catalog/heroSection.vue";
 import CatalogSection from "@/components/pages/catalog/catalogSection.vue";
-import { fetchAllPictures } from "@/composables/api/paintings";
+import { fetchCatalogPage } from "@/composables/api/paintings";
 const ContactUs = defineAsyncComponent(() =>
   import("@/layouts/Contact-us.vue")
 );
 const Footer = defineAsyncComponent(() => import("@/layouts/Footer.vue"));
 const isWhiteTheme = useState("header-white-theme");
 isWhiteTheme.value = false;
-const route = useRoute();
 const { t } = useI18n();
-const config = useRuntimeConfig();
-const baseUrl = config.public.SITE_URL || "https://andriichebotaru.com";
-const currentUrl = `${baseUrl}${route.fullPath}`;
-useHead({
-  title: t("seo.catalog.title"),
-  meta: [
-    { name: "description", content: t("seo.catalog.description") },
-    { name: "robots", content: "index, follow" },
-    { property: "og:type", content: "website" },
-    { property: "og:title", content: t("seo.catalog.title") },
-    { property: "og:description", content: t("seo.catalog.description") },
-    { property: "og:url", content: currentUrl },
-    { property: "og:image", content: `${baseUrl}/og/default.jpg` },
-  ],
-  link: [
-    { rel: "canonical", href: currentUrl },
-    { rel: "alternate", hreflang: "uk", href: `${baseUrl}/uk` },
-    { rel: "alternate", hreflang: "ru", href: `${baseUrl}/` },
-    { rel: "alternate", hreflang: "en", href: `${baseUrl}/en` },
-  ],
+usePageSeo({
+  title: () => t("seo.catalog.title"),
+  description: () => t("seo.catalog.description"),
 });
 
-const getPriceMatch = (price, filterPrices) => {
-  return filterPrices.some((pFilter) => {
-    if (pFilter === "300-700") return price >= 300 && price <= 700;
-    if (pFilter === "less-300") return price < 300;
-    if (pFilter === "more-700") return price >= 700;
-    return false;
-  });
-};
-
-const locale = useI18n().locale.value;
-const pictures = ref([]);
-
-onMounted(async () => {
-  pictures.value = await fetchAllPictures(locale);
-});
+const { locale } = useI18n();
+const route = useRoute();
 
 const { filters } = useFilters({
   price: [],
@@ -81,42 +55,42 @@ const hasAnyFilters = computed(() => {
     filters.value.availability.length
   );
 });
-// bag tyt
-const filteredPictures = computed(() => {
-  return pictures.value
-    .filter((picture) => {
-      const isAvailable = filters.value.availability.length
-        ? filters.value.availability.includes(picture.availability)
-        : true;
 
-      const isSizeMatch = filters.value.pictureSize.length
-        ? filters.value.pictureSize.includes(picture.details.size)
-        : true;
+// The address is the state: filters, sorting and ?page=N ("show more"). Rendered on the server, page by page: the HTML
+// carries only the works shown (24 per page), not the whole catalog; filtering and sorting run on the site's server
+// (server/api/catalog.get.ts) over the cached list.
+const catalogQuery = computed(() => {
+  const { price, pictureSize, sortBy, pictureOrientation, availability, page } = route.query;
+  return Object.fromEntries(
+    Object.entries({ price, pictureSize, sortBy, pictureOrientation, availability, page })
+      .filter(([, value]) => value !== undefined && value !== null && value !== "")
+      .map(([key, value]) => [key, String(value)])
+  );
+});
+const { data: catalog, error } = await useAsyncData(
+  () => `catalog-${locale.value}-${JSON.stringify(catalogQuery.value)}`,
+  () => fetchCatalogPage(locale.value, catalogQuery.value),
+  { default: () => ({ pictures: [], total: 0, page: 1, pageSize: 24, hasMore: false }) }
+);
+const pictures = computed(() => catalog.value.pictures);
 
-      const isOrientationMatch = filters.value.pictureOrientation.length
-        ? filters.value.pictureOrientation.includes(picture.orientation)
-        : true;
+// CMS outage: the page keeps its layout (header, hero, filters) instead of the error page, but says
+// the works are temporarily unavailable instead of "nothing here yet", and answers 503 with Retry-After so
+// that search engines keep the indexed page instead of an empty list
+const cmsUnavailable = computed(() => !!error.value);
+if (import.meta.server && error.value) {
+  setResponseStatus(useRequestEvent(), 503, "CMS is unavailable");
+  useResponseHeader("Retry-After").value = "120";
+}
 
-      const isPriceMatch = filters.value.price.length
-        ? getPriceMatch(picture.price, filters.value.price)
-        : true;
-      return isAvailable && isSizeMatch && isOrientationMatch && isPriceMatch;
-    })
-    .sort((a, b) => {
-      switch (filters.value.sortBy) {
-        case "cheapPictures":
-          return a.price - b.price;
-        case "expensivePictures":
-          return b.price - a.price;
-        case "newPictures":
-          return (
-            new Date(b.publishedAt).getTime() -
-            new Date(a.publishedAt).getTime()
-          );
-        default:
-          return 0;
-      }
-    });
+// "Show more": a real link to the next page, so search engines can follow it too; in the browser it only adds cards
+const nextPage = computed(() =>
+  catalog.value.hasMore ? { query: { ...route.query, page: String(catalog.value.page + 1) } } : null
+);
+// the list animates in again only when the filters or the sorting change, not when more cards are added
+const listId = computed(() => {
+  const { page, ...rest } = catalogQuery.value;
+  return JSON.stringify(rest);
 });
 </script>
 

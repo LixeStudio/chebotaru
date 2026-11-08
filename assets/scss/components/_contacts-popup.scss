@@ -7,7 +7,8 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
+    // slightly warmer dim so the yellow card reads against it
+    background: rgba(17, 24, 39, 0.55);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -16,13 +17,18 @@
   }
   &__container {
     position: relative;
-    background: white;
+    background: $Default-gray-50;
     height: 100%;
     max-height: max-content;
     overflow-y: auto;
     max-width: 37.5rem;
     padding: 2.875rem 1rem 3.75rem 1rem;
     border-radius: 0.75rem;
+    border: 0.0625rem solid $Default-gray-200;
+    // brand accent, same yellow as Buy
+    box-shadow:
+      0 0 0 0.25rem rgba($Default-yellow-300, 0.35),
+      0 1.25rem 2.5rem rgba(17, 24, 39, 0.18);
   }
   &__close {
     position: absolute;
@@ -45,11 +51,13 @@
     font-weight: 500;
     line-height: 133.333%;
     margin-bottom: 1.35rem;
+    color: $Default-gray-900;
   }
   &__subtitle {
     text-align: center;
     line-height: 150%;
     margin-bottom: 2.5rem;
+    color: $Default-gray-600;
   }
   &__nav {
     width: 100%;
@@ -72,8 +80,11 @@
     min-height: 3rem;
     padding: 0 1rem;
     border-radius: 1.5rem;
-    background-color: $Default-gray-100;
-    transition: background-color 0.3s ease-in-out;
+    border: 0.15rem solid $Default-yellow-300;
+    background-color: transparent;
+    transition:
+      background-color 0.3s ease-in-out,
+      border-color 0.3s ease-in-out;
     line-height: 112.5%;
     font-weight: 500;
     color: $Default-gray-900;
@@ -84,12 +95,14 @@
       margin-right: 0.75rem;
     }
     &:hover {
-      background-color: $Default-gray-200;
+      background-color: $Default-yellow-300;
+      border-color: $Default-yellow-300;
     }
   }
   &__text {
     text-align: center;
     line-height: 150%;
+    color: $Default-gray-500;
   }
 }
 

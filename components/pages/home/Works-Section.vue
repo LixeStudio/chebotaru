@@ -55,16 +55,15 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
 import { fetchLimitedPictures } from "@/composables/api/paintings";
 import GalleryItem from "@/components/GalleryItem.vue";
 const localePath = useLocalePath();
-const { t } = useI18n();
+const { t, locale } = useI18n();
 
-const locale = useI18n().locale.value;
-const pictures = ref([]);
-
-onMounted(async () => {
-  pictures.value = await fetchLimitedPictures(locale, 6);
-});
+// rendered on the server; an API error leaves the section without works (fetchLimitedPictures returns [])
+const { data: pictures } = await useAsyncData(
+  () => `home-works-${locale.value}`,
+  () => fetchLimitedPictures(locale.value, 6),
+  { default: () => [] }
+);
 </script>

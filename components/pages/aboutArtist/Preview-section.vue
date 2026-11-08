@@ -46,6 +46,26 @@
 <script setup>
 const localePath = useLocalePath();
 const { t } = useI18n();
+
+// The first screen is drawn by two CSS backgrounds (about-artist.scss); the background is the largest element (LCP).
+// CSS backgrounds are found only after the stylesheet is parsed, so both are preloaded with the HTML.
+useHead({
+  link: [
+    {
+      rel: "preload",
+      as: "image",
+      type: "image/webp",
+      href: "/images/pages/family/about-author/preview__bg.webp",
+      fetchpriority: "high",
+    },
+    {
+      rel: "preload",
+      as: "image",
+      type: "image/webp",
+      href: "/images/pages/family/about-author/author-image.webp",
+    },
+  ],
+});
 </script>
 
 <style lang="scss"></style>
