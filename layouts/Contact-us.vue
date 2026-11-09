@@ -74,6 +74,7 @@ defineProps({
   },
 });
 const { t } = useI18n();
+const { track } = useAnalyticsEvent();
 
 // The painting behind this section (up to ~1 MB) and the flowers are CSS backgrounds, which a browser downloads at once,
 // competing with the first screen of every page. They are switched on (assets/scss/components/_contact-us.scss) only
@@ -118,6 +119,7 @@ const handleSubmit = async () => {
   success.value = await subscribe(email.value, website.value);
   // keep the address when it has to be corrected or sent again
   if (success.value.success) email.value = "";
+  if (success.value.success === true) track("newsletter_subscribe");
 };
 
 watch(success, () => {
