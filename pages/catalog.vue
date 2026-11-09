@@ -67,10 +67,19 @@ const catalogQuery = computed(() => {
       .map(([key, value]) => [key, String(value)])
   );
 });
+// the filters and the sorting without the page: the same value means the same list ("show more" only adds cards)
+const listIdOf = (query) => {
+  const { page, ...rest } = query;
+  return JSON.stringify(rest);
+};
 const { data: catalog, error } = await useAsyncData(
   () => `catalog-${locale.value}-${JSON.stringify(catalogQuery.value)}`,
-  () => fetchCatalogPage(locale.value, catalogQuery.value),
-  { default: () => ({ pictures: [], total: 0, page: 1, pageSize: 24, hasMore: false }) }
+  async () => {
+    const query = catalogQuery.value;
+    const result = await fetchCatalogPage(locale.value, query);
+    return { ...result, listId: listIdOf(query) };
+  },
+  { default: () => ({ pictures: [], total: 0, page: 1, pageSize: 24, hasMore: false, listId: "" }) }
 );
 const pictures = computed(() => catalog.value.pictures);
 
@@ -87,11 +96,9 @@ if (import.meta.server && error.value) {
 const nextPage = computed(() =>
   catalog.value.hasMore ? { query: { ...route.query, page: String(catalog.value.page + 1) } } : null
 );
-// the list animates in again only when the filters or the sorting change, not when more cards are added
-const listId = computed(() => {
-  const { page, ...rest } = catalogQuery.value;
-  return JSON.stringify(rest);
-});
+// the list animates in again only when the works of new filters or a new sorting have arrived (the id comes with the
+// data, not with the address), not when more cards are added by "show more"
+const listId = computed(() => catalog.value.listId);
 </script>
 
 <style lang="scss"></style>
