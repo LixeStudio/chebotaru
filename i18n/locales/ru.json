@@ -492,6 +492,7 @@
                         "sortBy": {
                             "title": "Сортировать по",
                             "values": {
+                                "relevant": "Актуальные",
                                 "newPictures": "Сначала новые",
                                 "cheapPictures": "Сначала дешёвые",
                                 "expensivePictures": "Сначала дорогие"

@@ -77,10 +77,19 @@ export async function fetchCatalogPage(locale: string, query: Record<string, str
     return { pictures: res.items.map((raw) => mapPicture(raw, mediaBase)), total: res.total, page: res.page, pageSize: res.pageSize, hasMore: res.hasMore };
 }
 
-// the newest pictures (home page); an API error leaves the section empty
+// the pictures of the home page: the newest available ones first, and if there are fewer than `limit`, the newest sold ones
+// fill the rest. If the sold request fails, the available ones are still shown; an error of the first request leaves the section empty
 export async function fetchLimitedPictures(locale: string, limit: number): Promise<Picture[]> {
     try {
-        return (await fetchPictures(locale, { sort: "newest", pageSize: limit })).pictures;
+        const available = (await fetchPictures(locale, { availability: "available", sort: "newest", pageSize: limit })).pictures;
+        if (available.length >= limit) return available;
+        try {
+            const sold = (await fetchPictures(locale, { availability: "sold", sort: "newest", pageSize: limit - available.length })).pictures;
+            return [...available, ...sold];
+        } catch (e) {
+            console.error("Ошибка при получении проданных картин для главной:", e);
+            return available;
+        }
     } catch (e) {
         console.error("Ошибка при получении лимитированных картин:", e);
         return [];

@@ -65,7 +65,10 @@ export function filterAndSort<T extends CatalogItem>(items: T[], query: CatalogQ
     if (query.sortBy === 'cheapPictures') return matching.sort((a, b) => byPrice(a) - byPrice(b))
     if (query.sortBy === 'expensivePictures') return matching.sort((a, b) => (b.price ?? -1) - (a.price ?? -1))
     if (query.sortBy === 'newPictures') return matching.sort((a, b) => Date.parse(b.publishedAt) - Date.parse(a.publishedAt))
-    return matching // the order of the CMS: the newest first
+    // "Relevant" (no sortBy, the default address): available works first, then the sold ones, each group newest first
+    const byNewest = (a: T, b: T) => (Date.parse(b.publishedAt) || 0) - (Date.parse(a.publishedAt) || 0)
+    const isSold = (item: T) => (item.availability === 'available' ? 0 : 1)
+    return matching.sort((a, b) => isSold(a) - isSold(b) || byNewest(a, b))
 }
 
 /** Pages 1..page together (a "show more" address shows everything up to it), with the total for the counter. */

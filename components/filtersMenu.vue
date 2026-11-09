@@ -138,6 +138,16 @@
         >
           <p
             class="filters-catalog__dropdown-text"
+            @click="selectSortBy('')"
+          >
+            {{
+              t(
+                "pages.catalog.catalogSection.filters.dropdowns.sortBy.values.relevant"
+              )
+            }}
+          </p>
+          <p
+            class="filters-catalog__dropdown-text"
             @click="selectSortBy('newPictures')"
           >
             {{

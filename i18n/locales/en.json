@@ -492,6 +492,7 @@
                         "sortBy": {
                             "title": "Sort by",
                             "values": {
+                                "relevant": "Relevant",
                                 "newPictures": "Newest first",
                                 "cheapPictures": "Cheapest first",
                                 "expensivePictures": "Most expensive first"

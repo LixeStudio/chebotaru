@@ -81,7 +81,7 @@
           </p>
           <button
             class="artwork__similar btn-circle"
-            @click="emit('togglePopup')"
+            @click="requestSimilar"
           >
             {{ t("pages.pictureDetails.artworkSection.similarBtn") }}
           </button>
@@ -90,7 +90,7 @@
           <p class="artwork__price">
             {{ formatPrice(picture.price, picture.currency) }}
           </p>
-          <button class="artwork__btn btn-circle" @click="emit('togglePopup')">
+          <button class="artwork__btn btn-circle" @click="requestBuy">
             {{ t("pages.pictureDetails.artworkSection.buyBtn") }}
           </button>
         </div>
@@ -134,9 +134,21 @@ watch(() => props.picture.documentId, () => (active.value = 0));
 // the full-screen view gets the sharpest files, loaded only when it opens
 const fullImages = computed(() => photos.value.map((photo) => photo.full || photo.src).filter(Boolean));
 
+const { track } = useAnalyticsEvent();
+// the popup opens as before; the click is only counted
+const requestBuy = () => {
+  track("request_buy");
+  emit("togglePopup");
+};
+const requestSimilar = () => {
+  track("request_similar");
+  emit("togglePopup");
+};
+
 const visible = ref(false);
 
 const openLightbox = () => {
+  track("photo_open");
   visible.value = true;
 };
 

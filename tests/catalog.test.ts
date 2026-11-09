@@ -34,12 +34,46 @@ test("filters and sorting work as before, on the server", () => {
     ];
     const ids = (query: Record<string, string>) => catalogPage(items, parseCatalogQuery(query)).items.map((entry) => entry.id);
     assert.deepEqual(ids({ availability: "sold" }), [1]);
-    assert.deepEqual(ids({ pictureSize: "large,middle" }), [1, 2, 3, 4]);
+    assert.deepEqual(ids({ pictureSize: "large,middle" }), [4, 3, 2, 1]); // relevant: available first, newest first, sold last
     assert.deepEqual(ids({ pictureOrientation: "square" }), [3]);
-    assert.deepEqual(ids({ price: "less-300,more-700" }), [1, 3]);
+    assert.deepEqual(ids({ price: "less-300,more-700" }), [3, 1]);
     assert.deepEqual(ids({ sortBy: "cheapPictures" }), [1, 2, 3, 4]); // no price goes last
     assert.deepEqual(ids({ sortBy: "expensivePictures" }), [3, 2, 1, 4]);
     assert.deepEqual(ids({ sortBy: "newPictures" }), [4, 3, 2, 1]);
+});
+
+test("the default order is relevant: available works first, sold ones after, each group newest first", () => {
+    const items = [
+        item(1, { availability: "sold" }),
+        item(2),
+        item(3, { availability: "sold" }),
+        item(4),
+        item(5),
+    ];
+    const ids = (query: Record<string, string>) => catalogPage(items, parseCatalogQuery(query)).items.map((entry) => entry.id);
+    assert.deepEqual(ids({}), [5, 4, 2, 3, 1]);
+    // the explicit "newest" sort ignores availability
+    assert.deepEqual(ids({ sortBy: "newPictures" }), [5, 4, 3, 2, 1]);
+});
+
+test("when every work is sold, relevant is simply the newest first", () => {
+    const items = [1, 3, 2, 4].map((n) => item(n, { availability: "sold" }));
+    assert.deepEqual(catalogPage(items, parseCatalogQuery({})).items.map((entry) => entry.id), [4, 3, 2, 1]);
+});
+
+test("the relevant order is kept with a filter and on the second page", () => {
+    // n = 1..40: odd ones are available, even ones sold; n 1..30 are large
+    const items = Array.from({ length: 40 }, (_, i) => item(i + 1, { availability: i % 2 ? "sold" : "available", size: i < 30 ? "large" : "small" }));
+    const ids = (query: Record<string, string>) => catalogPage(items, parseCatalogQuery(query)).items.map((entry) => entry.id);
+    const available = Array.from({ length: 20 }, (_, i) => 39 - 2 * i);
+    const sold = Array.from({ length: 20 }, (_, i) => 40 - 2 * i);
+    assert.deepEqual(ids({}), [...available, ...sold].slice(0, CATALOG_PAGE_SIZE));
+    assert.deepEqual(ids({ page: "2" }), [...available, ...sold]); // page 2 continues the same order
+    // a filter keeps the rule: large works are n = 1..30, 15 available and 15 sold
+    const largeAvailable = Array.from({ length: 15 }, (_, i) => 29 - 2 * i);
+    const largeSold = Array.from({ length: 15 }, (_, i) => 30 - 2 * i);
+    assert.deepEqual(ids({ pictureSize: "large" }), [...largeAvailable, ...largeSold].slice(0, CATALOG_PAGE_SIZE));
+    assert.deepEqual(ids({ pictureSize: "large", page: "2" }), [...largeAvailable, ...largeSold]);
 });
 
 test("an address cannot ask for odd work: unknown values are ignored and the page is clamped", () => {
