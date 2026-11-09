@@ -492,6 +492,7 @@
                         "sortBy": {
                             "title": "Сортувати за",
                             "values": {
+                                "relevant": "Актуальні",
                                 "newPictures": "Спочатку нові",
                                 "cheapPictures": "Спочатку дешеві",
                                 "expensivePictures": "Спочатку дорогі"
