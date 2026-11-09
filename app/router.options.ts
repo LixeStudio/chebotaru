@@ -1,3 +1,4 @@
+import { START_LOCATION } from 'vue-router'
 import type { RouterScrollBehavior } from 'vue-router'
 
 const scrollBehavior: RouterScrollBehavior = (to, from, savedPosition) => {
@@ -16,13 +17,39 @@ const scrollBehavior: RouterScrollBehavior = (to, from, savedPosition) => {
         return false
     }
 
-    // Навигация назад/вперёд
-    if (savedPosition) {
-        return savedPosition
+    const position = savedPosition ?? { top: 0 }
+
+    // First page load: nothing to wait for
+    if (from === START_LOCATION) {
+        return position
     }
 
-    // Обычная навигация — скроллим вверх
-    return { top: 0 }
+    // Normal and back/forward navigation: scroll only after the new page is on screen (as Nuxt's own
+    // router.options does), otherwise the old page is shown at the top for a moment
+    const nuxtApp = useNuxtApp()
+    const router = useRouter()
+
+    return new Promise((resolve) => {
+        const doScroll = () => {
+            requestAnimationFrame(() => {
+                // the visitor has already gone somewhere else
+                if (router.currentRoute.value.fullPath !== to.fullPath) {
+                    resolve(false)
+                    return
+                }
+                resolve(position)
+            })
+        }
+
+        nuxtApp.hooks.hookOnce('page:loading:end', () => {
+            const transitionPromise = (nuxtApp as { '~transitionPromise'?: Promise<void> | null })['~transitionPromise']
+            if (transitionPromise) {
+                transitionPromise.then(doScroll)
+            } else {
+                doScroll()
+            }
+        })
+    })
 }
 
 export default {
