@@ -11,6 +11,7 @@ const { t } = useI18n();
 const { url } = usePageSeo({
   title: () => t("seo.home.title"),
   description: () => t("seo.home.description"),
+  image: "/og/Homepage.jpg",
 });
 useJsonLd("artist", () => ({
   "@type": "Person",
