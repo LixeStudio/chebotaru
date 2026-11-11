@@ -33,7 +33,7 @@ const { t } = useI18n();
 usePageSeo({
   title: () => t("seo.blog.title"),
   description: () => t("seo.blog.description"),
-  image: "/og/Blog.jpg",
+  image: "/og/blog-og.jpg",
 });
 
 const { locale } = useI18n();
