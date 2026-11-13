@@ -1,5 +1,7 @@
-import type { Article, BlogBlock, RichTextDoc } from "@/types/article";
-import { mapCmsImage, cmsMediaBase, type CmsImage } from "./media";
+import type { Article } from "@/types/article";
+import { cmsMediaBase } from "./media";
+import { mapArticle, type CmsArticleItem } from "./articleItem";
+import { mapBlocks, type CmsBlock } from "./articleBlocks";
 import {
     cmsFetch,
     fetchAllPages,
@@ -12,21 +14,6 @@ import {
 // Blog of the Chebotaru CMS Public API: GET /articles, /articles/{documentId}, /articles/{documentId}/related
 
 type Theme = Article["theme"];
-
-type CmsArticleItem = {
-    documentId: string;
-    slug: string;
-    title: string;
-    theme: Theme;
-    previewText: string;
-    publishedAt: string;
-    cover: CmsImage;
-};
-
-type CmsBlock =
-    | { key: string; type: "heading"; level: 2 | 3 | 4; text: string }
-    | { key: string; type: "text"; doc: RichTextDoc; text: string }
-    | { key: string; type: "gallery"; images: CmsImage[] };
 
 type CmsArticleDetail = CmsArticleItem & {
     blocks: CmsBlock[];
@@ -105,46 +92,4 @@ export async function fetchRelatedArticles(documentId: string, locale: string, l
         console.error("Ошибка при получении похожих статей", e);
         return [];
     }
-}
-
-function mapImage(image: CmsImage | null | undefined, mediaBase: string) {
-    return {
-        ...mapCmsImage(image, mediaBase),
-        alt: image?.alt || "",
-        caption: image?.caption || "",
-    };
-}
-
-function mapBlocks(blocks: CmsBlock[] | undefined, mediaBase: string): BlogBlock[] {
-    return (blocks || [])
-        .map((block): BlogBlock | null => {
-            switch (block.type) {
-                case "heading":
-                    return { key: block.key, type: "heading", level: block.level, text: block.text };
-                case "text":
-                    return { key: block.key, type: "text", text: block.text || "", doc: block.doc };
-                case "gallery":
-                    return {
-                        key: block.key,
-                        type: "gallery",
-                        images: (block.images || []).map((image) => mapImage(image, mediaBase)),
-                    };
-                default:
-                    // new block types may be added by the CMS: skipped until the site supports them
-                    return null;
-            }
-        })
-        .filter((b): b is BlogBlock => b !== null);
-}
-
-function mapArticle(raw: CmsArticleItem, mediaBase: string): Article {
-    return {
-        documentId: raw.documentId,
-        slug: raw.slug,
-        title: raw.title,
-        image: mapImage(raw.cover, mediaBase),
-        theme: raw.theme,
-        publishedAt: raw.publishedAt || "",
-        previewText: raw.previewText || "",
-    };
 }
