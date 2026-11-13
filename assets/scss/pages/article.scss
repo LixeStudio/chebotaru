@@ -342,14 +342,6 @@
         outline: 0.125rem solid $Default-gray-900;
         outline-offset: 0.25rem;
       }
-      &:hover .link-block__title,
-      &:hover .link-block__page-name {
-        text-decoration: underline;
-        text-underline-offset: 0.2em;
-      }
-      &:hover .link-block__arrow {
-        transform: translate(0.125rem, -0.125rem);
-      }
     }
     &__media {
       position: relative;
@@ -473,7 +465,7 @@
       background-color: $Default-gray-900;
       -webkit-mask: url("/images/icons/arrow-up-right.svg") center / contain no-repeat;
       mask: url("/images/icons/arrow-up-right.svg") center / contain no-repeat;
-      transition: transform 0.2s ease;
+      transition: transform 0.4s ease;
     }
     // a link to a page of the site: one line
     &__link--page {
@@ -489,6 +481,49 @@
       font-weight: 600;
       line-height: 1.5rem;
       overflow-wrap: anywhere;
+    }
+  }
+
+  // Hover and keyboard focus of the cards: the usual underline of the title fades in (0.4s) and the arrow moves 2px up
+  // and right. Hover only on devices that have it.
+  .link-block__title,
+  .link-block__page-name,
+  .two-columns__card-title {
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-underline-offset: 0.2em;
+    transition: text-decoration-color 0.4s ease;
+  }
+  .link-block__link:focus-visible,
+  .two-columns__card:focus-visible {
+    .link-block__title,
+    .link-block__page-name,
+    .two-columns__card-title {
+      text-decoration-color: currentColor;
+    }
+    .link-block__arrow {
+      transform: translate(0.125rem, -0.125rem);
+    }
+  }
+  @media (hover: hover) {
+    .link-block__link:hover,
+    .two-columns__card:hover {
+      .link-block__title,
+      .link-block__page-name,
+      .two-columns__card-title {
+        text-decoration-color: currentColor;
+      }
+      .link-block__arrow {
+        transform: translate(0.125rem, -0.125rem);
+      }
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .link-block__title,
+    .link-block__page-name,
+    .two-columns__card-title,
+    .link-block__arrow {
+      transition: none;
     }
   }
 
@@ -508,13 +543,6 @@
       &:focus-visible {
         outline: 0.125rem solid $Default-gray-900;
         outline-offset: 0.25rem;
-      }
-      &:hover .two-columns__card-title {
-        text-decoration: underline;
-        text-underline-offset: 0.2em;
-      }
-      &:hover .link-block__arrow {
-        transform: translate(0.125rem, -0.125rem);
       }
     }
     &__media {
