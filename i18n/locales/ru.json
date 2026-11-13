@@ -545,6 +545,14 @@
         "article": {
             "relatedWorks": {
                 "title": "Другие статьи блога"
+            },
+            "body": {
+                "fromCatalogue": "Из каталога",
+                "viewInCatalogue": "Смотреть в каталоге",
+                "blog": "Блог",
+                "readArticle": "Читать статью",
+                "website": "Сайт",
+                "visit": "Перейти"
             }
         },
         "privacy": {
