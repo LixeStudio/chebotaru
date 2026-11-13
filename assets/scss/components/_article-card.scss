@@ -4,6 +4,12 @@
   flex-direction: column;
   min-width: 19.75rem;
   flex: 1 1;
+  // the link is the column of the card: the cards of one row are of one height and their bottom lines are level
+  & > a {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+  }
   &:hover {
     .article-card__image img {
       transform: scale(1.05);
@@ -40,12 +46,13 @@
     color: $Default-gray-900;
     margin-bottom: 0.75rem;
     overflow-wrap: anywhere;
-    flex: 1 1 auto;
+    flex: 0 0 auto;
   }
   &__text {
     transition: opacity 0.3s ease;
     font-size: 0.875rem;
-    line-height: 143%;
+    line-height: 1.25rem;
+    flex: 1 1 auto;
     color: $Default-gray-600;
     margin-bottom: 1.25rem;
     display: -webkit-box;
@@ -55,15 +62,17 @@
     text-overflow: ellipsis;
   }
   &__separator-line {
+    display: block;
+    flex: 0 0 auto;
     width: 100%;
-    height: 0.05rem;
+    height: 0.0625rem;
     background-color: $Default-gray-300;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.25rem;
   }
   &__bottom {
     display: flex;
     width: 100%;
-    align-items: center;
+    align-items: flex-end;
   }
   &__theme {
     transition: opacity 0.3s ease;
@@ -91,5 +100,10 @@
   }
   &__linkto {
     margin-left: auto;
+  }
+  & &__linkto::after {
+    background: $Default-gray-400;
+    -webkit-mask: url("/images/icons/arrow-up-right.svg") center / contain no-repeat;
+    mask: url("/images/icons/arrow-up-right.svg") center / contain no-repeat;
   }
 }
