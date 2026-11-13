@@ -545,6 +545,14 @@
         "article": {
             "relatedWorks": {
                 "title": "Other Blog Articles"
+            },
+            "body": {
+                "fromCatalogue": "From the catalogue",
+                "viewInCatalogue": "View in catalogue",
+                "blog": "Blog",
+                "readArticle": "Read article",
+                "website": "Website",
+                "visit": "Visit"
             }
         },
         "privacy": {

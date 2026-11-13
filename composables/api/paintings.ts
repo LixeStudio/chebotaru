@@ -1,5 +1,6 @@
 import type { Currency, Picture } from "@/types/picture";
-import { mapCmsImage, cmsMediaBase, type CmsImage } from "./media";
+import { cmsMediaBase, type CmsImage } from "./media";
+import { mapPicture, type CmsPictureItem } from "./pictureItem";
 import {
     cmsFetch,
     fetchAllPages,
@@ -10,24 +11,6 @@ import {
 } from "./cms";
 
 // Pictures of the Chebotaru CMS Public API: GET /pictures, /pictures/{documentId}, /pictures/{documentId}/related
-
-type CmsPictureItem = {
-    documentId: string;
-    slug: string;
-    title: string;
-    price: number | null;
-    currency: Currency;
-    availability: "available" | "sold";
-    orientation: "vertical" | "horizontal" | "square" | null;
-    size: "small" | "middle" | "large" | null;
-    widthCm: number | null;
-    heightCm: number | null;
-    year: number | null;
-    material: string;
-    style: string;
-    publishedAt: string;
-    image: CmsImage;
-};
 
 type CmsPictureDetail = CmsPictureItem & {
     description: string | null;
@@ -128,29 +111,4 @@ export async function fetchRelatedPictures(documentId: string, locale: string, l
         console.error("Ошибка при получении похожих картин", e);
         return [];
     }
-}
-
-function mapPicture(raw: CmsPictureItem, mediaBase: string): Picture {
-    return {
-        documentId: raw.documentId,
-        slug: raw.slug,
-        title: raw.title,
-        publishedAt: raw.publishedAt,
-        image: {
-            ...mapCmsImage(raw.image, mediaBase), // src (large), srcset (thumb + large), width, height
-            alt: raw.image?.alt || "",
-            caption: raw.image?.caption || "",
-        },
-        details: {
-            year: raw.year ? String(raw.year) : "",
-            size: raw.size || "",
-            material: raw.material || "",
-            style: raw.style || "",
-            sizeInSm: raw.widthCm && raw.heightCm ? `${raw.widthCm}x${raw.heightCm}` : "",
-        },
-        price: raw.price,
-        currency: raw.currency,
-        availability: raw.availability,
-        orientation: raw.orientation,
-    };
 }
