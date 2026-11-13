@@ -1,5 +1,5 @@
 import type { Currency, Picture } from "@/types/picture";
-import { cmsMediaBase, type CmsImage } from "./media";
+import { mapCmsImage, cmsMediaBase, type CmsImage } from "./media";
 import { mapPicture, type CmsPictureItem } from "./pictureItem";
 import {
     cmsFetch,
