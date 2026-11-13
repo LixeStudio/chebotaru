@@ -20,7 +20,12 @@ const renderText = (node) => {
     if (mark.type === "bold") vnode = h("strong", vnode);
     else if (mark.type === "italic") vnode = h("em", vnode);
     else if (mark.type === "link" && SAFE_LINK.test(mark.attrs?.href || "")) {
-      vnode = h("a", { href: mark.attrs.href, class: "body__link" }, vnode);
+      const href = mark.attrs.href;
+      // http(s) → new tab; mailto stays in the same context
+      const attrs = href.toLowerCase().startsWith("mailto:")
+        ? { href, class: "body__link" }
+        : { href, class: "body__link", target: "_blank", rel: "noopener noreferrer" };
+      vnode = h("a", attrs, vnode);
     }
   }
   return vnode;
