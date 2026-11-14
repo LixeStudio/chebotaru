@@ -45,6 +45,16 @@ input:focus-visible,
   }
 }
 
+// Page route change (nuxt.config app.pageTransition): soft opacity only, ~200ms each way
+.page-enter-active,
+.page-leave-active {
+  transition: opacity 0.2s ease;
+}
+.page-enter-from,
+.page-leave-to {
+  opacity: 0;
+}
+
 // Clases
 
 // Cards of the catalog and the blog: soft fade-in below the first screen (composables/reveal.ts)...

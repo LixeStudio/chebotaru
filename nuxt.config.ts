@@ -66,6 +66,9 @@ export default defineNuxtConfig({
     }
   },
   app: {
+    // Soft fade between routes (~200ms). mode out-in avoids stacking old/new pages.
+    // prefers-reduced-motion in _common.scss collapses this to near-instant.
+    pageTransition: { name: 'page', mode: 'out-in' },
     head: {
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/Favicon.ico' },
