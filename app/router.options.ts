@@ -24,23 +24,34 @@ const scrollBehavior: RouterScrollBehavior = (to, from, savedPosition) => {
         return position
     }
 
-    // Normal and back/forward navigation: scroll only after the new page is on screen (as Nuxt's own
-    // router.options does), otherwise the old page is shown at the top for a moment
+    // Normal and back/forward navigation: scroll when the new page is on screen, not before (the old page would be
+    // shown at the top for a moment) and not a frame later (the new page would be painted at the old scroll position:
+    // the cover of an article then shows its bottom part and jumps to the top).
     const nuxtApp = useNuxtApp()
     const router = useRouter()
 
     return new Promise((resolve) => {
-        const doScroll = () => {
-            requestAnimationFrame(() => {
-                // the visitor has already gone somewhere else
-                if (router.currentRoute.value.fullPath !== to.fullPath) {
-                    resolve(false)
-                    return
-                }
-                resolve(position)
-            })
+        let finished = false
+        const oldMain = document.querySelector('main')
+
+        const finish = () => {
+            if (finished) return
+            finished = true
+            swapObserver.disconnect()
+            // the visitor has already gone somewhere else
+            resolve(router.currentRoute.value.fullPath === to.fullPath ? position : false)
         }
 
+        // Best moment: right when the new page replaces the old one in the DOM. The observer runs as a microtask of
+        // the change, before the browser paints, so the new page is never painted at the old scroll position.
+        const swapObserver = new MutationObserver(() => {
+            const main = document.querySelector('main')
+            if (main && main !== oldMain) finish()
+        })
+        swapObserver.observe(document.getElementById('__nuxt') ?? document.body, { childList: true, subtree: true })
+
+        // Otherwise (the page has no own <main>, or it stayed in place): after the page is loaded, as Nuxt does
+        const doScroll = () => requestAnimationFrame(finish)
         nuxtApp.hooks.hookOnce('page:loading:end', () => {
             const transitionPromise = (nuxtApp as { '~transitionPromise'?: Promise<void> | null })['~transitionPromise']
             if (transitionPromise) {
