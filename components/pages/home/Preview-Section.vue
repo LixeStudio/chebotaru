@@ -19,6 +19,8 @@
       Playback starts from script after hydration (not the autoplay attribute) so the video does not
       compete with the first render, and is skipped for prefers-reduced-motion and Save-Data.
       Phones get a 720p copy of the same clip; the poster is its first frame.
+      AV1 sources ship first (smaller); H.264 follows as a fallback for Safari / older browsers.
+      The codecs=… in type lets the browser skip AV1 without downloading it.
     -->
     <video
       ref="videoRef"
@@ -33,8 +35,17 @@
     >
       <source
         media="(max-width: 767px)"
+        src="/videos/preview-video-720-av1.mp4"
+        type='video/mp4; codecs="av01.0.05M.10"'
+      />
+      <source
+        media="(max-width: 767px)"
         src="/videos/preview-video-720.mp4"
         type="video/mp4"
+      />
+      <source
+        src="/videos/preview-video-av1.mp4"
+        type='video/mp4; codecs="av01.0.08M.10"'
       />
       <source src="/videos/preview-video.mp4" type="video/mp4" />
       {{ t("pages.home.previewSection.noVideoText") }}
@@ -59,7 +70,9 @@ const startVideo = () => {
     return;
   }
   video.muted = true;
-  video.play().catch(() => {});
+  video.play().catch(() => {
+    video.poster = "/videos/preview-still.webp";
+  });
 };
 
 onMounted(startVideo);
