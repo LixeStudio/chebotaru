@@ -1,5 +1,9 @@
-import { useRoute, useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
 import { ref, watch } from 'vue'
+// The route of the page (Nuxt), not the live route of vue-router: it stays the route this page was opened with while
+// the visitor leaves it. With the live route, a click on a card changed route.query at once, the filters were
+// parsed again, the list was re-created and its entrance animation played over the page that was still on screen.
+import { useRoute } from '#imports'
 import type { LocationQuery } from 'vue-router'
 type FilterValue = string | string[]
 
