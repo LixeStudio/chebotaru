@@ -1,5 +1,6 @@
 import { START_LOCATION } from 'vue-router'
 import type { RouterScrollBehavior } from 'vue-router'
+import { getNavigationStartMain } from '~/utils/navigationStart'
 
 const scrollBehavior: RouterScrollBehavior = (to, from, savedPosition) => {
     const stripLocale = (path: string) => path.replace(/^\/(ru|uk|en)(?=\/|$|\?)/, '') || '/'
@@ -32,12 +33,15 @@ const scrollBehavior: RouterScrollBehavior = (to, from, savedPosition) => {
 
     return new Promise((resolve) => {
         let finished = false
-        const oldMain = document.querySelector('main')
+        // The page that was on screen when the navigation started (plugins/navigation-start.client.ts). Taking it here
+        // instead would be too late when the old page leaves without a transition: the new one may already be in place.
+        const oldMain = getNavigationStartMain() ?? document.querySelector('main')
 
         const finish = () => {
             if (finished) return
             finished = true
             swapObserver.disconnect()
+            clearTimeout(safetyTimer)
             // the visitor has already gone somewhere else
             resolve(router.currentRoute.value.fullPath === to.fullPath ? position : false)
         }
@@ -49,6 +53,13 @@ const scrollBehavior: RouterScrollBehavior = (to, from, savedPosition) => {
             if (main && main !== oldMain) finish()
         })
         swapObserver.observe(document.getElementById('__nuxt') ?? document.body, { childList: true, subtree: true })
+
+        // Never leave the visitor at the old position if none of the signals comes
+        const safetyTimer = setTimeout(finish, 2000)
+
+        // The new page is already in place: scroll now
+        const currentMain = document.querySelector('main')
+        if (currentMain && currentMain !== oldMain) finish()
 
         // Otherwise (the page has no own <main>, or it stayed in place): after the page is loaded, as Nuxt does
         const doScroll = () => requestAnimationFrame(finish)
