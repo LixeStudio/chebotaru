@@ -45,6 +45,16 @@ input:focus-visible,
   }
 }
 
+// Page route change (nuxt.config app.pageTransition): the new page fades in over 200ms.
+// The old page leaves at once: a leave fade would add 200ms to every click and the new page's images
+// only start loading once it is inserted. Images themselves fade in on load (components/CmsImage.vue).
+.page-enter-active {
+  transition: opacity 0.2s ease-out;
+}
+.page-enter-from {
+  opacity: 0;
+}
+
 // Clases
 
 // Cards of the catalog and the blog: soft fade-in below the first screen (composables/reveal.ts)...
