@@ -66,6 +66,9 @@ export default defineNuxtConfig({
     }
   },
   app: {
+    // New page fades in (~200ms), the old one leaves at once. mode out-in avoids stacking old/new pages.
+    // prefers-reduced-motion in _common.scss collapses this to near-instant.
+    pageTransition: { name: 'page', mode: 'out-in' },
     head: {
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/Favicon.ico' },
