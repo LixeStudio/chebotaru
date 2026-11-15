@@ -45,13 +45,13 @@ input:focus-visible,
   }
 }
 
-// Page route change (nuxt.config app.pageTransition): soft opacity only, ~200ms each way
-.page-enter-active,
-.page-leave-active {
-  transition: opacity 0.2s ease;
+// Page route change (nuxt.config app.pageTransition): the new page fades in over 200ms.
+// The old page leaves at once: a leave fade would add 200ms to every click and the new page's images
+// only start loading once it is inserted. Images themselves fade in on load (components/CmsImage.vue).
+.page-enter-active {
+  transition: opacity 0.2s ease-out;
 }
-.page-enter-from,
-.page-leave-to {
+.page-enter-from {
   opacity: 0;
 }
 
