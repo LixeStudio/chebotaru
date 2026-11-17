@@ -89,8 +89,14 @@ export default defineNuxtConfig({
     trailingSlash: false,
     // pictures and blog articles from the CMS (server/api/__sitemap__/urls.ts)
     sources: ['/api/__sitemap__/urls'],
+    // the subscription settings page (a link with a private token from an e-mail) in all three languages
+    exclude: ['/newsletter/**', '/ru/newsletter/**', '/uk/newsletter/**'],
   },
   routeRules: {
+    // subscription settings: opened from an e-mail link with a token; never cached, never indexed
+    '/newsletter/**': { headers: { 'cache-control': 'no-store', 'x-robots-tag': 'noindex, nofollow', 'referrer-policy': 'no-referrer' } },
+    '/ru/newsletter/**': { headers: { 'cache-control': 'no-store', 'x-robots-tag': 'noindex, nofollow', 'referrer-policy': 'no-referrer' } },
+    '/uk/newsletter/**': { headers: { 'cache-control': 'no-store', 'x-robots-tag': 'noindex, nofollow', 'referrer-policy': 'no-referrer' } },
     // static media from /public: file names are not hashed, so no "immutable";
     // a week instead of the 4h default keeps repeat visits from re-downloading the hero video
     '/videos/**': { headers: { 'cache-control': 'public, max-age=604800, stale-while-revalidate=86400' } },
