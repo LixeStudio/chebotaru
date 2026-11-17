@@ -95,6 +95,10 @@
     font-size: 0.75rem;
     line-height: 150%;
     color: $Default-gray-500;
+    // The sunflower (.contact-us__wrapper::after) sits in the bottom-right corner and would cover the end of the lines.
+    // On a phone and a narrow tablet the text stops short of it (the flower reaches ~106px into the text there);
+    // on a wider tablet it reaches ~75px at most (the content is centred), and from 57rem on the flower is clear of the text.
+    padding-right: 7.5rem;
     a {
       color: inherit;
       text-decoration: underline;
@@ -138,6 +142,14 @@
     &__alert {
       font-size: 1rem;
     }
+    &__consent {
+      padding-right: 6rem;
+    }
+  }
+}
+@media screen and (min-width: 57rem) {
+  .contact-us__consent {
+    padding-right: 0;
   }
 }
 
