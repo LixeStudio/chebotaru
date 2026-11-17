@@ -49,14 +49,28 @@
             />
             <p
               v-if="alert"
+              :key="alert.message"
               class="contact-us__alert"
               :class="{ error: alert.type === 'error' }"
             >
               {{ alert.message }}
             </p>
-            <button href="#" class="contact-us__subscribe btn-circle">
+            <button
+              type="submit"
+              class="contact-us__subscribe btn-circle"
+              :disabled="sending"
+            >
               {{ t("contactUs.btnSubscribe") }}
             </button>
+            <p class="contact-us__consent">
+              <i18n-t keypath="contactUs.consent.text" tag="span">
+                <template #policy>
+                  <NuxtLink :to="localePath('/privacy')">{{
+                    t("contactUs.consent.policy")
+                  }}</NuxtLink>
+                </template>
+              </i18n-t>
+            </p>
           </form>
         </div>
       </div>
@@ -65,7 +79,7 @@
 </template>
 
 <script setup>
-import { onBeforeUnmount, onMounted, ref, watch } from "vue";
+import { onBeforeUnmount, onMounted, ref } from "vue";
 import { subscribe } from "@/composables/api/subscribe";
 defineProps({
   showTitle: {
@@ -73,7 +87,7 @@ defineProps({
     default: true,
   },
 });
-const { t } = useI18n();
+const { t, locale } = useI18n();
 const { track } = useAnalyticsEvent();
 
 // The painting behind this section (up to ~1 MB) and the flowers are CSS backgrounds, which a browser downloads at once,
@@ -100,48 +114,39 @@ onMounted(() => {
 });
 onBeforeUnmount(() => observer?.disconnect());
 
-const alertMessage = {
-  error: t("pages.contacts.alert.errorMessage"),
-  success: t("pages.contacts.alert.successMessage"),
-  invalidEmail: t("pages.contacts.alert.invalidEmailMessage"),
-};
+const localePath = useLocalePath();
 
 const email = useState("contact-email", () => "");
 const website = ref("");
-const success = ref(false);
 const alert = ref(null);
+const sending = ref(false);
+let alertTimer = 0;
+const showAlert = (type, message) => {
+  alert.value = { type, message };
+  clearTimeout(alertTimer);
+  // null (not {}) so that v-if removes the empty alert paragraph
+  alertTimer = window.setTimeout(() => (alert.value = null), 6000);
+};
+onBeforeUnmount(() => clearTimeout(alertTimer));
+
 const handleSubmit = async () => {
-  if (!email.value.trim()) {
-    console.warn("Email is empty");
+  if (!email.value.trim() || sending.value) return;
+  sending.value = true;
+  const result = await subscribe(email.value, locale.value, website.value);
+  sending.value = false;
+  if (result.success) {
+    // an already subscribed address gets the same message: the site does not reveal who is subscribed
+    email.value = "";
+    track("newsletter_subscribe");
+    showAlert("success", t("contactUs.form.success"));
     return;
   }
-
-  success.value = await subscribe(email.value, website.value);
-  // keep the address when it has to be corrected or sent again
-  if (success.value.success) email.value = "";
-  if (success.value.success === true) track("newsletter_subscribe");
+  // the address stays in the field so that it can be corrected or sent again
+  const messages = {
+    invalid: t("contactUs.form.invalidEmail"),
+    rate_limited: t("contactUs.form.rateLimited"),
+    general: t("pages.contacts.alert.errorMessage"),
+  };
+  showAlert("error", messages[result.type]);
 };
-
-watch(success, () => {
-  if (success.value.success === true)
-    alert.value = {
-      type: "success",
-      message: alertMessage.success,
-    };
-  // an already subscribed address gets the same success message: the site does not reveal who is subscribed
-  if (success.value.success === false && success.value.type === "invalid")
-    alert.value = {
-      type: "error",
-      message: alertMessage.invalidEmail,
-    };
-  if (success.value.success === false && success.value.type === "general")
-    alert.value = {
-      type: "error",
-      message: alertMessage.error,
-    };
-  setTimeout(() => {
-    // null (not {}) so that v-if removes the empty alert paragraph
-    alert.value = null;
-  }, 3000);
-});
 </script>
