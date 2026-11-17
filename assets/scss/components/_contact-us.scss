@@ -103,6 +103,7 @@
       color: inherit;
       text-decoration: underline;
       text-underline-offset: 0.125rem;
+      transition: color 0.3s ease-in-out;
       &:hover {
         color: $Default-gray-900;
       }
