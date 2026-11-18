@@ -85,13 +85,43 @@
       text-align: right;
     }
   }
+  &__subscribe:disabled {
+    opacity: 0.6;
+    cursor: default;
+    pointer-events: none;
+  }
+  &__consent {
+    margin-top: 1rem;
+    font-size: 0.75rem;
+    line-height: 150%;
+    color: $Default-gray-500;
+    // The sunflower (.contact-us__wrapper::after) sits in the bottom-right corner and would cover the end of the lines.
+    // On a phone and a narrow tablet the text stops short of it (the flower reaches ~106px into the text there);
+    // on a wider tablet it reaches ~75px at most (the content is centred), and from 57rem on the flower is clear of the text.
+    padding-right: 7.5rem;
+    a {
+      color: inherit;
+      text-decoration: underline;
+      text-underline-offset: 0.125rem;
+      transition: color 0.3s ease-in-out;
+      &:hover {
+        color: $Default-gray-900;
+      }
+    }
+  }
+  // the answer to the form: fades in and rises a few pixels (once per message, see :key in Contact-us.vue);
+  // calm dark green / dark red, both above 4.5:1 on white (5.0:1 and 6.5:1)
   &__alert {
-    color: rgb(9, 240, 9);
+    color: #2f7d4f;
     font-weight: 500;
     font-size: 0.875rem;
     margin-bottom: 1rem;
+    animation: contact-us-alert-in 0.3s ease-out both;
     &.error {
-      color: rgb(250, 0, 33);
+      color: #b42318;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      animation-name: contact-us-alert-fade;
     }
   }
 }
@@ -113,5 +143,33 @@
     &__alert {
       font-size: 1rem;
     }
+    &__consent {
+      padding-right: 6rem;
+    }
+  }
+}
+@media screen and (min-width: 57rem) {
+  .contact-us__consent {
+    padding-right: 0;
+  }
+}
+
+@keyframes contact-us-alert-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.3125rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes contact-us-alert-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
