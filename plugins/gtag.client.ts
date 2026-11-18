@@ -7,6 +7,7 @@
  * Requires NUXT_PUBLIC_GTAG_ID and gtag.initMode: 'manual' in nuxt.config.
  */
 import { readStoredConsent, useCookieConsent } from "~/composables/useCookieConsent"
+import { isNewsletterPath, pageViewWithoutQuery } from "~/utils/newsletter"
 
 export default defineNuxtPlugin((nuxtApp) => {
   const id = useRuntimeConfig().public.gtag?.id
@@ -25,11 +26,36 @@ export default defineNuxtPlugin((nuxtApp) => {
   let waiting = false
   let fallbackTimer = 0
 
+  // The subscription settings page is opened with a private token in the query (?token=…). GA must never see it:
+  // the automatic page_view that nuxt-gtag's "config" command would send carries the whole address, so for this page it
+  // is switched off (the queued command is still waiting in dataLayer for the consent) and a page_view without the query
+  // is sent instead, only with the visitor's consent, like every other event of the site.
+  const onNewsletterPage = () => isNewsletterPath(location.pathname)
+  let newsletterViewSent = false
+  const prepareNewsletterPageView = () => {
+    if (!onNewsletterPage()) return
+    for (const entry of window.dataLayer ?? []) {
+      const command = entry as unknown as ArrayLike<unknown>
+      if (command[0] === "config" && command[2] && typeof command[2] === "object") {
+        ;(command[2] as Record<string, unknown>).send_page_view = false
+      }
+    }
+  }
+  const sendNewsletterPageView = () => {
+    if (newsletterViewSent || !onNewsletterPage()) return
+    newsletterViewSent = true
+    gtag("event", "page_view", {
+      ...pageViewWithoutQuery(location.origin, location.pathname),
+      page_title: document.title,
+    })
+  }
+
   const start = () => {
     if (choice.value !== "granted") return
     enableAnalytics()
     // before the script: the queued page_view waits for this (wait_for_update) and goes out with consent
     gtag("consent", "update", { analytics_storage: "granted" })
+    sendNewsletterPageView()
     if (loaded) return
     loaded = true
     initialize()
@@ -72,6 +98,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 
   // after hydration: the server-rendered page never depends on the answer
   nuxtApp.hook("app:mounted", () => {
+    prepareNewsletterPageView()
     choice.value = readStoredConsent()
     if (choice.value === "granted") loadWhenIdle()
     else bannerOpen.value = choice.value === null

@@ -1,0 +1,218 @@
+@use "../utils/variables" as *;
+
+// "Subscription settings" (pages/newsletter/preferences.vue): a white card, 552px, centred; full width with a margin on a phone
+.newsletter-page {
+  &__content {
+    display: flex;
+    justify-content: center;
+    // the header is out of the flow: its height plus the space of the design
+    padding: calc(#{$headerHeight} + 2.875rem) 1rem 3.4375rem;
+    min-height: 60vh;
+  }
+}
+
+.newsletter-card {
+  width: 100%;
+  max-width: 34.5rem;
+  align-self: flex-start;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.3125rem;
+  padding: 1.5rem;
+  background: #fff;
+  border: 0.0625rem solid #dededb;
+
+  &__heading {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+    overflow-wrap: anywhere;
+  }
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    margin-bottom: 0.3125rem;
+    border: 0.125rem solid $Default-yellow-400;
+    border-radius: 50%;
+    color: $Default-yellow-400;
+  }
+  &__title {
+    font-size: 1.75rem;
+    font-weight: 600;
+    line-height: 2rem;
+    color: $Default-gray-900;
+  }
+  &__text {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    color: #4f5967;
+  }
+  &__lines {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  &__divider {
+    width: 100%;
+    height: 0.0625rem;
+    margin: 0;
+    border: 0;
+    background: #dededb;
+  }
+  &__topics {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9375rem;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    min-width: 0;
+  }
+  &__lead {
+    padding: 0;
+    margin-bottom: 0.9375rem;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.5rem;
+    color: $Default-gray-900;
+  }
+  &__topic {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1875rem;
+  }
+  &__check {
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.4375rem;
+    color: $Default-gray-900;
+    &:has(input:disabled) {
+      cursor: default;
+    }
+    input:focus-visible + .checkbox__custom {
+      outline: 0.125rem solid $Default-gray-900;
+      outline-offset: 0.125rem;
+    }
+  }
+  &__hint {
+    padding-left: 1.5rem;
+    font-size: 0.875rem;
+    line-height: 1.3125rem;
+    color: #4f5967;
+  }
+  &__actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8125rem;
+    width: 100%;
+  }
+  &__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 2.75rem;
+    padding: 0 1.25rem;
+    border-radius: 0.5rem;
+    background: $Default-yellow-300;
+    color: $Default-gray-900;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.375rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    &:hover {
+      background: $Default-yellow-400;
+    }
+    &:disabled {
+      opacity: 0.6;
+      cursor: default;
+      pointer-events: none;
+    }
+  }
+  &__link {
+    font-size: 0.875rem;
+    line-height: 1.375rem;
+    color: $Default-gray-900;
+    text-decoration: underline;
+    cursor: pointer;
+    &:disabled {
+      opacity: 0.6;
+      cursor: default;
+    }
+  }
+  &__notice {
+    width: 100%;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    color: #4f5967;
+    text-align: center;
+    &--error {
+      color: #b42318;
+    }
+  }
+
+  // placeholder while the settings load: same width as the card, so nothing jumps
+  &__skeleton {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    width: 100%;
+  }
+  &__bar {
+    display: block;
+    height: 1rem;
+    width: 60%;
+    border-radius: 0.25rem;
+    background: $Default-gray-100;
+    &--title {
+      height: 2rem;
+      width: 80%;
+    }
+    &--wide {
+      width: 100%;
+      height: 2.5rem;
+    }
+    &--button {
+      width: 100%;
+      height: 2.75rem;
+      border-radius: 0.5rem;
+    }
+  }
+}
+
+@media screen and (min-width: $tablet) {
+  .newsletter-page__content {
+    padding: calc(#{$headerHeight} + 5.375rem) 1rem 6.25rem;
+  }
+  .newsletter-card {
+    gap: 1.5625rem;
+    padding: 2.5rem;
+    &__text {
+      font-size: 1rem;
+      line-height: 1.5rem;
+    }
+    &__lead {
+      margin-bottom: 1.0625rem;
+    }
+    &__hint {
+      line-height: 1.25rem;
+    }
+    &__button {
+      width: fit-content;
+    }
+    &__actions {
+      align-items: flex-start;
+    }
+    &__notice {
+      text-align: left;
+    }
+  }
+}

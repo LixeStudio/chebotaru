@@ -71,7 +71,14 @@
         "text": "If you are interested in my artwork or have questions, email me!",
         "btnSubscribe": "Subscribe",
         "form": {
-            "inputPlaceholder": "Where do I send my inspiration?"
+            "inputPlaceholder": "Where do I send my inspiration?",
+            "success": "Done! Check your inbox — there is a letter from Andrii",
+            "invalidEmail": "Please check your email address",
+            "rateLimited": "Too many attempts, please try again in a few minutes"
+        },
+        "consent": {
+            "text": "By subscribing, you agree to receive emails about new paintings and articles. You can unsubscribe in any email. {policy}",
+            "policy": "Privacy policy"
         }
     },
     "popup": {
@@ -449,9 +456,7 @@
                 }
             },
             "alert": {
-                "errorMessage": "Something went wrong. Please try again later.",
-                "successMessage": "Thank you! You’ve successfully subscribed.",
-                "invalidEmailMessage": "Please enter a valid email address."
+                "errorMessage": "Something went wrong. Please try again later."
             }
         },
         "catalog": {
@@ -686,10 +691,51 @@
             "description": "The requested page was not found on Andrii Chebotaru’s website.",
             "genericTitle": "Error — Andrii Chebotaru",
             "genericDescription": "An unexpected error occurred on Andrii Chebotaru’s website."
+        },
+        "newsletter": {
+            "title": "Subscription settings — Andrii Chebotaru",
+            "description": "Choose which emails you would like to receive from Andrii Chebotaru."
         }
     },
     "units": {
         "centimeters": "cm"
     },
-    "sold": "Sold out"
+    "sold": "Sold out",
+    "newsletter": {
+        "preferences": {
+            "title": "Subscription settings",
+            "email": "Your email: {email}",
+            "choose": "Choose which news you would like to receive.",
+            "catalogName": "New paintings",
+            "catalogDesc": "Notifications about new works in the gallery.",
+            "blogName": "Blog articles",
+            "blogDesc": "New posts about art, exhibitions and creative work.",
+            "save": "Save settings",
+            "unsubscribe": "Unsubscribe from all emails",
+            "saved": "Settings saved",
+            "saveError": "Could not save, please try again",
+            "unsubscribedTitle": "You have unsubscribed",
+            "unsubscribedText": "You will no longer receive emails about new paintings and blog articles.",
+            "updatedTitle": "Subscription updated",
+            "off": {
+                "catalog": "You have unsubscribed from news about new paintings.",
+                "blog": "You have unsubscribed from blog articles."
+            },
+            "on": {
+                "catalog": "You will receive news about new paintings again.",
+                "blog": "You will receive blog articles again."
+            },
+            "kept": {
+                "catalog": "News about new paintings will keep coming.",
+                "blog": "Blog articles will keep coming."
+            },
+            "invalidTitle": "This link is not valid",
+            "invalidText": "Open the settings from the link in the latest email.",
+            "back": "Back to the website",
+            "loadErrorTitle": "Could not load the settings",
+            "loadErrorText": "Please try again in a few minutes.",
+            "retry": "Try again",
+            "loading": "Loading the settings"
+        }
+    }
 }
