@@ -33,7 +33,7 @@ export function usePageSeo(options: PageSeoOptions) {
     })
     const image = computed(() => {
         const value = toValue(options.image)
-        if (!value) return `${baseUrl}/og/default.jpg`
+        if (!value) return `${baseUrl}/og/default-v2.jpg`
         return value.startsWith('/') ? baseUrl + value : value
     })
 

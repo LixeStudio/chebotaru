@@ -26,7 +26,7 @@ if (import.meta.server && event) {
 
 const config = useRuntimeConfig();
 const baseUrl = config.public.SITE_URL || "https://andriichebotaru.com";
-const defaultImage = `${baseUrl}/og/default.jpg`;
+const defaultImage = `${baseUrl}/og/default-v2.jpg`;
 
 useHead({
   title: t("seo.error.title"),

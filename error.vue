@@ -32,7 +32,7 @@ isWhiteTheme.value = false;
 
 const config = useRuntimeConfig();
 const baseUrl = config.public.SITE_URL || "https://andriichebotaru.com";
-const defaultImage = `${baseUrl}/og/default.jpg`;
+const defaultImage = `${baseUrl}/og/default-v2.jpg`;
 
 // error.vue replaces app.vue, so the document language is set here as well
 const i18nHead = useLocaleHead({ seo: false });
