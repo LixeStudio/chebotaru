@@ -30,7 +30,7 @@ export default defineNuxtConfig({
     families: [{ name: 'Manrope', provider: 'google', weights: ['200 800'] }],
   },
   image: {
-    dir: 'assets',
+    dir: 'public',
     screens: {
       sm: 431,
       md: 745,
