@@ -32,19 +32,6 @@
     left: 0;
     background: #fff;
     z-index: 999;
-    // white fill above the header. In-app browsers that draw the page under their own translucent top bar
-    // (Telegram on iOS) place top: 0 below that bar, so the scrolled page showed through between the bar and the header.
-    // Elsewhere it sits above the viewport and is not visible.
-    &::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 100%;
-      height: 100vh;
-      background: #fff;
-      pointer-events: none;
-    }
   }
 }
 
