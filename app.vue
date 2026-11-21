@@ -29,6 +29,8 @@ useHead({
     { name: "twitter:card", content: "summary_large_image" },
     { name: "twitter:site", content: "@chebotaru.a" },
     { name: "twitter:creator", content: "@chebotaru.a" },
+    // color of the browser's own top bar (Safari, in-app browsers): the white of the sticky header
+    { name: "theme-color", content: "#ffffff" },
   ],
   // Manrope is self-hosted by @nuxt/fonts (see "fonts" in nuxt.config.ts)
 });

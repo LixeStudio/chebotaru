@@ -1,5 +1,11 @@
 @use "../utils/variables" as *;
 
+// an explicit page background: some browsers color their top bar and overscroll area from it
+html,
+body {
+  background-color: #fff;
+}
+
 // fontFamlily main
 body {
   font-family: $fFamily;
